@@ -9,7 +9,7 @@ html, body {
 	margin: 0;
 	background: #ddd;
 	font-family: sans-serif;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span {
 	cursor: default;
@@ -44,10 +44,9 @@ ul li:active {
 }
 div {
 	color: #00E600;
-	background: black;
+	background: #ddd;
 	text-align: center;
 	width: 0;
-	height: 0;
 	margin: auto;
 	border: 2px solid black;
 	border-radius: 10px;
@@ -92,7 +91,7 @@ section {
 <script>
 function openNav() {
 	document.getElementsByTagName('div')[0].style.width = "80%";
-	document.getElementsByTagName('div')[0].style.height = "29%";
+	document.getElementsByTagName('div')[0].style.background = "black";
 	document.getElementsByTagName('section')[0].style.height = "30%";
 	setTimeout(function(){
 		document.getElementsByTagName('p')[0].style.opacity = 1;
