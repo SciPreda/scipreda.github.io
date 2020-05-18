@@ -60,6 +60,8 @@ div {
 	border-radius: 10px;
 	padding: 10px;
 	transition: 0.5s;
+	max-height: 30%;
+	overflow-y: auto;
 }
 section {
 	width: 99.5%;
@@ -126,6 +128,7 @@ function changeDisplay() {
 		`;
 	}
 	else {
+		displayText = 0;
 		document.getElementsByTagName('div')[0].innerHTML = `
 			<h5 style="color:blue">About the Developer</h5>
 			<p>SciPred is some random person who likes eating virtual cookies and playing Minecraft (when he's not hacking any game servers). He shoots Fortnite for entertainment and watches on YouTube for dividing by zero. Whenever he's not looking at pictures of hobos, he wastes tons of paper trying to find the answer to 0 to the power of 0.</p>
