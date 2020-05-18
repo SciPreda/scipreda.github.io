@@ -48,7 +48,6 @@ div {
 	text-align: center;
 	width: 0;
 	margin: auto;
-	border: 2px solid black;
 	border-radius: 10px;
 	padding: 10px;
 	transition: 0.5s;
@@ -92,6 +91,7 @@ section {
 function openNav() {
 	document.getElementsByTagName('div')[0].style.width = "80%";
 	document.getElementsByTagName('div')[0].style.background = "black";
+	document.getElementsByTagName('div')[0].style.border = "2px solid black";
 	document.getElementsByTagName('section')[0].style.height = "30%";
 	setTimeout(function(){
 		document.getElementsByTagName('p')[0].style.opacity = 1;
@@ -102,7 +102,7 @@ function openNav() {
 		document.getElementsByTagName('h3')[1].style.opacity = 1;
 	}, 500);
 }
-setTimeout(openNav, 1000);
+setTimeout(openNav, 700);
 </script>
 
 </body>
