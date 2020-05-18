@@ -15,6 +15,7 @@ html, body {
 	background: #ddd;
 	font-family: sans-serif;
 	overflow: hidden;
+	transition: 0.5s;
 }
 h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span {
 	cursor: default;
@@ -34,6 +35,10 @@ p, h5 {
 ::-webkit-scrollbar {width:10px;}
 ::-webkit-scrollbar-track {background:black}
 ::-webkit-scrollbar-thumb {background:#00E600;}
+ul, h4 {
+	opacity: 0;
+	transition: 0.5s;
+}
 ul li a {
 	transition: all 0.3s;
 	cursor: pointer;
@@ -66,6 +71,12 @@ section {
 	border: 1px dashed black;
 	margin: auto;
 }
+aside {
+	width: 0;
+	max-height: 40%;
+	margin: auto;
+	overflow: auto;
+}
 </style>
 </head>
 <body>
@@ -77,6 +88,7 @@ section {
 <h3 style="color:red">PLEASE NOTE: The guy is still working hard on farming Minecraft Skywars Coins, so updates may be delayed.</h3>
 </section>
 
+<aside>
 <h4>MAJOR PROJECTS</h4>
 <ul>
 	<li><a href="./alpha/achv2.html">Achievofile</a></li>
@@ -90,6 +102,7 @@ section {
 	<li><a href="./experimental/sociablePairFinder.html">Sociable Pair Finder</a></li>
 	<li><a href="./experimental/terminal.html">Terminal</a></li>
 </ul>
+<aside>
 
 <div>
 	<h5 style="color:blue">About the Developer</h5>
@@ -102,6 +115,8 @@ function openNav() {
 	document.getElementsByTagName('div')[0].style.background = "black";
 	document.getElementsByTagName('div')[0].style.border = "2px solid black";
 	document.getElementsByTagName('section')[0].style.height = "30%";
+	document.getElementsByTagName('aside')[0].style.width = "99.5%";
+	document.getElementsByTagName('aside')[0].style.border = "1px solid black";
 	setTimeout(function(){
 		document.getElementsByTagName('p')[0].style.opacity = 1;
 		document.getElementsByTagName('h5')[0].style.opacity = 1;
@@ -109,6 +124,12 @@ function openNav() {
 		document.getElementsByTagName('h2')[0].style.opacity = 1;
 		document.getElementsByTagName('h3')[0].style.opacity = 1;
 		document.getElementsByTagName('h3')[1].style.opacity = 1;
+		document.getElementsByTagName('h4')[0].style.opacity = 1;
+		document.getElementsByTagName('h4')[1].style.opacity = 1;
+		setTimeout(function(){
+			document.getElementsByTagName("ul")[0].style.opacity = 1;
+			document.getElementsByTagName("ul")[1].style.opacity = 1;
+		}, 800);
 	}, 500);
 }
 setTimeout(openNav, 700);
