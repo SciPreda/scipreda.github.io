@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<title>RBG</title>
+<!-- UNDER EXPERIMENTATION OF SCIPRED -->
+<style>
+html {background: black;}
+p {display: inline-block; color: #00E600; font-family: "Courier", Courier New, monospace;}
+div {opacity: 0.5; transition: 0.4s; width: 50px; height: 50px; overflow: hidden;}
+div:hover {opacity: 1; width: 500px; height: 400px; overflow: auto;}
+div p {opacity: 0; transition: 0.4s; font-family: sans-serif; font-size: 10px; color: black;}
+div:hover p {opacity: 1;}
+</style>
+</head>
+<body>
+<button onclick="startCount()" style="position:fixed;background:white;border:2px solid black;top:0;right:0;padding:5px;" id="btnStart">START</button>
+<button onclick="stopCount()" style="position:fixed;background:white;border:2px solid black;bottom:0;right:0;padding:5px;display:none;" id="btnStop">STOP</button>
+<div style="position: fixed; top:0; left: 0; padding: 10px; background: #eee;" id="str">
+</div>
+<script>
+var speed = 50; var ongoing=0;function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+function newP(content) {var p = document.createElement("p");p.innerText = content;document.body.appendChild(p);}
+function newPD(content) {var p = document.createElement("p");p.innerText = content;document.getElementById("str").appendChild(p);}
+function BinToText(b) {return parseInt(b,2).toString(10);}
+var interval;function startCount(){if(ongoing!==1){ongoing=1;document.getElementById("btnStop").style.display = "block";interval = setInterval(function(){var s = "" + choose([0, 1]) + choose([0, 1]) + choose([0, 1]) + choose([0, 1]) + choose([0, 1]) + choose([0, 1]) + choose([0, 1]) + choose([0, 1]);newP(s);var b = BinToText(s);newPD(b);window.scrollTo(0,document.body.scrollHeight);document.getElementById("str").scrollTo(0,document.getElementById("str").scrollHeight);},speed)}}
+function stopCount() {clearInterval(interval);document.getElementById("btnStop").style.display = "none";ongoing=0;}
+</script>
+</body>
+</html>

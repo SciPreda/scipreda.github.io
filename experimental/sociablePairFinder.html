@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<title>SPF</title>
+</head>
+<body>
+<button onclick="startCount()" style="position:fixed;background:white;border:2px solid black;top:0;right:0;padding:5px;" id="btnStart">START</button>
+<button onclick="stopCount()" style="position:fixed;background:white;border:2px solid black;bottom:0;right:0;padding:5px;display:none;" id="btnStop">STOP</button>
+
+<script>
+const getFactors = number => [...Array(number + 1).keys()].filter(i=>number % i === 0);
+//EDITABLE
+var startWith = 320;
+var speed = 100;
+var continuous = true;
+var increment = 1;
+//REQUIRED
+function sumArray(arr, n) {
+	var t = 0;
+	for (var i=0; i<arr.length; i++) {
+		if (arr[i] !== n) t += arr[i];
+	}
+	return t;
+}
+function newP(content, isNew) {
+	var p = document.createElement("p");
+	if (isNew) {p.style.color = "blue";}
+	p.innerText = content;
+	document.body.appendChild(p);
+}
+var interval;
+function startCount() {
+	document.getElementById("btnStop").style.display = "block";
+	var s = startWith;
+	newP(s, true);
+	var x = sumArray(getFactors(s), s);
+	interval = setInterval(function(){
+		if (x !== 1) {
+			s = x;
+			newP(s);
+			x = sumArray(getFactors(s), s);
+			window.scrollTo(0,document.body.scrollHeight);
+		} else {if (continuous) {
+			newP(1);
+			startWith += increment;
+			s = startWith;
+			newP(s, true);
+			x = sumArray(getFactors(s), s);
+			window.scrollTo(0,document.body.scrollHeight);
+		}}
+	}, speed);
+}
+function stopCount() {
+	clearInterval(interval);
+	document.getElementById("btnStop").style.display = "none";
+}
+</script>
+</body>
+</html>
