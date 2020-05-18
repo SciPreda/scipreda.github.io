@@ -9,4 +9,4 @@ Through the Portal, you can find various things such as:
 ...and more!
 
 ### Note
-All files included here are reserved by SciPred. He did all of this by keyboard and worked not so hard on publishing the website (and probably making too many commits).
+All files included here are reserved by SciPred. He did all of this by keyboard and worked not so hard on publishing the website (and probably making too many commits). Also, clicking the link above won't do anything except refresh this page.
