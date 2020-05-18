@@ -47,6 +47,7 @@ div {
 	background: black;
 	text-align: center;
 	width: 0;
+	height: 0;
 	margin: auto;
 	border: 2px solid black;
 	border-radius: 10px;
@@ -91,6 +92,7 @@ section {
 <script>
 function openNav() {
 	document.getElementsByTagName('div')[0].style.width = "80%";
+	document.getElementsByTagName('div')[0].style.height = "29%";
 	document.getElementsByTagName('section')[0].style.height = "30%";
 	setTimeout(function(){
 		document.getElementsByTagName('p')[0].style.opacity = 1;
