@@ -10,3 +10,6 @@ Through the Portal, you can find various things such as:
 
 ### Note
 All files included here are reserved by SciPred. He did all of this by keyboard and worked not so hard on publishing the website (and probably making too many commits). Also, clicking the link above won't do anything except refresh this page.
+
+### Link to YT
+[SciPred's YouTube](https://www.youtube.com/channel/UCxd_Nm7K7qEacGGX8orQG9w "YouTube")
