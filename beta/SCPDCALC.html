@@ -1,0 +1,500 @@
+<!doctype html>
+<html>
+<head>
+<title>SCIPRED'S CALCULATOR</title>
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: #ddd;
+	font-family: sans-serif;
+	text-align: center;
+	overflow: hidden;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span {
+	cursor: default;
+}
+div {
+	overflow: auto;
+}
+div div h2, div div h5 {
+	text-align: center;
+}
+#optionspicker h2 {
+	transition: all 0.3s;
+	cursor: pointer;
+	text-align: center;
+}
+#optionspicker h2:hover {
+	color: #00E600;
+	background: gray;
+	padding: 2px;
+	border-radius: 5px;
+}
+button {
+	background: white;
+	color: black;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 4px;
+}
+button:hover {
+	background: #ddd;
+}
+button:active {
+	background: black;
+	color: white;
+	border-color: white;
+}
+input {
+	background: #aaa;
+	border: 3px solid black;
+	padding: 2px;
+	border-radius: 5px;
+}
+input:focus {
+	background: #fff;
+	color: black;
+}
+#optionspicker {
+	width: 20%;
+	background: #eee;
+	height: 77%;
+	border: 2px solid black;
+	padding: 5px;
+	border-radius: 5px;
+	text-align: left;
+	display: inline-block;
+	float: left;
+}
+#optionspicker ul li {
+	transition: all 0.3s;
+	cursor: pointer;
+}
+#optionspicker ul li:hover {
+	color: #00F600;
+	background: gray;
+	padding: 2px;
+	border-radius: 4px;
+}
+#optionspicker ul li:active {
+	color: white;
+}
+#currentCalc {
+	width: 77%;
+	height: 77%;
+	overflow: auto;
+	background: #fff;
+	text-align: left;
+	border: 2px solid black;
+	padding: 5px;
+	border-radius: 5px;
+	display: inline-block;
+}
+#currentCalc div {
+	display: none;
+}
+::-webkit-scrollbar {width:10px;}
+::-webkit-scrollbar-track {background:black}
+::-webkit-scrollbar-thumb {background:#00E600;}
+</style>
+<script>
+function gid(id) {return document.getElementById(id)}
+function db(id) {gid(id).style.display = "block"}
+function dn(id) {gid(id).style.display = "none"}
+function iel(elm, func) {
+	elm.addEventListener('keydown', function(e){
+		if (e.keyCode === 13) {func()}
+	});
+}
+function divsw(id) {
+	let divs = gid('currentCalc');
+	let calcs = divs.getElementsByTagName('div');
+	for (var i=0; i<calcs.length; i++) {
+		if (calcs[i].id === id) {db(id)}
+		else {calcs[i].style.display = "none"}
+	}
+}
+function hypot(a, b) {
+	return Math.sqrt((a**2)+(b**2));
+}
+function cond(a, b) {
+	return a === b ? "True" : "False";
+}
+function conds(a, b, c) {
+	return a === b ? "True" : a === c ? "True" : "False";
+}
+function ncond(a, b) {
+	return a !== b ? "True" : "False";
+}
+function nconds(a, b, c) {
+	return a !== b ? a !== c ? "True" : "False" : "False";
+}
+</script>
+</head>
+<body>
+	<div style="height: 20%;border:1px dashed gray">
+	<h1>SCIPRED'S CALCULATOR</h1>
+	<h2>A Beta Document by SciPred</h2>
+	</div>
+
+<div id="optionspicker">
+<h2>Calculators</h2>
+<ul>
+<li onclick="divsw('CircleCalc')">Circle Calculator</li>
+<li onclick="divsw('LinearEqCalc')">Linear Equation Calculator</li>
+<li onclick="divsw('NumericCalc')">Numeric Calculator</li>
+<li onclick="divsw('QuadraticEqCalc')">Quadratic Equation Calculator</li>
+<li onclick="divsw('QuadraticFuncCalc')">Quadratic Function Calculator</li>
+<li onclick="divsw('SquareCalc')">Square Calculator</li>
+</ul>
+
+<h2>Lists and Info</h2>
+<ul>
+<li onclick="divsw('numberList')">List of Numbers From 0 to 1000000</li>
+<li onclick="divsw('standardForms')">Standard Forms</li>
+</ul>
+
+<h2>About</h2>
+<ul>
+<li onclick="divsw('warnInfo')">Warning Information</li>
+</ul>
+</div>
+
+<div id="currentCalc">
+	<div id="CircleCalc">
+		<h2>CIRCLE CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="Radius" id="CircleCalcInput"></input>
+		<button onclick="calcCircleCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="CircleCalcOutputs"></p>
+	</div>
+
+	<div id="LinearEqCalc">
+		<h2>LINEAR EQUATION CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="A" id="LinearEqCalcInput"></input>
+		<input type="text" placeholder="B" id="LinearEqCalcInput2"></input>
+		<button onclick="calcLinearEqCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="LinearEqCalcOutputs"></p>
+	</div>
+
+	<div id="NumericCalc">
+		<h2>NUMERIC CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="Number" id="NumericCalcInput"></input>
+		<button onclick="calcNumericCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="NumericCalcOutputs"></p>
+	</div>
+
+	<div id="QuadraticEqCalc">
+		<h2>QUADRATIC EQUATION CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="A" id="QuadraticEqCalcInput"></input>
+		<input type="text" placeholder="B" id="QuadraticEqCalcInput2"></input>
+		<input type="text" placeholder="C" id="QuadraticEqCalcInput3"></input>
+		<button onclick="calcQuadraticEqCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="QuadraticEqCalcOutputs"></p>
+	</div>
+
+	<div id="QuadraticFuncCalc">
+		<h2>QUADRATIC FUNCTION CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="A" id="QuadraticFuncCalcInput"></input>
+		<input type="text" placeholder="B" id="QuadraticFuncCalcInput2"></input>
+		<input type="text" placeholder="C" id="QuadraticFuncCalcInput3"></input>
+		<button onclick="calcQuadraticFuncCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="QuadraticFuncCalcOutputs"></p>
+	</div>
+
+	<div id="SquareCalc">
+		<h2>SQUARE CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="Side Length" id="SquareCalcInput"></input>
+		<button onclick="calcSquareCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="SquareCalcOutputs"></p>
+	</div>
+
+	<div id="numberList">
+		<h2>LIST OF NUMBERS</h2>
+		<h5>This list contains the names of numbers up to a million, arranged in numeric order.</h5>
+		<p id="numberListOutputs"></p>
+	</div>
+
+	<div id="standardForms">
+		<h2>STANDARD FORMS</h2>
+		<h5>Contains information regarding standard forms of certain equations or functions.</h5>
+		<p>Linear Equations are written in standard form as ax + b = 0.</p>
+		<p>Quadratic Equations are written in standard form as ax<sup>2</sup> + bx + c = 0.</p>
+		<p>The standard form of Quadratic Functions are different from Quadratic Equations: ax<sup>2</sup> + bx + c is only the general form. The standard form for Quadratic Functions is a(x - h)<sup>2</sup> + k. Note that including f(x) or y makes it equal to the form y = a(x - h)<sup>2</sup> + k.</p>
+	</div>
+
+	<div id="warnInfo">
+		<h2>Warning Information</h2>
+		<p>All inputs are evaluated before the operations are run. So if you input 5 + 7, the evaluated input will be 12.</p>
+		<p>Because of the computer's understandable inability to handle really big numbers, 1e+308 is the largest finite number you could input.</p>
+		<p>Many times the given trigonometric functions will output the incorrect answer. For example, inputting Math.tan(90) will NOT be evaluated as either NaN or undefined or even Infinity.</p>
+		<p>All given outputs involving Pi or Euler's Number will never be exact, and may sometimes be incorrect.</p>
+		<p>If you input a number large enough, say, 3141596253589831416, then it will automatically be rounded off by a certain place, such as 3141596253589831000.</p>
+		<p>All numbers larger than 1e20 will not output scientific notation. For example, 1000000000000000000000000 will be read as 1e+24.</p>
+		<p>Inputting commas that are not in functions will result in errors.</p>
+		<p>Answers that result as Undefined, such as 0/0, will output as NaN, or "Not A Number".</p>
+		<p>Directly inputting imaginary or complex numbers, such as 2i or 3 - i, will result in errors. JavaScript does not yet support imaginary numbers.</p>
+		<p>Sometimes the outputs will be labeled different from expectations. For example, in the Square Calculator, instead of the label "Diameter of Circumscribed Circle", it is labeled as "Diagonal" instead.</p>
+		<p>Sometimes, inputting decimal numbers result in the wrong outputs. For example, inputting the square root of 2 in the Square Calculator will result in the Area being 2.0000000000000004 instead of 2.</p>
+		<p>Some calculators contain a LOT of extensive information. For example, the Square Calculator will not only calculate for the square, but also for its circumscribed and inscribed circles. This may be useful when dealing with certain problems.</p>
+		<p>Inputting negative numbers in geometric calculators will negate the outputs. Signs don't affect the operations.</p>
+		<p>For calculators involving variables, standard form is observed when inputting numbers.</p>
+		<p>Math.round is used in the Numeric Calculator conditions of Is Odd (Integered) and Is Even (Integered). Is Odd and Is Even will show False if a decimal is inputted.</p>
+		<p>Inputting variables will output errors unless the variable is, by chance, defined. But only when the variable is global, and its definition is a number.</p>
+		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees.</p>
+		<p>In the Quadratic Equation Calculator, inputting zero will result in an error. Instead, input B and C as A and B in the Linear Equation Calculator.</p>
+	</div>
+</div>
+
+<script>
+iel(gid("CircleCalc").getElementsByTagName('input')[0], calcCircleCalc);
+iel(gid("LinearEqCalc").getElementsByTagName('input')[0], calcLinearEqCalc);
+iel(gid("LinearEqCalc").getElementsByTagName('input')[1], calcLinearEqCalc);
+iel(gid("NumericCalc").getElementsByTagName('input')[0], calcNumericCalc);
+iel(gid("QuadraticEqCalc").getElementsByTagName('input')[0], calcQuadraticEqCalc);
+iel(gid("QuadraticEqCalc").getElementsByTagName('input')[1], calcQuadraticEqCalc);
+iel(gid("QuadraticEqCalc").getElementsByTagName('input')[2], calcQuadraticEqCalc);
+iel(gid("QuadraticFuncCalc").getElementsByTagName('input')[0], calcQuadraticFuncCalc);
+iel(gid("QuadraticFuncCalc").getElementsByTagName('input')[1], calcQuadraticFuncCalc);
+iel(gid("QuadraticFuncCalc").getElementsByTagName('input')[2], calcQuadraticFuncCalc);
+iel(gid("SquareCalc").getElementsByTagName('input')[0], calcSquareCalc);
+function calcCircleCalc() {
+	var p = gid("CircleCalcOutputs");
+	var r = eval(gid("CircleCalcInput").value);
+	p.innerHTML = "Area: " + (Math.PI * r * r)
+		+ "<br>Circumference: " + (2 * r * Math.PI)
+		+ "<br>Diameter: " + (2 * r)
+		+ "<br>Half Area: " + (Math.PI * r * r * 0.5)
+		+ "<br>Semicircumference: " + (r * Math.PI)
+		+ "";
+}
+function calcLinearEqCalc() {
+	var p = gid("LinearEqCalcOutputs");
+	var a = eval(gid("LinearEqCalcInput").value);
+	var b = eval(gid("LinearEqCalcInput2").value);
+	p.innerHTML = "Product of A and B: " + (a * b)
+		+ "<br>Sum of A and B: " + (a + b)
+		+ "<br>Total Sum: " + (a + b + (-b / a))
+		+ "<br>X: " + (-b / a)
+		+ "";
+}
+function calcNumericCalc() {
+	var p = gid("NumericCalcOutputs");
+	var n = eval(gid("NumericCalcInput").value);
+	p.innerHTML = "Absolute Value: " + Math.abs(n)
+		+ "<br>Ceil: " + Math.ceil(n)
+		+ "<br>Floor: " + Math.floor(n)
+		+ "<br>Fround: " + Math.fround(n)
+		+ "<br>Leading Zeros (32-Bit Binary): " + Math.clz32(n)
+		+ "<br>Logarithm of Base 2: " + Math.log2(n)
+		+ "<br>Logarithm of Base 10: " + Math.log10(n)
+		+ "<br>Natural Logarithm: " + Math.log(n)
+		+ "<br>Negation: " + (-n)
+		+ "<br>Round: " + Math.round(n)
+		+ "<br>Sign: " + Math.sign(n)
+		+ "<br>Truncation: " + Math.trunc(n)
+
+		+ "<br><br><br>Decrement: " + (n - 1)
+		+ "<br>Increment: " + (n + 1)
+
+		+ "<br><br><br>Double: " + (n * 2)
+		+ "<br>Triple: " + (n * 3)
+		+ "<br>Quadruple: " + (n * 4)
+		+ "<br>Quintuple: " + (n * 5)
+		+ "<br>By 10: " + (n * 10)
+		+ "<br>By 100: " + (n * 100)
+		+ "<br>By 1000: " + (n * 1000)
+
+		+ "<br><br><br>Half: " + (n / 2)
+		+ "<br>Third: " + (n / 3)
+		+ "<br>Quarter: " + (n / 4)
+		+ "<br>Fifth: " + (n / 5)
+		+ "<br>Sixth: " + (n / 6)
+		+ "<br>Seventh: " + (n / 7)
+		+ "<br>Eighth: " + (n / 8)
+		+ "<br>Tenth: " + (n / 10)
+		+ "<br>Sixteenth: " + (n / 16)
+		+ "<br>Hundredth: " + (n / 100)
+		+ "<br>Percentage: " + (n * 100) + "%"
+		+ "<br>Reciprocal: " + (1 / n)
+
+		+ "<br><br><br>Square: " + (n * n)
+		+ "<br>Cube: " + (n * n * n)
+		+ "<br>Nth Power: " + (n ** n)
+		+ "<br>2 to the Nth Power: " + (2 ** n)
+		+ "<br>10 to the Nth Power: " + (10 ** n)
+		+ "<br>E to the Nth Power: " + Math.exp(n)
+		+ "<br>Principal Square Root: " + Math.sqrt(n)
+		+ "<br>Both Square Roots: " + Math.sqrt(n) + ", " + (-Math.sqrt(n))
+		+ "<br>Cube Root: " + Math.cbrt(n)
+		+ "<br>Nth Root: " + (n ** (1 / n))
+
+		+ "<br><br><br>Cosine: " + Math.cos(n)
+		+ "<br>Sine: " + Math.sin(n)
+		+ "<br>Tangent: " + Math.tan(n)
+
+		+ "<br><br><br>Acos: " + Math.acos(n)
+		+ "<br>Asin: " + Math.asin(n)
+		+ "<br>Atan: " + Math.atan(n)
+		+ "<br>Atan2: " + Math.atan2(n)
+
+		+ "<br><br><br>Hyperbolic Cosine: " + Math.cosh(n)
+		+ "<br>Hyperbolic Sine: " + Math.sinh(n)
+		+ "<br>Hyperbolic Tangent: " + Math.tanh(n)
+		+ "<br>Hyperbolic Acos: " + Math.acosh(n)
+		+ "<br>Hyperbolic Asin: " + Math.asinh(n)
+		+ "<br>Hyperbolic Atan: " + Math.atanh(n)
+
+
+		+ "<br><br><br>Is Binaric: " + conds(n, 0, 1)
+		+ "<br>Is Decimal: " + ncond(n, Math.trunc(n))
+		+ "<br>Is Even: " + cond(n % 2, 0)
+		+ "<br>Is Even (Integered): " + cond(Math.round(n) % 2, 0)
+		+ "<br>Is Finite: " + nconds(n, Infinity, -Infinity)
+		+ "<br>Is Infinite: " + conds(n, Infinity, -Infinity)
+		+ "<br>Is Integer: " + cond(n, Math.trunc(n))
+		+ "<br>Is Negative: " + cond(Math.sign(n), -1)
+		+ "<br>Is Nonzero: " + ncond(n, 0)
+		+ "<br>Is Odd: " + cond(n % 2, 1)
+		+ "<br>Is Odd (Integered): " + cond(Math.round(n) % 2, 1)
+		+ "<br>Is Positive: " + cond(Math.sign(n), 1)
+		+ "<br>Is Zero: " + cond(n, 0)
+		+ "";
+}
+function calcQuadraticEqCalc() {
+	var p = gid("QuadraticEqCalcOutputs");
+	var a = eval(gid("QuadraticEqCalcInput").value);
+	var b = eval(gid("QuadraticEqCalcInput2").value);
+	var c = eval(gid("QuadraticEqCalcInput3").value);
+	var discriminant = (b ** 2) - (4 * a * c);
+	var x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+	var x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+	p.innerHTML = "Discriminant: " + (discriminant)
+		+ "<br>Discriminant Square Root: " + Math.sqrt(discriminant)
+		+ "<br>Product of Roots: " + (x1 * x2)
+		+ "<br>Sum of Roots: " + (x1 + x2)
+		+ "<br>X: {" + x1 + ", " + x2 + "}"
+		+ "<br>X1: " + x1
+		+ "<br>X2: " + x2
+		+ "<br>X Has One Solution: " + cond(x1, x2)
+		+ "";
+}
+function calcQuadraticFuncCalc() {
+	var p = gid("QuadraticFuncCalcOutputs");
+	var a = eval(gid("QuadraticFuncCalcInput").value);
+	var b = eval(gid("QuadraticFuncCalcInput2").value);
+	var c = eval(gid("QuadraticFuncCalcInput3").value);
+	var h = (-b / (2 * a));
+	var k = c - ((b ** 2) / (4 * a));
+	var discriminant = (b ** 2) - (4 * a * c);
+	var x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+	var x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+	var xinc = x1 === x2 ? x1 : "{" + x1 + ", " + x2 + "}";
+	var parabola = a === 0 ? "Undefined" : a > 0 ? "Upwards" : "Downwards";
+	p.innerHTML = "Discriminant: " + (discriminant)
+		+ "<br>Discriminant Square Root: " + Math.sqrt(discriminant)
+		+ "<br>Product of Zeroes: " + (x1 * x2)
+		+ "<br>Sum of Zeroes: " + (x1 + x2)
+		+ "<br>Zeroes: {" + x1 + ", " + x2 + "}"
+		+ "<br>First Zero: " + x1
+		+ "<br>Second Zero: " + x2
+
+		+ "<br><br><br>H: " + h
+		+ "<br>K: " + k
+		+ "<br>Parabola Direction: " + parabola
+		+ "<br>Vertex: (" + h + ", " + k + ")"
+		+ "<br>X-Intercept: " + xinc
+		+ "<br>Y-Intercept: " + c
+		+ "";
+}
+function calcSquareCalc() {
+	var p = gid("SquareCalcOutputs");
+	var s = eval(gid("SquareCalcInput").value);
+	p.innerHTML = "Area: " + (s ** 2)
+		+ "<br>Diagonal: " + hypot(s, s)
+		+ "<br>Half Area: " + ((s ** 2) / 2)
+		+ "<br>Perimeter: " + (4 * s)
+		+ "<br>Semiperimeter: " + (2 * s)
+
+		+ "<br><br><br>Area of Circumscribed Circle: " + (Math.PI * ((hypot(s, s) / 2) ** 2))
+		+ "<br>Circumference of Circumscribed Circle: " + (Math.PI * hypot(s, s))
+		+ "<br>Half Area of Circumscribed Circle: " + (Math.PI * ((hypot(s, s) / 2) ** 2) * 0.5)
+		+ "<br>Radius of Circumscribed Circle: " + (hypot(s, s) / 2)
+		+ "<br>Semicircumference of Circumscribed Circle: " + (Math.PI * hypot(s, s) * 0.5)
+
+		+ "<br><br><br>Area of Inscribed Circle: " + (Math.PI * ((s / 2) ** 2))
+		+ "<br>Circumference of Inscribed Circle: " + (Math.PI * s)
+		+ "<br>Half Area of Inscribed Circle: " + (Math.PI * ((s / 2) ** 2) * 0.5)
+		+ "<br>Radius of Inscribed Circle: " + (s / 2)
+		+ "<br>Semicircumference of Inscribed Circle: " + (Math.PI * s * 0.5)
+		+ "";
+}
+
+(function(){
+	var p = gid("numberListOutputs");
+	p.innerHTML = "Eyelash Mite-Speck: 0.000002<br>Percent: 0.01"
+		+ "<br>" + "Tenth: 0.1"
+		+ "<br>" + "Champernowne\'s Constant: 0.12345678910111213141516"
+		+ "<br>" + "Fifth: 0.2"
+		+ "<br>" + "Quarter: 0.25"
+		+ "<br>" + "Aarex\'s Funny Number: 0.42513153135"
+		+ "<br>" + "Half: 0.5"
+		+ "<br>" + "Apéry\'s Constant: 1.20205"
+		+ "<br>" + "Phi / Golden Ratio: " + ((1 + Math.sqrt(5))/2)
+		+ "<br>" + "Euler's Number: " + Math.E
+		+ "<br>" + "Pi: " + Math.PI
+		+ "<br>" + "Tau: " + (Math.PI * 2)
+		+ "<br>" + "Dozen: 12"
+		+ "<br>" + "Baker\'s Dozen: 13"
+		+ "<br>" + "Poulter\'s Dozen: 14"
+		+ "<br>" + "Dumevalka: 22"
+		+ "<br>" + "Gaz: " + (23 + (2/3))
+		+ "<br>" + "Fzthree: 27"
+		+ "<br>" + "Binary Eyelash-Mite: 32"
+		+ "<br>" + "Phiplex: " + (10 ** ((1 + Math.sqrt(5))/2))
+		+ "<br>" + "Gagthree: 61"
+		+ "<br>" + "Hundred: 100"
+		+ "<br>" + "Eleventy: 110"
+		+ "<br>" + "Twelfty / Long Hundred: 120"
+		+ "<br>" + "Gross: 144<br>Baker\'s Gross: 169<br>Poulter\'s Gross: 196"
+		+ "<br>" + "Fzfour: 256<br>Short Ream: 480<br>Ream: 500"
+		+ "<br>" + "Eulerplex: " + (10 ** Math.E)
+		+ "<br>" + "Piplex: " + (10 ** Math.PI)
+		+ "<br>" + "Great Gross: 1728<br>Hardy-Ramanujan Number: 1729<br>Fzfive: 3125"
+		+ "<br>" + "Kaprekar\'s Constant: 6174<br>Myriad: 10000"
+		+ "<br>" + "Fuga-three: 19683<br>Eyelash Mite: 20000"
+		+ "<br>" + "Great Great Gross / Gargantuan Gross: 20736<br>Binary Small-fry: 32768<br>Fzsix: 46656"
+		+ "<br>" + "Dust Mite: 50000<br>Cheese Mite: 80000<br>Lakh: 100000<br>Integral-megaseptile: 142857"
+		+ "<br>" + "Clover Mite: 200000<br>Fzseven: 823543<br>Million: 1000000"
+		+ "";
+})();
+</script>
+</body>
+</html>
