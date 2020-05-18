@@ -69,6 +69,10 @@ section {
 	border: 1px dashed black;
 	margin: auto;
 }
+aside {
+	opacity: 0;
+	transition: 0.5s;
+}
 </style>
 </head>
 <body>
@@ -80,6 +84,7 @@ section {
 <h3 style="color:red">PLEASE NOTE: The guy is still working hard on farming Minecraft Skywars Coins, so updates may be delayed.</h3>
 </section>
 
+<aside>
 <h4>MAJOR PROJECTS</h4>
 <ul>
 	<li><a href="./alpha/achv2.html">Achievofile</a></li>
@@ -93,6 +98,7 @@ section {
 	<li><a href="./experimental/sociablePairFinder.html">Sociable Pair Finder</a></li>
 	<li><a href="./experimental/terminal.html">Terminal</a></li>
 </ul>
+</aside>
 
 <div onclick="changeDisplay()">
 	<h5 style="color:blue">About the Developer</h5>
@@ -114,6 +120,7 @@ function openNav() {
 		document.getElementsByTagName('h2')[0].style.opacity = 1;
 		document.getElementsByTagName('h3')[0].style.opacity = 1;
 		document.getElementsByTagName('h3')[1].style.opacity = 1;
+		document.getElementsByTagName('aside')[0].style.opacity = 1;
 	}, 500);
 }
 setTimeout(openNav, 700);
