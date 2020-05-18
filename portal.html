@@ -19,7 +19,7 @@ h1, h2, h3 {
 h1:hover {
 	color: green;
 }
-p {
+p, h5 {
 	opacity: 0;
 	transition: 0.5s;
 }
@@ -82,6 +82,7 @@ function openNav() {
 	document.getElementsByTagName('div')[0].style.width = "80%";
 	setTimeout(function(){
 		document.getElementsByTagName('p')[0].style.opacity = 1;
+		document.getElementsByTagName('h5')[0].style.opacity = 1;
 	}, 500);
 }
 setTimeout(openNav, 1000);
