@@ -3,7 +3,7 @@
 <head>
 <title>SCIPRED'S DOMAIN</title>
 <meta charset="UTF-8">
-<meta name="description" content="SciPred's Portal to his Contributions. Thanks Hobo">
+<meta name="description" content="SciPred's Portal to his Contributions. Thanks Hobo and Oshen Man">
 <meta name="author" content="SciPred">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="resources/logo.png" />
@@ -127,11 +127,11 @@ section {
 </aside>
 
 <div onclick="changeDisplay()">
-	<h5 style="color:blue">About the Developer</h5>
+	<h5 style="color:blue">Tap Me!</h5>
 	<p>SciPred is some random person who likes eating virtual cookies and playing Minecraft (when he's not hacking any game servers). He shoots Fortnite for entertainment and watches on YouTube for dividing by zero. Whenever he's not looking at pictures of hobos, he wastes tons of paper trying to find the answer to 0 to the power of 0.</p>
 </div>
 
-<p>Special Thanks to the Hobo</p>
+<p style="font-weight:bold;">Special Thanks to the Hobo and the Oshen Man</p>
 
 <script>
 function openNav() {
@@ -161,6 +161,12 @@ function changeDisplay() {
 		displayText = 1;
 		document.getElementsByTagName('div')[0].innerHTML = `
 			<p style="opacity:1">The Hobo is a trustable friend who keeps on threatening to torture me, although I don't really mind. Whenever he's not trying to destroy me he plays Minecraft Windows 10 Edition, along with some other friends. (Just a bit of a problem: I don't.)</p>
+		`;
+	}
+	else if (displayText === 1) {
+		displayText = 2;
+		document.getElementsByTagName('div')[0].innerHTML = `
+			<p style="opacity:1">The Oshen Man has a bit less mathematical ability than me but is able to think of a pun out of anything (except maybe about himself). Whenever he's not playing Minecraft (and not naming himself Martinkiplier), he gets tortured by the Hobo by an excessive amount.</p>
 		`;
 	}
 	else {
