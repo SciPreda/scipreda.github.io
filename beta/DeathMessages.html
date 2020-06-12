@@ -34,16 +34,18 @@ button:active {
 var dmtype = 'ALL';
 function setType(t) {dmtype = t;}
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
-var Names = ["Hobo", "Oshen Man", "Caesar", "SciPred"];
-var Modes = ["ACCIDENTAL", "DISEASED", "EXECUTED", "FANATICAL", "ISOLATED", "KILLED", "MINECRAFT", "SCI-FI"];
+var Names = ["Hobo", "Oshen Man", "Caesar", "Shenman", "Calcium", "Jeffyboi", "SciPred"];
+var Modes = ["ACCIDENTAL", "DISEASED", "EXECUTED", "FANATICAL", "ISOLATED", "KILLED", "MEMED", "MENTAL", "MINECRAFT", "SCI-FI", "SCIENTIFIC"];
 var AccidentalDMs = [
 	" fell from the top of a building",
 	" fell into a pool and didn't know how to swim",
+	" fell into a snake pit",
 	" fell into the ocean and didn't know how to swim",
 	" fell into the sea and didn't know how to swim",
 	" fell off a cliff due to leaning",
 	" slipped on a banana peel and fell head-first to the floor",
-	" was blown up by an exploding cannon"
+	" was blown up by an exploding cannon",
+	" was hit in the head with a discharged rifle"
 ];
 var DiseasedDMs = [
 	" caught the plague",
@@ -51,7 +53,10 @@ var DiseasedDMs = [
 	" died of coronavirus",
 	" died of dysentery",
 	" farted, popping a blood vessel and dying from the injury",
-	" was infected with a virus sample from the CDC"
+	" had a stroke",
+	" had multiple sclerosis",
+	" was infected with a virus sample from the CDC",
+	" was infected with an unknown virus"
 ];
 var ExecutedDMs = [
 	" was burned at the stake",
@@ -59,38 +64,67 @@ var ExecutedDMs = [
 	" was clubbed to death",
 	" was hanged",
 	" was hanged, drawn, and quartered",
+	" was left stranded on an island",
+	" was left to rot away",
 	" was made to walk the plank",
 	" was sent to the guillotine",
 	" was shot by a firing squad",
 	" was shot by police",
 	" was shot by the SWAT",
 	" was thrown to the lions",
+	" was thrown to the sharks",
 	" was tortured to death"
 ];
 var FanaticalDMs = [
 	" was carried away by some fairies",
+	" was poisoned by a witch",
 	" was slain by Robin Hood",
 	" was stabbed by some angry pixies"
 ];
 var IsolatedDMs = [
 	" died in prison",
+	" died lonely",
+	" died of boredom",
+	" died of depression",
+	" died of hypothermia",
+	" died of shock",
 	" died of starvation",
 	" died of thirst"
 ];
 var KilledDMs = [
+	"'s body was mutilated by ",
+	"'s body was served up to be eaten by ",
 	" died from overwork commanded by ",
 	" died in a joust against ",
 	" was assassinated by ",
+	" was bored to death from lectures given by ",
+	" was butchered by ",
+	" was decapitated by ",
 	" was drugged by ",
 	" was eaten by ",
+	" was hit in the eye with an arrow by ",
+	" was left on a far-out island by ",
 	" was murdered in his sleep by ",
 	" was sent to a concentration camp by ",
+	" was shot by a criminal gang under the command of ",
 	" was shot in a duel against ",
 	" was slain in battle by ",
-	" was stabbed in his sleep by "
+	" was stabbed in his sleep by ",
+	" was strangled by ",
+	" was tortured to death by "
+];
+var MemedDMs = [
+	" became a furry",
+	" died of laughter",
+	" failed a 360 degree turn",
+	" flexed too hard",
+	" tried to find da Wae",
+	" was blown apart by Sanic",
+	" was Ugandan Knuckled"
 ];
 var MentalDMs = [
 	" attacked himself",
+	" thought he was dead and did whatever he wanted, killing himself in one of his actions",
 	" was driven mad and died accidentally",
 	" went insane and died in his sleep"
 ];
@@ -156,17 +190,25 @@ var MinecraftDMs = [
 ];
 var SciFiDMs = [
 	"'s body was cut during teleportation",
+	"'s body combined with an alien to make an unknown entity",
+	" died from a flesh-eating virus",
+	" turned into a zombie"
 	" was blasted to bits by an alien gun",
 	" was eaten by a Martian",
 	" was turned to dust by lasers"
+];
+var ScientificDMs = [
+	" fell into a black hole",
+	" was blasted to bits by a particle accelerator",
+	" was frozen in absolute zero"
 ];
 </script>
 </head>
 <body>
 <h1>RANDOM DEATH MESSAGE GENERATOR</h1>
 <h2>A very weird document by SciPred</h2>
-<h4 style="color:red">Do not take this seriously. This is only a joke.</h4>
-<h4 style="color:blue">Version: 1.0</h4>
+<h4 style="color:red">Do not take this seriously. This is only a joke. Only the homies will understand who the people are.</h4>
+<h4 style="color:blue">Version: 1.01</h4>
 <hr>
 <h3>Choose your type:</h3>
 <br>
@@ -177,9 +219,11 @@ var SciFiDMs = [
 <button onclick="setType('FANATICAL')">FANATICAL</button>
 <button onclick="setType('ISOLATED')">ISOLATED</button>
 <button onclick="setType('KILLED')">KILLED</button>
+<button onclick="setType('MEMED')">MEMED</button>
 <button onclick="setType('MENTAL')">MENTAL</button>
 <button onclick="setType('MINECRAFT')">MINECRAFT</button>
 <button onclick="setType('SCI-FI')">SCI-FI</button>
+<button onclick="setType('SCIENTIFIC')">SCIENTIFIC</button>
 <hr>
 <script>
 	//i dont want to simplify this leave me be
@@ -214,11 +258,17 @@ function generateMessage() {
 	if (dmtype === "MENTAL") {
 		msg = name1 + choose(MentalDMs);
 	}
+	if (dmtype === "MEMED") {
+		msg = name1 + choose(MemedDMs);
+	}
 	if (dmtype === "MINECRAFT") {
 		msg = name1 + choose(MinecraftDMs);
 	}
 	if (dmtype === "SCI-FI") {
 		msg = name1 + choose(SciFiDMs);
+	}
+	if (dmtype === "SCIENTIFIC") {
+		msg = name1 + choose(ScientificDMs);
 	}
 	p.innerHTML = msg;
 	if (reverto === 1) {
