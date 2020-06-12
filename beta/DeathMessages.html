@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<title>RANDOM DEATH MESSAGES</title>
+<meta charset="UTF-8">
+<meta name="description" content="Random Death Message Generator by SciPred.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: #eee;
+	font-family: sans-serif;
+	text-align: center;
+}
+h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span {
+	cursor: default;
+}
+button {
+	background: white;
+	padding: 2px;
+	border: 1px solid black;
+	border-radius: 5px;
+	display: inline-block;
+}
+button:active {
+	background: gray;
+	color: white;
+}
+</style>
+<script>
+var dmtype = 'ALL';
+function setType(t) {dmtype = t;}
+function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+var Names = ["Hobo", "Oshen Man", "Caesar", "SciPred"];
+var Modes = ["ACCIDENTAL", "DISEASED", "EXECUTED", "FANATICAL", "ISOLATED", "KILLED", "MINECRAFT", "SCI-FI"];
+var AccidentalDMs = [
+	" fell from the top of a building",
+	" fell into a pool and didn't know how to swim",
+	" fell into the ocean and didn't know how to swim",
+	" fell into the sea and didn't know how to swim",
+	" fell off a cliff due to leaning",
+	" slipped on a banana peel and fell head-first to the floor",
+	" was blown up by an exploding cannon"
+];
+var DiseasedDMs = [
+	" caught the plague",
+	" died from a heart attack",
+	" died of coronavirus",
+	" died of dysentery",
+	" farted, popping a blood vessel and dying from the injury",
+	" was infected with a virus sample from the CDC"
+];
+var ExecutedDMs = [
+	" was burned at the stake",
+	" was burned for witchcraft",
+	" was clubbed to death",
+	" was hanged",
+	" was hanged, drawn, and quartered",
+	" was made to walk the plank",
+	" was sent to the guillotine",
+	" was shot by a firing squad",
+	" was shot by police",
+	" was shot by the SWAT",
+	" was thrown to the lions",
+	" was tortured to death"
+];
+var FanaticalDMs = [
+	" was carried away by some fairies",
+	" was slain by Robin Hood",
+	" was stabbed by some angry pixies"
+];
+var IsolatedDMs = [
+	" died in prison",
+	" died of starvation",
+	" died of thirst"
+];
+var KilledDMs = [
+	" died from overwork commanded by ",
+	" died in a joust against ",
+	" was assassinated by ",
+	" was drugged by ",
+	" was eaten by ",
+	" was murdered in his sleep by ",
+	" was sent to a concentration camp",
+	" was shot in a duel against ",
+	" was slain in battle by ",
+	" was stabbed in his sleep by "
+];
+var MentalDMs = [
+	" attacked himself",
+	" was driven mad and died accidentally",
+	" went insane and died in his sleep"
+];
+var MinecraftDMs = [
+	" blew up",
+	" burned to death",
+	" died",
+	" discovered the floor was lava",
+	" drowned",
+	" experienced kinetic energy",
+	" fell from a high place",
+	" fell into the void",
+	" fell off a ladder",
+	" fell off scaffolding",
+	" fell off some vines",
+	" fell off some twisting vines",
+	" fell off some weeping vines",
+	" fell out of the world",
+	" fell while climbing",
+	" hit the ground too hard",
+	" starved to death",
+	" suffocated in a wall",
+	" tried to swim in lava",
+	" was blown up by Creeper",
+	" was impaled by Trident",
+	" was killed by [Intentional Game Design]",
+	" was killed by magic",
+	" was poked to death by a sweet berry bush",
+	" was pricked to death",
+	" was roasted in dragon's breath",
+	" was shot by Arrow",
+	" was shot by Skeleton",
+	" was shot by a Wither's skull",
+	" was slain by Cave Spider",
+	" was slain by Enderman",
+	" was slain by Endermite",
+	" was slain by Evoker",
+	" was slain by Golem",
+	" was slain by Husk",
+	" was slain by Magma Cube",
+	" was slain by Phantom",
+	" was slain by Pigman",
+	" was slain by Pillager",
+	" was slain by Ravager",
+	" was slain by Shulker",
+	" was slain by Silverfish",
+	" was slain by Slime",
+	" was slain by Spider",
+	" was slain by Stray",
+	" was slain by Vex",
+	" was slain by Vindicator",
+	" was slain by Wolf",
+	" was slain by Zombie",
+	" was squished too much",
+	" was struck by lightning",
+	" was stung to death",
+	" was squashed by a falling anvil",
+	" was squashed by a falling block",
+	" was too soft for this world",
+	" went off with a bang",
+	" went up in flames",
+	" withered away"
+];
+var SciFiDMs = [
+	"'s body was cut during teleportation",
+	" was blasted to bits by an alien gun",
+	" was eaten by a Martian",
+	" was turned to dust by lasers"
+];
+</script>
+</head>
+<body>
+<h1>RANDOM DEATH MESSAGE GENERATOR</h1>
+<h2>A very weird document by SciPred</h2>
+<h4 style="color:red">Do not take this seriously. This is only a joke.</h4>
+<h4 style="color:blue">Version: 1.0</h4>
+<hr>
+<h3>Choose your type:</h3>
+<br>
+<button onclick="setType('ALL')">ALL</button>
+<button onclick="setType('ACCIDENTAL')">ACCIDENTAL</button>
+<button onclick="setType('DISEASED')">DISEASED</button>
+<button onclick="setType('EXECUTED')">EXECUTED</button>
+<button onclick="setType('FANATICAL')">FANATICAL</button>
+<button onclick="setType('ISOLATED')">ISOLATED</button>
+<button onclick="setType('KILLED')">KILLED</button>
+<button onclick="setType('MENTAL')">MENTAL</button>
+<button onclick="setType('MINECRAFT')">MINECRAFT</button>
+<button onclick="setType('SCI-FI')">SCI-FI</button>
+<hr>
+<script>
+	//i dont want to simplify this leave me be
+function generateMessage() {
+	let p = document.getElementById("msgcontainer");
+	let name1 = choose(Names);
+	let name2 = choose(Names);
+	var msg, reverto;
+	if (dmtype === "ALL") {
+		reverto = 1;
+		dmtype = choose(Modes);
+	}
+	if (dmtype === "ACCIDENTAL") {
+		msg = name1 + choose(AccidentalDMs);
+	}
+	if (dmtype === "DISEASED") {
+		msg = name1 + choose(DiseasedDMs);
+	}
+	if (dmtype === "EXECUTED") {
+		msg = name1 + choose(ExecutedDMs);
+	}
+	if (dmtype === "FANATICAL") {
+		msg = name1 + choose(FanaticalDMs);
+	}
+	if (dmtype === "ISOLATED") {
+		msg = name1 + choose(IsolatedDMs) + name2;
+	}
+	if (dmtype === "KILLED") {
+		msg = name1 + choose(KilledDMs) + name2;
+	}
+	if (dmtype === "MENTAL") {
+		msg = name1 + choose(MentalDMs);
+	}
+	if (dmtype === "MINECRAFT") {
+		msg = name1 + choose(MinecraftDMs);
+	}
+	if (dmtype === "SCI-FI") {
+		msg = name1 + choose(SciFiDMs);
+	}
+	p.innerHTML = msg;
+	if (reverto === 1) {
+		dmtype = "ALL";
+	}
+}
+</script>
+
+<button onclick="generateMessage()" style="padding:7px;font-family:'Courier',Courier New,monospace;font-size:15px;">GENERATE!</button>
+<p id="msgcontainer"></p>
+
+</body>
+</html>
