@@ -187,6 +187,7 @@ function generateMessage() {
 	let p = document.getElementById("msgcontainer");
 	let name1 = choose(Names);
 	let name2 = choose(Names);
+	while (name2 === name1) {name2 = choose(Names);}
 	var msg, reverto;
 	if (dmtype === "ALL") {
 		reverto = 1;
