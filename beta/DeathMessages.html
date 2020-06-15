@@ -33,13 +33,14 @@ button:active {
 </style>
 <script>
 var dmtype = 'ALL';
-function setType(t) {dmtype = t;}
+function setType(t) {dmtype = t; document.getElementById("currentmode").innerHTML = "Current Mode: " + t;}
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
 var Names = ["Hobo", "Oshen Man", "Caesar", "Shenman", "Calcium", "Jeffyboi", "SciPred"];
-var Modes = ["ACCIDENTAL", "DISEASED", "EXECUTED", "FANATICAL", "ISOLATED", "KILLED", "MEMED", "MENTAL", "MINECRAFT", "SCI-FI", "SCIENTIFIC"];
+var Modes = ["ACCIDENTAL", "DISEASED", "EXECUTED", "FANATICAL", "ISOLATED", "KILLED", "MEMED", "MEMEKILLED", "MENTAL", "MINECRAFT", "SCI-FI", "SCIENTIFIC"];
 var AccidentalDMs = [
 	" choked to death",
 	" fell from the top of a building",
+	" fell into a furnace and was incinerated",
 	" fell into a pool and didn't know how to swim",
 	" fell into a snake pit",
 	" fell into the ocean and didn't know how to swim",
@@ -47,9 +48,13 @@ var AccidentalDMs = [
 	" fell off a cliff due to leaning",
 	" slipped on a banana peel and fell head-first to the floor",
 	" was blown up by an exploding cannon",
-	" was hit in the head with a discharged rifle"
+	" was crushed by a piston",
+	" was hit by a train",
+	" was hit in the head with a discharged rifle",
+	" was mistaken for a witch"
 ];
 var DiseasedDMs = [
+	" became rabid",
 	" caught the plague",
 	" died from a heart attack",
 	" died of coronavirus",
@@ -63,11 +68,17 @@ var DiseasedDMs = [
 var ExecutedDMs = [
 	" choked on a piece of bread at a trial",
 	" drowned at a witch trial",
+	" had a pitchfork struck into his throat",
+	" had his throat slit open",
+	" was buried alive",
 	" was burned at the stake",
 	" was burned for witchcraft",
 	" was clubbed to death",
+	" was crushed by a pile of rocks",
+	" was electrified in the electric chair",
 	" was hanged",
 	" was hanged, drawn, and quartered",
+	" was launched from a trebuchet",
 	" was left stranded on an island",
 	" was left to rot away",
 	" was made to walk the plank",
@@ -75,41 +86,62 @@ var ExecutedDMs = [
 	" was shot by a firing squad",
 	" was shot by police",
 	" was shot by the SWAT",
+	" was stretched on the rack",
 	" was thrown to the lions",
 	" was thrown to the sharks",
+	" was tied to a cannon and blown apart",
 	" was tortured to death"
 ];
 var FanaticalDMs = [
 	" became a werewolf and was shot by a hunter",
 	" was carried away by some fairies",
+	" was cursed by an ancient spell",
 	" was poisoned by a witch",
 	" was slain by Robin Hood",
 	" was stabbed by some angry pixies"
 ];
 var IsolatedDMs = [
+	" became psychotic",
 	" died in prison",
 	" died lonely",
 	" died of boredom",
 	" died of depression",
 	" died of hypothermia",
+	" died of laughter",
 	" died of shock",
 	" died of starvation",
-	" died of thirst"
+	" died of thirst",
+	" got stuck in the doldrums",
+	" hanged himself",
+	" poisoned himself",
+	" tried to speak with his throat open"
 ];
 var KilledDMs = [
 	"'s body was mutilated by ",
 	"'s body was served up to be eaten by ",
+	"'s head was chopped off by ",
+	"'s head was severed and put on a pike by ",
 	" died from overwork commanded by ",
 	" died in a joust against ",
+	" got his neck cracked by ",
+	" had his throat slit by ",
 	" was assassinated by ",
+	" was bitten by a rabid dog belonging to ",
+	" was blasted to bits by a bomb thrown by ",
+	" was blasted off into mid-air by a rocket launched by ",
+	" was blown to pieces by a cannonball launched by ",
 	" was bored to death from lectures given by ",
 	" was butchered by ",
+	" was crusaded by the knight ",
 	" was decapitated by ",
 	" was drugged by ",
 	" was eaten by ",
+	" was electrified by",
 	" was hit in the eye with an arrow by ",
+	" was hit on the forehead with a pebble by ",
 	" was left on a far-out island by ",
 	" was murdered in his sleep by ",
+	" was pierced by a javelin thrown by ",
 	" was poisoned by ",
 	" was sent to a concentration camp by ",
 	" was shot by a criminal gang under the command of ",
@@ -121,15 +153,30 @@ var KilledDMs = [
 ];
 var MemedDMs = [
 	" became a furry",
-	" died of laughter",
+	" didn't watch out and was Suddenly Pineappled",
 	" failed a 360 degree turn",
 	" flexed too hard",
+	" heard 'I like trains' too late",
+	" joined a retarded ASMR",
+	" noscoped himself",
+	" smoked too much weed everyday",
+	" thought it was Muffin Time",
 	" tried to find da Wae",
+	" was 2spooky4u",
 	" was blown apart by Sanic",
+	" was flattened by a piano",
 	" was Ugandan Knuckled"
+];
+var MemeKilledDMs = [
+	" was 360 noscoped by ",
+	" was 420Blazed by ",
+	" was eggdogged by ",
+	" was memed by ",
+	" was shot with a 360 noscope by "
 ];
 var MentalDMs = [
 	" attacked himself",
+	" died from shock in a lucid dream",
 	" thought he was dead and did whatever he wanted, killing himself in one of his actions",
 	" was driven mad and died accidentally",
 	" went insane and died in his sleep"
@@ -200,14 +247,20 @@ var SciFiDMs = [
 	" died from a flesh-eating virus",
 	" turned into a zombie",
 	" turned into an alien",
+	" was blasted off into deep space",
 	" was blasted to bits by an alien gun",
 	" was eaten by a Martian",
-	" was turned to dust by lasers"
+	" was turned to dust by lasers",
+	" wore an unclean Hazmat suit"
 ];
 var ScientificDMs = [
 	" fell into a black hole",
 	" was blasted to bits by a particle accelerator",
-	" was frozen in absolute zero"
+	" was frozen in absolute zero",
+	" was obliterated by a solar flare",
+	" was poisoned by radiation",
+	" went at the speed of light",
+	" went too close to a supernova"
 ];
 </script>
 </head>
@@ -227,10 +280,12 @@ var ScientificDMs = [
 <button onclick="setType('ISOLATED')">ISOLATED</button>
 <button onclick="setType('KILLED')">KILLED</button>
 <button onclick="setType('MEMED')">MEMED</button>
+<button onclick="setType('MEMEKILLED')">MEMEKILLED</button>
 <button onclick="setType('MENTAL')">MENTAL</button>
 <button onclick="setType('MINECRAFT')">MINECRAFT</button>
 <button onclick="setType('SCI-FI')">SCI-FI</button>
 <button onclick="setType('SCIENTIFIC')">SCIENTIFIC</button>
+<p id="currentmode">Current Type: ALL</p>
 <hr>
 <script>
 	//i dont want to simplify this leave me be
@@ -268,6 +323,9 @@ function generateMessage() {
 	}
 	if (dmtype === "MEMED") {
 		msg = name1 + choose(MemedDMs);
+	}
+	if (dmtype === "MEMEKILLED") {
+		msg = name1 + choose(MemeKilledDMs) + name2;
 	}
 	if (dmtype === "MINECRAFT") {
 		msg = name1 + choose(MinecraftDMs);
