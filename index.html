@@ -112,13 +112,14 @@ section {
 
 <aside id="lists">
 <h4>PC PROJECTS</h4>
-<ul>
+<ul id="pcpros">
 	<li><a href="./alpha/achv2.html">Achievofile</a></li>
 	<li><a href="./beta/SCPDCALC.html">SciPred's Calculator</a></li>
 </ul>
 
 <h4>MAJOR PROJECTS</h4>
 <ul>
+	<li><a href="./alpha/directions.html">Directions</a></li>
 	<li><a href="./beta/DeathMessages.html">Random Death Message Generator</a></li>
 </ul>
 
@@ -182,6 +183,12 @@ function changeDisplay() {
 }
 
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+	document.getElementById("pcpros").innerHTML = `
+		<li><p>Sorry, you're on mobile. I'm doing my best to prevent errors happening on your device.</p></li>
+	`;
+}
 </script>
 
 </body>

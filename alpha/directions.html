@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<title>DIRECTIONS</title>
+<meta charset="UTF-8">
+<meta name="description" content="Supposedly experimental, but good enough">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {width: 100%; height: 100%; margin: 0; text-align: center; font-family: sans-serif;}
+button {background: white; border: 1px solid black; border-radius: 10px; padding: 5px;}
+button:active {background: black; color: white;}
+#title {margin: auto; background: #ccc; padding: 7px; border: 3px solid black;}
+#gamemain {display: none; margin: auto; background: #ddd; padding: 10px; border: 2px solid black; width: 50%;}
+#gamemain button, #gamemain p {display: inline-block;}
+#progbar {width: 100%; background-color: #ddd;}
+#bbar {width: 1%; height: 30px; background-color: #4CAF50;}
+</style>
+</head>
+<body>
+
+<div id="title">
+<h1>DIRECTIONS</h1>
+<h2>A simple logical game by SciPred</h2>
+<h3 style="color:blue">Version 1.0</h3>
+<button onclick="startGame()">START</button>
+<p id="scdisp"></p>
+</div>
+
+<div id="gamemain">
+<button onclick="leftClick()" id="leftbtn">functional.LEFT</button>
+<p id="dir">direction.container</p>
+<button onclick="rightClick()" id="rightbtn">functional.RIGHT</button>
+<hr>
+<div id="progbar">
+	<div id="bbar"></div>
+</div>
+</div>
+
+<script src="./directionsResources/script.js"></script>
+</body>
+</html>
