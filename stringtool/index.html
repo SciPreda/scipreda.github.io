@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+<head>
+<title>Stringtool</title>
+<meta charset="UTF-8">
+<meta name="description" content="Stringtool 1.0, an experimental but helpful tool... maybe?">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: #eee;
+	font-family: sans-serif;
+	transition: 0.5s;
+	text-align: center;
+}
+header {
+	position: fixed;
+	transition: 0.5s;
+	background: #ccc;
+	height: 7px;
+	overflow: hidden;
+	width: 100%;
+	color: #ccc;
+	padding: 1px;
+	z-index: 50;
+}
+header:hover {
+	height: 65px;
+	background: gray;
+	padding: 7px;
+	color: white;
+}
+header span, header h3 {
+	display: inline-block;
+}
+header span {
+	font-size: 30px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: 6px;
+}
+span, i {
+	cursor: pointer;
+	font-weight: bold;
+	transition: color 0.4s;
+}
+span:hover, i:hover {
+	color: #aaa;
+}
+i {
+	font-size: 25px;
+}
+#tooltiplabel {
+	width: 30%;
+	height: 13px;
+	padding: 4px;
+	padding-bottom: 6px;
+	background: #aaa;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	text-align: left;
+}
+#stringHolder {
+	margin: auto;
+	font-size: 6em;
+}
+#sliceBar {
+	background: #555;
+	position: fixed;
+	width: 170px;
+	left: 0;
+	top: 9px;
+	border: 1px dashed black;
+	transition: 0.5s;
+	display: none;
+	color: white;
+	padding: 10px;
+}
+#replaceCharBar {
+	background: #555;
+	position: fixed;
+	width: 170px;
+	left: 191px;
+	top: 9px;
+	border: 1px dashed black;
+	transition: 0.5s;
+	display: none;
+	color: white;
+	padding: 10px;
+}
+div p {
+	text-align: left;
+}
+button {
+	border: 2px solid black;
+	color: black;
+	padding: 5px;
+	border-radius: 5px;
+	background: white;
+	cursor: pointer;
+}
+#errorFound {
+	display: none;
+}
+#abtST p {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<header>
+	<h3 style="padding:3px;border-radius:5px;background:#eee;color:black;cursor:default;">STRINGTOOL</h3>
+	<span id="clearString" onclick="clearString()">&times;</span>
+	<span id="resetString" onclick="resetString()">&#8635;</span>
+	<span id="duplicateString" onclick="duplicateString()">&#128462;</span>
+	<span id="remUppercaseString" onclick="remUppercaseString()">X</span>
+	<span id="remLowercaseString" onclick="remLowercaseString()">x</span>
+	<span id="sliceMenu" onclick="sliceMenu()">&#9986;</span>
+	<span id="replaceCharMenu" onclick="replaceCharMenu()">&#9998;</span>
+	<span id="uppercaseString" onclick="uppercaseString()">A</span>
+	<span id="lowercaseString" onclick="lowercaseString()">a</span>
+	<span id="moveFirstCharString" onclick="moveFirstCharString()">&#8592;</span>
+	<span id="moveLastCharString" onclick="moveLastCharString()">&#8594;</span>
+	<span id="trimString" onclick="trimString()">&#9988;</span>
+	<span id="reverseString" onclick="reverseString()">&#128472;</span>
+	<span id="aboutStringtool" onclick="aboutStringtool()">?</span>
+	<span id="reloadPage" onclick="window.location.reload()">&#8634;</span>
+</header>
+
+<div id="sliceBar">
+	<i style="position:absolute;top:10px;left:10px;" onclick="sliceMenu()">&times;</i>
+	<h2>Slice Menu</h2>
+	<p>Start:</p>
+	<input type="text" id="sliceA" value="0"></input>
+	<p>End:</p>
+	<input type="text" id="sliceB" value="1"></input><br><br>
+	<button onclick="sliceString()">Slice</button>
+</div>
+
+<div id="replaceCharBar">
+	<i style="position:absolute;top:10px;left:10px;" onclick="replaceCharMenu()">&times;</i>
+	<h2>Replace Menu</h2>
+	<p>Text to be Replaced:</p>
+	<input type="text" id="replaceCharA" value="A"></input>
+	<p>Text to Replace:</p>
+	<input type="text" id="replaceCharB" value="a"></input><br><br>
+	<button onclick="replaceCharString()">Replace</button>
+</div>
+
+<br><br><br><br><br><br><hr>
+<div id="stringHolder">Hello World!</div>
+<hr>
+
+<div id="tooltiplabel"></div>
+<span id="errorFound" style="padding:10px;font-size:30px;background:#aaa;position:fixed;bottom:0;right:0;z-index:123" onclick="displayError()">&#9940;</span>
+
+<div id="abtST" style="width:100%;height:100%;position:fixed;background:rgba(0,0,0,0.85);z-index:100;color:white;top:0;left:0;display:none;">
+	<i style="position:absolute;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
+	<h1>STRINGTOOL</h1>
+	<h2 style="color:#00E600">A work in progress by SciPred</h2>
+	<h3>Version 1.0</h3>
+	<p>Stringtool is an experimental tool simply used to edit a piece of string.</p>
+	<p>You can edit the string as many times as you want.</p>
+	<p>Use the tools provided to edit the string in multiple ways.</p>
+	<p>You can slice part of the string, duplicate it, remove uppercase letters, reset it, reverse it, and so on.</p>
+	<p>To check the tools, simply hover your mouse somewhere at the top of this page, in an area surrounded by the slightly darker shade.</p>
+	<p style="color:blue">If you do not know the functions of a specific tool, hover over its icon and refer to the tooltip located at the bottom left.</p>
+	<p style="color:red">When an error occurs, you will see an icon at the bottom right of the page. Click on the icon to see what the error was.</p>
+</div>
+<script>
+function gID(id) {return document.getElementById(id)}
+function gTags(tag, num) {return document.getElementsByTagName(tag)[num]}
+function lblset(elm, tltp) {
+	elm.onmouseover = function() {gID("tooltiplabel").innerHTML = tltp;}
+	elm.onmouseleave = function() {gID("tooltiplabel").innerHTML = "";}
+}
+
+gTags("header", 0).onmouseover = function() {
+	gID("sliceBar").style.top = "79px";
+	gID("replaceCharBar").style.top = "79px";
+}
+gTags("header", 0).onmouseleave = function() {
+	gID("sliceBar").style.top = "9px";
+	gID("replaceCharBar").style.top = "9px";
+}
+
+gID("stringHolder").contentEditable = true;
+lblset(gID("clearString"), "Clear String");
+lblset(gID("resetString"), "Reset String");
+lblset(gID("duplicateString"), "Duplicate String");
+lblset(gID("remUppercaseString"), "Remove Uppercase Letters");
+lblset(gID("remLowercaseString"), "Remove Lowercase Letters");
+lblset(gID("sliceMenu"), "Slice String");
+lblset(gID("replaceCharMenu"), "Replace Text");
+lblset(gID("uppercaseString"), "Uppercase Letters");
+lblset(gID("lowercaseString"), "Lowercase Letters");
+lblset(gID("moveFirstCharString"), "Push First Character to End");
+lblset(gID("moveLastCharString"), "Push Last Character to Start");
+lblset(gID("trimString"), "Remove Whitespaces on the Sides");
+lblset(gID("reverseString"), "Reverse String");
+lblset(gID("aboutStringtool"), "About Stringtool");
+lblset(gID("reloadPage"), "Reload Page");
+
+function clearString() {
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to clear");
+		return 0;
+	}
+	gID("stringHolder").innerText = "";
+}
+function resetString() {
+	if (gID("stringHolder").innerText === "Hello World!") {
+		showErrorIcon("Function Error: Nothing to reset");
+		return 0;
+	}
+	gID("stringHolder").innerText = "Hello World!";
+}
+function duplicateString() {
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to duplicate");
+		return 0;
+	}
+	var s = gID("stringHolder").innerText;
+	gID("stringHolder").innerText = s + s;
+}
+function remUppercaseString() {
+	var s = gID("stringHolder").innerText.replace(/[A-Z]/g, '');
+	if (gID("stringHolder").innerText === s) {
+		showErrorIcon("Function Error: No uppercase letters were detected");
+		return 0;
+	}
+	gID("stringHolder").innerText = s;
+}
+function remLowercaseString() {
+	var s = gID("stringHolder").innerText.replace(/[a-z]/g, '');
+	if (gID("stringHolder").innerText === s) {
+		showErrorIcon("Function Error: No lowercase letters were detected");
+		return 0;
+	}
+	gID("stringHolder").innerText = s;
+}
+
+function moveFirstCharString() {
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to move");
+		return 0;
+	}
+	var s = new String(gID("stringHolder").innerText);
+	gID("stringHolder").innerText = s.substr(1) + s.substr(0, 1);
+}
+function moveLastCharString() {
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to move");
+		return 0;
+	}
+	var s = new String(gID("stringHolder").innerText);
+	gID("stringHolder").innerText = s.substr(s.length-1, 1) + s.substr(0, s.length-1);
+}
+function uppercaseString() {
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to convert to uppercase");
+		return 0;
+	}
+	var s = new String(gID("stringHolder").innerText);
+	if (gID("stringHolder").innerText === s.toUpperCase()) {
+		showErrorIcon("Function Error: Nothing to convert to uppercase");
+		return 0;
+	}
+	gID("stringHolder").innerText = s.toUpperCase();
+}
+function lowercaseString() {
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to convert to lowercase");
+		return 0;
+	}
+	var s = new String(gID("stringHolder").innerText);
+	if (gID("stringHolder").innerText === s.toLowerCase()) {
+		showErrorIcon("Function Error: Nothing to convert to lowercase");
+		return 0;
+	}
+	gID("stringHolder").innerText = s.toLowerCase();
+}
+function trimString() {
+	var s = new String(gID("stringHolder").innerText);
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to trim");
+		return 0;
+	}
+	gID("stringHolder").innerHTML = s.trim();
+}
+function reverseString() {
+	var s = new String(gID("stringHolder").innerText);
+	if (gID("stringHolder").innerText === "") {
+		showErrorIcon("Function Error: Nothing to reverse");
+		return 0;
+	}
+	gID("stringHolder").innerHTML = s.split("").reverse().join("");
+}
+
+var sliceMenu_open = 0;
+function sliceMenu() {
+	if (sliceMenu_open === 0) {
+		gID("sliceBar").style.display = "block";
+		sliceMenu_open = 1;
+	} else if (sliceMenu_open === 1) {
+		gID("sliceBar").style.display = "none";
+		sliceMenu_open = 0;
+	} else {
+		showErrorIcon("Variable Error: Slice Menu has been tampered with");
+		sliceMenu_open = 0;
+		gID("sliceBar").style.display = "none";
+	}
+}
+function sliceString() {
+	var a = gID("sliceA").value, b = gID("sliceB").value;
+	var s = String(gID("stringHolder").innerText);
+	if (window.isNaN(Number(a)) || window.isNaN(Number(b))) {
+		showErrorIcon("Input Error: Value is not a number");
+		return 0;
+	}
+	if (a < 0) {
+		showErrorIcon("Input Error: Value A is too small");
+		return 0;
+	}
+	if (b > s.length) {
+		showErrorIcon("Input Error: Value B is too big");
+		return 0;
+	}
+	gID("stringHolder").innerText = s.slice(a, b);
+}
+var replaceCharMenu_open = 0;
+function replaceCharMenu() {
+	if (replaceCharMenu_open === 0) {
+		gID("replaceCharBar").style.display = "block";
+		replaceCharMenu_open = 1;
+	} else if (replaceCharMenu_open === 1) {
+		gID("replaceCharBar").style.display = "none";
+		replaceCharMenu_open = 0;
+	} else {
+		showErrorIcon("Variable Error: Replace Menu has been tampered with");
+		replaceCharMenu_open = 0;
+		gID("replaceCharBar").style.display = "none";
+	}
+}
+function replaceCharString() {
+	var a = gID("replaceCharA").value, b = gID("replaceCharB").value;
+	var s = String(gID("stringHolder").innerText);
+	if (s.match(a) === null) {
+		showErrorIcon("Input Error: Character does not exist in string");
+		return 0;
+	}
+	gID("stringHolder").innerText = s.replace(a, b);
+}
+
+var errint = null;
+var errmsg = "";
+function showErrorIcon(msg) {
+	gID("errorFound").style.display = "block";
+	errmsg = msg;
+	clearInterval(errint);
+	errint = setTimeout(function(){
+		gID("errorFound").style.display = "none";
+	}, 5000);
+}
+function displayError() {
+	alert(errmsg);
+}
+var aboutMenu_open = 0;
+function aboutStringtool() {
+	if (aboutMenu_open === 0) {
+		gID("abtST").style.display = "block";
+		aboutMenu_open = 1;
+	} else if (aboutMenu_open === 1) {
+		gID("abtST").style.display = "none";
+		aboutMenu_open = 0;
+	} else {
+		showErrorIcon("Variable Error: About Menu has been tampered with");
+		aboutMenu_open = 0;
+		gID("abtST").style.display = "none";
+	}
+}
+</script>
+</body>
+</html>

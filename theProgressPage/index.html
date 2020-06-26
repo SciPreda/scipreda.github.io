@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>The Progress Page</title>
+<title>The Progress Page v1.1</title>
 <meta charset="UTF-8">
 <meta name="description" content="The Progress Page: a place where you can monitor progress.">
 <meta name="author" content="SciPred">
@@ -18,7 +18,9 @@ a:visited {color: blue;}
 <body>
 <h1>THE PROGRESS PAGE</h1>
 <h2>A somewhat experimental document by SciPred</h2>
+<h2 style="color:green">Monitors progress as time goes on. Includes some of the slowest progress bars ever.</h2>
 <h3 style="color:blue">Inspired by <a href="https://neal.fun/progress">neal.fun</a></h3>
+<h4 style="color:gray">Version: 1.1</h4>
 <br><br>
 
 <p id="next-deciminute">Seconds until next deciminute: 6</p>
@@ -44,6 +46,11 @@ a:visited {color: blue;}
 <p id="next-hour">Minutes until next hour: 60</p>
 <div class="progressBar">
 	<div id="next-hour-bar"></div>
+</div>
+
+<p id="next-half-day">Hours until next half-day: 12</p>
+<div class="progressBar">
+	<div id="next-half-day-bar"></div>
 </div>
 
 <p id="next-day">Hours until next day: 24</p>
@@ -156,6 +163,11 @@ a:visited {color: blue;}
 	<div id="next-teraannum-bar"></div>
 </div>
 
+<p id="next-petaannum">Years until next petaannum: 1000000000000000</p>
+<div class="progressBar">
+	<div id="next-petaannum-bar"></div>
+</div>
+
 
 
 <p id="cycle-HalleysComet">Years until Halley's Comet returns: 75</p>
@@ -170,9 +182,14 @@ a:visited {color: blue;}
 	<div id="until-Chernobyl-bar"></div>
 </div>
 
+<p id="until-sundeath">Years until the Sun dies: 9 billion</p>
+<div class="progressBar">
+	<div id="until-sundeath-bar"></div>
+</div>
+
 <br><br><br><br>
 <p style="color:blue;">Made by SciPred, 2020. (To be honest this was fun to make)</p>
-<p style="color:red;">However, I might not be able to update this in the far future. (For that, I apologize)</p>
+<p style="color:red;">However, I might not be able to update this in the far future, so some progress bars may be deprecated. (For that, I apologize.)</p>
 <br><br>
 <script>
 function displayThing(id, txt, num1, num2, num3) {
@@ -196,6 +213,7 @@ setInterval(function(){
 	displayThing("next-minute", "Seconds until next minute: ", 60 - d.getSeconds(), d.getSeconds(), 60);
 	displayThing("next-dekaminute", "Minutes until next dekaminute: ", 10 - (d.getMinutes() % 10), d.getMinutes() % 10, 10);
 	displayThing("next-hour", "Minutes until next hour: ", 60 - d.getMinutes(), d.getMinutes(), 60);
+	displayThing("next-half-day", "Hours until next half-day: ", 12 - (d.getHours() % 12), d.getHours() % 12, 12);
 	displayThing("next-day", "Hours until next day: ", 24 - d.getHours(), d.getHours(), 24);
 	displayThing("next-week", "Days until next week: ", 7 - d.getDay(), d.getDay(), 7);
 	displayThing("next-month", "Days until next month (Full): ", 31 - d.getDate(), d.getDate(), 31);
@@ -218,12 +236,16 @@ setInterval(function(){
 	displayThing("next-megannum", "Years until next megannum: ", 1000000 - (d.getFullYear() % 1000000), d.getFullYear() % 1000000, 1000000);
 	displayThing("next-gigaannum", "Years until next gigaannum: ", 1000000000 - (d.getFullYear() % 1000000000), d.getFullYear() % 1000000000, 1000000000);
 	displayThing("next-teraannum", "Years until next teraannum: ", 1000000000000 - (d.getFullYear() % 1000000000000), d.getFullYear() % 1000000000000, 1000000000000);
+	displayThing("next-petaannum", "Years until next petaannum: ", 1000000000000000 - (d.getFullYear() % 1000000000000000), d.getFullYear() % 1000000000000000, 1000000000000000);
 
 	displayThing("cycle-HalleysComet", "Years until Halley's Comet returns: ", 75 - ((d.getFullYear() % 75) - 36), (d.getFullYear() % 75) - 36, 75);
 
 	var Chernobyl_timeLeft = d.getFullYear() > 2200 ? 0 : 214 - (d.getFullYear() - 1986);
-	var Chernobyl_width = d.getFullYear() > 2200 ? 100 : d.getFullYear() - 1986;
+	var Chernobyl_width = d.getFullYear() > 2200 ? 214 : d.getFullYear() - 1986;
 	displayThing("until-Chernobyl", "Years until Chernobyl is fully safe again: ", Chernobyl_timeLeft, Chernobyl_width, 214);
+	var sundeath_timeLeft = d.getFullYear() > 10000000000 ? 0 : Math.trunc((10000000000 - (d.getFullYear() + 4603000000)) / 1000000000) + " billion";
+	var sundeath_width = d.getFullYear() > 10000000000 ? 10000000000 : d.getFullYear() + 4603000000;
+	displayThing("until-sundeath", "Years until the Sun dies: ", sundeath_timeLeft, sundeath_width, 10000000000);
 }, 1000);
 </script>
 </body>
