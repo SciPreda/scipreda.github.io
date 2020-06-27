@@ -111,6 +111,15 @@ button {
 #abtST p {
 	text-align: center;
 }
+#abtST::-webkit-scrollbar {
+	display: none;
+}
+/* in case above code doesn't work */
+#abtST {
+	overflow-y: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
 </style>
 </head>
 <body>
@@ -161,17 +170,27 @@ button {
 <span id="errorFound" style="padding:10px;font-size:30px;background:#aaa;position:fixed;bottom:0;right:0;z-index:123" onclick="displayError()">&#9940;</span>
 
 <div id="abtST" style="width:100%;height:100%;position:fixed;background:rgba(0,0,0,0.85);z-index:100;color:white;top:0;left:0;display:none;">
-	<i style="position:absolute;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
+	<i style="position:fixed;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
 	<h1>STRINGTOOL</h1>
 	<h2 style="color:#00E600">A work in progress by SciPred</h2>
-	<h3>Version 1.0</h3>
+	<h3>Version 1.01</h3>
 	<p>Stringtool is an experimental tool simply used to edit a piece of string.</p>
+	<p>The string is displayed in the middle of the page, in a big font size (6em). Click on it to edit it.</p>
 	<p>You can edit the string as many times as you want.</p>
 	<p>Use the tools provided to edit the string in multiple ways.</p>
-	<p>You can slice part of the string, duplicate it, remove uppercase letters, reset it, reverse it, and so on.</p>
-	<p>To check the tools, simply hover your mouse somewhere at the top of this page, in an area surrounded by the slightly darker shade.</p>
-	<p style="color:blue">If you do not know the functions of a specific tool, hover over its icon and refer to the tooltip located at the bottom left.</p>
-	<p style="color:red">When an error occurs, you will see an icon at the bottom right of the page. Click on the icon to see what the error was.</p>
+	<p>You can slice part of the string, duplicate it, remove uppercase letters, reset it, reverse it, convert all letters to lowercase, and so on.</p>
+	<p>To check the tools, simply hover your mouse somewhere at the top of this page, in an area surrounded by the slightly darker shade. You will see the title of this page followed by multiple icons. Each icon represents a tool.</p>
+	<p>Note that you do not have to click on the toolbar for it to extend. When your cursor leaves the toolbar, it will retract normally - just as I want it to do.</p>
+	<p style="color:blue">If you do not know the functions of a specific tool, hover over its icon and refer to the tooltip located at the bottom left. Some tools are not for editing the string, but for certain things such as "About Stringtool" and refreshing this page.</p>
+	<p style="color:red">When an error occurs, you will see an icon at the bottom right of the page. Click on the icon to see what the error was. Custom errors happen when any of these things happen: variables are edited, functions cannot be executed, or inputs are wrong. Other errors - general ones - will be displayed in the console (if your browser has one, such as Google).</p>
+	<p style="color:red">However, if your browser does not support the function window.alert, try opening this page in another browser. If you don't know which browsers have support, search for "js window.alert browser support". (Only if you ever bother with looking at the error messages.)</p>
+	<p style="color:#ccc">It's a bit pointless - but it works.</p>
+	<p style="color:blue;font-weight:bold;">If you have any suggestions for me, contact or email me at mrsimple.mcpe@gmail.com if you don't ever bother.</p>
+	<h3 style="color:#ddd">NEW ON THIS VERSION:</h3>
+	<p>- Added more error handlers</p>
+	<p>- Updated the information provided in About</p>
+	<p>- Fixed some things in the script</p>
+	<p>- Updated CSS position of the X button in About</p>
 </div>
 <script>
 function gID(id) {return document.getElementById(id)}
@@ -292,15 +311,20 @@ function trimString() {
 		showErrorIcon("Function Error: Nothing to trim");
 		return 0;
 	}
+	if (gID("stringHolder").innerText === s.trim()) {
+		showErrorIcon("Function Error: Nothing to trim");
+		return 0;
+	}
 	gID("stringHolder").innerHTML = s.trim();
 }
 function reverseString() {
 	var s = new String(gID("stringHolder").innerText);
-	if (gID("stringHolder").innerText === "") {
+	var rs = s.split("").reverse().join("");
+	if (gID("stringHolder").innerText === "" || gID("stringHolder").innerText === rs) {
 		showErrorIcon("Function Error: Nothing to reverse");
 		return 0;
 	}
-	gID("stringHolder").innerHTML = s.split("").reverse().join("");
+	gID("stringHolder").innerHTML = rs;
 }
 
 var sliceMenu_open = 0;
