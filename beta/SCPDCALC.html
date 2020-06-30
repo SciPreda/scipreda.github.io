@@ -14,7 +14,7 @@ html, body {
 	background: #ddd;
 	font-family: sans-serif;
 	text-align: center;
-	overflow: auto;
+	overflow: hidden;
 	padding-left: 4px;
 	padding-right: 4px;
 }
@@ -273,7 +273,7 @@ function nconds(a, b, c) {
 		<p>Math.round is used in the Numeric Calculator conditions of Is Odd (Integered) and Is Even (Integered). Is Odd and Is Even will show False if a decimal is inputted.</p>
 		<p>Inputting variables will output errors unless the variable is, by chance, defined. But only when the variable is global, and its definition is a number.</p>
 		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees.</p>
-		<p>In the Quadratic Equation Calculator, inputting zero will result in an error. Instead, input B and C as A and B in the Linear Equation Calculator.</p>
+		<p>In the Quadratic Equation Calculator, inputting zero for value A will result in an error. Instead, input B and C as A and B in the Linear Equation Calculator.</p>
 	</div>
 </div>
 
@@ -375,7 +375,6 @@ function calcNumericCalc() {
 		+ "<br>Hyperbolic Acos: " + Math.acosh(n)
 		+ "<br>Hyperbolic Asin: " + Math.asinh(n)
 		+ "<br>Hyperbolic Atan: " + Math.atanh(n)
-
 
 		+ "<br><br><br>Is Binaric: " + conds(n, 0, 1)
 		+ "<br>Is Decimal: " + ncond(n, Math.trunc(n))
