@@ -122,6 +122,9 @@ function divsw(id) {
 		else {calcs[i].style.display = "none"}
 	}
 }
+function bool(b) {
+	return b === true ? "True" : "False";
+}
 function hypot(a, b) {
 	return Math.sqrt((a**2)+(b**2));
 }
@@ -272,12 +275,20 @@ function nconds(a, b, c) {
 		<p>For calculators involving variables, standard form is observed when inputting numbers.</p>
 		<p>Math.round is used in the Numeric Calculator conditions of Is Odd (Integered) and Is Even (Integered). Is Odd and Is Even will show False if a decimal is inputted.</p>
 		<p>Inputting variables will output errors unless the variable is, by chance, defined. But only when the variable is global, and its definition is a number.</p>
-		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees.</p>
+		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees. If you input 1, then the conditions for the number being Composite or Prime will return true due to 1's properties, even though it is debatable.</p>
 		<p>In the Quadratic Equation Calculator, inputting zero for value A will result in an error. Instead, input B and C as A and B in the Linear Equation Calculator.</p>
 	</div>
 </div>
 
 <script>
+//Filling em in lol
+function isPrime(num) {
+  for(var i = 2; i < num; i++)
+    if(num % i === 0) return false;
+  return num > 1;
+}
+function isComposite(num) {return isPrime(num) === false;}
+
 iel(gid("CircleCalc").getElementsByTagName('input')[0], calcCircleCalc);
 iel(gid("LinearEqCalc").getElementsByTagName('input')[0], calcLinearEqCalc);
 iel(gid("LinearEqCalc").getElementsByTagName('input')[1], calcLinearEqCalc);
@@ -377,6 +388,7 @@ function calcNumericCalc() {
 		+ "<br>Hyperbolic Atan: " + Math.atanh(n)
 
 		+ "<br><br><br>Is Binaric: " + conds(n, 0, 1)
+		+ "<br>Is Composite: " + bool(isComposite(n))
 		+ "<br>Is Decimal: " + ncond(n, Math.trunc(n))
 		+ "<br>Is Even: " + cond(n % 2, 0)
 		+ "<br>Is Even (Integered): " + cond(Math.round(n) % 2, 0)
@@ -388,6 +400,7 @@ function calcNumericCalc() {
 		+ "<br>Is Odd: " + cond(n % 2, 1)
 		+ "<br>Is Odd (Integered): " + cond(Math.round(n) % 2, 1)
 		+ "<br>Is Positive: " + cond(Math.sign(n), 1)
+		+ "<br>Is Prime: " + bool(isPrime(n))
 		+ "<br>Is Zero: " + cond(n, 0)
 		+ "";
 }
