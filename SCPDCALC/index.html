@@ -264,7 +264,7 @@ function nconds(a, b, c) {
 		<p>Many times the given trigonometric functions will output the incorrect answer. For example, inputting Math.tan(90) will NOT be evaluated as either NaN or undefined or even Infinity.</p>
 		<p>All given outputs involving Pi or Euler's Number will never be exact, and may sometimes be incorrect.</p>
 		<p>If you input a number large enough, say, 3141596253589831416, then it will automatically be rounded off by a certain place, such as 3141596253589831000.</p>
-		<p>All numbers larger than 1e20 will not output scientific notation. For example, 1000000000000000000000000 will be read as 1e+24.</p>
+		<p>All numbers larger than 1e20 will output scientific notation. For example, 1000000000000000000000000 will be read as 1e+24.</p>
 		<p>Inputting commas that are not in functions will result in errors.</p>
 		<p>Answers that result as Undefined, such as 0/0, will output as NaN, or "Not A Number".</p>
 		<p>Directly inputting imaginary or complex numbers, such as 2i or 3 - i, will result in errors. JavaScript does not yet support imaginary numbers.</p>
@@ -275,7 +275,7 @@ function nconds(a, b, c) {
 		<p>For calculators involving variables, standard form is observed when inputting numbers.</p>
 		<p>Math.round is used in the Numeric Calculator conditions of Is Odd (Integered) and Is Even (Integered). Is Odd and Is Even will show False if a decimal is inputted.</p>
 		<p>Inputting variables will output errors unless the variable is, by chance, defined. But only when the variable is global, and its definition is a number.</p>
-		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees. If you input 1, then the conditions for the number being Composite or Prime will return true due to 1's properties, even though it is debatable.</p>
+		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees. If you input 1, then the conditions for the number being Composite or Prime will return true due to 1's properties, even though it is debatable. (The function used is notably slow, so it may take a while for big numbers.)</p>
 		<p>In the Quadratic Equation Calculator, inputting zero for value A will result in an error. Instead, input B and C as A and B in the Linear Equation Calculator.</p>
 	</div>
 </div>
