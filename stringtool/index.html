@@ -139,6 +139,7 @@ button {
 	<span id="trimString" onclick="trimString()">&#9988;</span>
 	<span id="reverseString" onclick="reverseString()">&#128472;</span>
 	<span id="aboutStringtool" onclick="aboutStringtool()">?</span>
+	<span id="openNewTab" onclick="window.location.open('https://scipreda.github.io/stringtool/')">&#10010;</span>
 	<span id="reloadPage" onclick="window.location.reload()">&#8634;</span>
 </header>
 
@@ -173,7 +174,7 @@ button {
 	<i style="position:fixed;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
 	<h1>STRINGTOOL</h1>
 	<h2 style="color:#00E600">A work in progress by SciPred</h2>
-	<h3>Version 1.01</h3>
+	<h3>Version 1.1</h3>
 	<p>Stringtool is an experimental tool simply used to edit a piece of string.</p>
 	<p>The string is displayed in the middle of the page, in a big font size (6em). Click on it to edit it.</p>
 	<p>You can edit the string as many times as you want.</p>
@@ -187,10 +188,8 @@ button {
 	<p style="color:#ccc">It's a bit pointless - but it works.</p>
 	<p style="color:blue;font-weight:bold;">If you have any suggestions for me, contact or email me at mrsimple.mcpe@gmail.com if you don't ever bother.</p>
 	<h3 style="color:#ddd">NEW ON THIS VERSION:</h3>
-	<p>- Added more error handlers</p>
-	<p>- Updated the information provided in About</p>
-	<p>- Fixed some things in the script</p>
-	<p>- Updated CSS position of the X button in About</p>
+	<p>- If you have the Grammarly extension installed, it can automatically check your grammar for you.</p>
+	<p>- Added option to open Stringtool in a new page</p>
 </div>
 <script>
 function gID(id) {return document.getElementById(id)}
@@ -224,6 +223,7 @@ lblset(gID("moveLastCharString"), "Push Last Character to Start");
 lblset(gID("trimString"), "Remove Whitespaces on the Sides");
 lblset(gID("reverseString"), "Reverse String");
 lblset(gID("aboutStringtool"), "About Stringtool");
+lblset(gID("openNewTab"), "Open In New Page");
 lblset(gID("reloadPage"), "Reload Page");
 
 function clearString() {
