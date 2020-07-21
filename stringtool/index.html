@@ -21,7 +21,8 @@ header {
 	transition: 0.5s;
 	background: #ccc;
 	height: 7px;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	width: 100%;
 	color: #ccc;
 	padding: 1px;
@@ -108,17 +109,21 @@ button {
 #errorFound {
 	display: none;
 }
-#abtST p {
+#abtST p, #keyb p {
 	text-align: center;
 }
-#abtST::-webkit-scrollbar {
+#abtST::-webkit-scrollbar, #keyb::-webkit-scrollbar {
 	display: none;
 }
 /* in case above code doesn't work */
-#abtST {
+#abtST, #keyb {
 	overflow-y: auto;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+}
+
+#charCounter {
+	color: gray;
 }
 </style>
 </head>
@@ -140,8 +145,10 @@ button {
 	<span id="reverseString" onclick="reverseString()">&#128472;</span>
 	<span id="downloadTxt" onclick="downloadTxt()">&#11015;</span>
 	<span id="aboutStringtool" onclick="aboutStringtool()">?</span>
+	<span id="keyboardShortcuts" onclick="keyboardShortcuts()">&#9000;</span>
 	<span id="openNewTab" onclick="window.open('https://scipreda.github.io/stringtool/')">&#10010;</span>
 	<span id="reloadPage" onclick="window.location.reload()">&#8634;</span>
+	<span id="functionMode" onclick="functionMode()">&#9881;</span>
 </header>
 
 <div id="sliceBar">
@@ -161,12 +168,18 @@ button {
 	<input type="text" id="replaceCharA" value="A"></input>
 	<p>Text to Replace:</p>
 	<input type="text" id="replaceCharB" value="a"></input><br><br>
+	<p style="display:inline-block;">Occurence:</p>
+	<select id="replaceCharType">
+		<option value="first">First</option>
+		<option value="all">All</option>
+	</select><br>
 	<button onclick="replaceCharString()">Replace</button>
 </div>
 
 <br><br><br><br><br><br><hr>
 <div id="stringHolder">Hello World!</div>
 <hr>
+<p id="charCounter">Characters: 12</p>
 
 <div id="tooltiplabel"></div>
 <span id="errorFound" style="padding:10px;font-size:30px;background:#aaa;position:fixed;bottom:0;right:0;z-index:123" onclick="displayError()">&#9940;</span>
@@ -174,8 +187,8 @@ button {
 <div id="abtST" style="width:100%;height:100%;position:fixed;background:rgba(0,0,0,0.85);z-index:100;color:white;top:0;left:0;display:none;">
 	<i style="position:fixed;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
 	<h1>STRINGTOOL</h1>
-	<h2 style="color:#00E600">A work in progress by SciPred</h2>
-	<h3>Version 1.11</h3>
+	<h2 style="color:#00E600">A project in progress by SciPred</h2>
+	<h3>Version 1.2</h3>
 	<p>Stringtool is an experimental tool simply used to edit a piece of string.</p>
 	<p>The string is displayed in the middle of the page, in a big font size (6em). Click on it to edit it.</p>
 	<p>You can edit the string as many times as you want.</p>
@@ -184,14 +197,40 @@ button {
 	<p>To check the tools, simply hover your mouse somewhere at the top of this page, in an area surrounded by the slightly darker shade. You will see the title of this page followed by multiple icons. Each icon represents a tool.</p>
 	<p>Note that you do not have to click on the toolbar for it to extend. When your cursor leaves the toolbar, it will retract normally - just as I want it to do.</p>
 	<p style="color:blue">If you do not know the functions of a specific tool, hover over its icon and refer to the tooltip located at the bottom left. Some tools are not for editing the string, but for certain things such as "About Stringtool" and refreshing this page.</p>
+	<p style="color:green">Function Mode is a custom implementation of keyboard shortcuts. To toggle Function Mode, click on the gear at the right of the toolbar.</p>
 	<p style="color:red">When an error occurs, you will see an icon at the bottom right of the page. Click on the icon to see what the error was. Custom errors happen when any of these things happen: variables are edited, functions cannot be executed, or inputs are wrong. Other errors - general ones - will be displayed in the console (if your browser has one, such as Google).</p>
-	<p style="color:red">However, if your browser does not support the function window.alert, try opening this page in another browser. If you don't know which browsers have support, search for "js window.alert browser support". (Only if you ever bother with looking at the error messages.)</p>
+	<p style="color:red">However, if your browser does not support the function window.alert, try opening this page in another browser. If you don't know which browsers have support, search for "js window alert browser support". (Only if you ever bother with looking at the error messages.)</p>
 	<p style="color:#ccc">It's a bit pointless - but it works.</p>
-	<p style="color:blue;font-weight:bold;">If you have any suggestions for me, contact or email me at mrsimple.mcpe@gmail.com if you don't ever bother.</p>
+	<p style="color:blue;font-weight:bold;">If you have any suggestions for me, contact or email me at either science.mcpe@gmail.com or mrsimple.mcpe@gmail.com if you don't ever bother.</p>
 	<h3 style="color:#ddd">NEW ON THIS VERSION:</h3>
-	<p>- If you have the <bold onclick="window.open('https://grammarly.com')" style="color:#4affd5">Grammarly</bold> extension installed, it can automatically check your grammar for you.</p>
-	<p>- Added option to open Stringtool in a new page</p>
-	<p>- Added option to download string in a text file</p>
+	<p>- Added occurence selection in Replace Menu.</p>
+	<p>- Added character counter below the string input.</p>
+	<p>- Added a list of keyboard shortcuts.</p>
+	<p>- Added <bold style="color:#1f1">Function Mode</bold>! Allows more keyboard shortcuts into use. See the Keyboard Shortcuts menu for more information.</p>
+</div>
+
+<div id="keyb" style="width:100%;height:100%;position:fixed;background:rgba(0,0,0,0.85);z-index:100;color:white;top:0;left:0;display:none;">
+	<i style="position:fixed;top:10px;left:10px" onclick="keyboardShortcuts()">&times;</i>
+	<h1 style="color:#eee">Keyboard Shortcuts</h1>
+	<h2 style="color:red">Please note that some of these shortcuts may not be supported in your browser or have a different function.</h2>
+	<h3 style="color:#aaf">General:</h3>
+	<p>Ctrl + A: Selects all the text on the focused element.</p>
+	<p>Ctrl + C: Copies selected text.</p>
+	<p>Ctrl + F: Finds text on the current page.</p>
+	<p>Ctrl + P: Prints the current page.</p>
+	<p>Ctrl + V: Pastes cut or copied text.</p>
+	<p>Ctrl + X: Cuts selected text.</p>
+	<h3 style="color:#aaf">Function Mode:</h3>
+	<p>A: Move the first character to end.</p>
+	<p>C: Clears the string.</p>
+	<p>D: Move the last character to start.</p>
+	<p>R: Resets the string.</p>
+	<p>S: Saves the string in a text file.</p>
+	<p>T: Trims whitespaces on the sides of the string.</p>
+	<p>V: Duplicates the string.</p>
+	<p>X: Clears all lowercase letters.</p>
+	<p>Shift + C: Capitalizes the first letter of the string.</p>
+	<p>Shift + X: Clears all uppercase letters.</p>
 </div>
 <script>
 function gID(id) {return document.getElementById(id)}
@@ -201,6 +240,13 @@ function lblset(elm, tltp) {
 	elm.onmouseleave = function() {gID("tooltiplabel").innerHTML = "";}
 }
 
+var functionMode_on = "OFF";
+function functionMode() {
+	functionMode_on = functionMode_on === "OFF" ? "ON" : "OFF";
+	lblset(gID("functionMode"), "Function Mode: " + functionMode_on);
+	gID("tooltiplabel").innerHTML = "Function Mode: " + functionMode_on;
+}
+
 gTags("header", 0).onmouseover = function() {
 	gID("sliceBar").style.top = "79px";
 	gID("replaceCharBar").style.top = "79px";
@@ -208,6 +254,66 @@ gTags("header", 0).onmouseover = function() {
 gTags("header", 0).onmouseleave = function() {
 	gID("sliceBar").style.top = "9px";
 	gID("replaceCharBar").style.top = "9px";
+}
+
+document.addEventListener("keypress", function(e){
+	if (functionMode_on === "ON") {
+		switch (e.keyCode) {
+			case 97:
+				//a
+				moveFirstCharString();
+				break;
+			case 67:
+				//C
+				capitalizeString();
+				break;
+			case 99:
+				//c
+				clearString();
+				break;
+			case 100:
+				//d
+				moveLastCharString();
+				break;
+			case 114:
+				//r
+				resetString();
+				break;
+			case 115:
+				//s
+				downloadTxt();
+				break;
+			case 116:
+				//t
+				trimString();
+				break;
+			case 118:
+				//v
+				duplicateString();
+				break;
+			case 88:
+				//X
+				remUppercaseString();
+				break;
+			case 120:
+				//x
+				remLowercaseString();
+		}
+	}
+});
+
+function capitalizeString() {
+	var s = gID("stringHolder").innerText;
+	if (s === "") {
+		showErrorIcon("Function Error: Nothing to capitalize");
+		return 0;
+	}
+	var l = s[0];
+	if (l === l.toUpperCase()) {
+		showErrorIcon("Function Error: Nothing to capitalize");
+		return 0;
+	}
+	gID("stringHolder").innerText = l.toUpperCase() + s.slice(1, s.length);
 }
 
 gID("stringHolder").contentEditable = true;
@@ -226,8 +332,10 @@ lblset(gID("trimString"), "Remove Whitespaces on the Sides");
 lblset(gID("reverseString"), "Reverse String");
 lblset(gID("downloadTxt"), "Download Text File");
 lblset(gID("aboutStringtool"), "About Stringtool");
+lblset(gID("keyboardShortcuts"), "Keyboard Shortcuts");
 lblset(gID("openNewTab"), "Open In New Page");
 lblset(gID("reloadPage"), "Reload Page");
+lblset(gID("functionMode"), "Function Mode: " + functionMode_on);
 
 function clearString() {
 	if (gID("stringHolder").innerText === "") {
@@ -249,7 +357,7 @@ function duplicateString() {
 		return 0;
 	}
 	var s = gID("stringHolder").innerText;
-	gID("stringHolder").innerText = s + s;
+	gID("stringHolder").innerText = s + s; //.repeat() is not supported in IE11 and earlier
 }
 function remUppercaseString() {
 	var s = gID("stringHolder").innerText.replace(/[A-Z]/g, '');
@@ -377,12 +485,13 @@ function replaceCharMenu() {
 }
 function replaceCharString() {
 	var a = gID("replaceCharA").value, b = gID("replaceCharB").value;
+	var t = gID("replaceCharType").value;
 	var s = String(gID("stringHolder").innerText);
 	if (s.match(a) === null) {
 		showErrorIcon("Input Error: Character does not exist in string");
 		return 0;
 	}
-	gID("stringHolder").innerText = s.replace(a, b);
+	gID("stringHolder").innerText = t === "first" ? s.replace(a, b) : s.split(a).join(b);
 }
 function downloadTxt() {
 	function download(filename, text) {
@@ -411,6 +520,7 @@ function displayError() {
 	alert(errmsg);
 }
 var aboutMenu_open = 0;
+var keyboardShortcuts_open = 0;
 function aboutStringtool() {
 	if (aboutMenu_open === 0) {
 		gID("abtST").style.display = "block";
@@ -424,6 +534,26 @@ function aboutStringtool() {
 		gID("abtST").style.display = "none";
 	}
 }
+function keyboardShortcuts() {
+	if (keyboardShortcuts_open === 0) {
+		gID("keyb").style.display = "block";
+		keyboardShortcuts_open = 1;
+	} else if (keyboardShortcuts_open === 1) {
+		gID("keyb").style.display = "none";
+		keyboardShortcuts_open = 0;
+	} else {
+		showErrorIcon("Variable Error: Keyboard Shortcuts Menu has been tampered with");
+		keyboardShortcuts_open = 0;
+		gID("keyb").style.display = "none";
+	}
+}
+
+function timeStating() {
+	var str = gID("stringHolder").innerText;
+	var nulled = str == "" ? true : false;
+	gID("charCounter").innerText = "Characters: " + str.length;
+}
+setInterval(timeStating, 150);
 </script>
 </body>
 </html>
