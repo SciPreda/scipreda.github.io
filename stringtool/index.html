@@ -188,7 +188,7 @@ button {
 	<i style="position:fixed;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
 	<h1>STRINGTOOL</h1>
 	<h2 style="color:#00E600">A project in progress by SciPred</h2>
-	<h3>Version 1.2</h3>
+	<h3>Version 1.21</h3>
 	<p>Stringtool is an experimental tool simply used to edit a piece of string.</p>
 	<p>The string is displayed in the middle of the page, in a big font size (6em). Click on it to edit it.</p>
 	<p>You can edit the string as many times as you want.</p>
@@ -552,6 +552,11 @@ function timeStating() {
 	var str = gID("stringHolder").innerText;
 	var nulled = str == "" ? true : false;
 	gID("charCounter").innerText = "Characters: " + str.length;
+	if (functionMode_on === "ON") {
+		gID("functionMode").style.color = "#00C600";
+	} else {
+		gID("functionMode").style.color = "#fff";
+	}
 }
 setInterval(timeStating, 150);
 </script>
