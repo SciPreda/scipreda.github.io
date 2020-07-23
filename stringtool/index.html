@@ -550,7 +550,6 @@ function keyboardShortcuts() {
 
 function timeStating() {
 	var str = gID("stringHolder").innerText;
-	var nulled = str == "" ? true : false;
 	gID("charCounter").innerText = "Characters: " + str.length;
 	if (functionMode_on === "ON") {
 		gID("functionMode").style.color = "#00C600";
