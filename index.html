@@ -10,7 +10,7 @@
 <!--
 	Copyright SciPred 2020 onwards
 	You can edit this to your extent, but do not re-host it nor present it as your own.
-	(Co-author claims may be an exception)
+	(Co-author claims may be an exception, but are you even one)
 -->
 <style>
 html, body {
@@ -103,6 +103,12 @@ section {
 #noos:hover p {
 	opacity: 1;
 }
+.specs {
+	color: #00C600;
+}
+.specs:hover {
+	color: orange;
+}
 </style>
 </head>
 <body>
@@ -119,12 +125,12 @@ section {
 <h4>PC PROJECTS</h4>
 <ul id="pcpros">
 	<li><a href="./SCPDCALC/">SciPred's Calculator</a></li>
-	<li><a href="./stringtool/" style="color:#00C600">Stringtool</a></li>
+	<li><a href="./stringtool/" class="specs">Stringtool</a></li>
 </ul>
 
 <h4>MAJOR PROJECTS</h4>
 <ul>
-	<li><a href="./theProgressPage/" style="color:#00C600">Progress Page</a></li>
+	<li><a href="./theProgressPage/" class="specs">Progress Page</a></li>
 	<li><a href="./DeathMessages/">Random Death Message Generator</a></li>
 </ul>
 
@@ -143,8 +149,6 @@ section {
 	<p>SciPred is some random person who likes eating virtual cookies and playing Minecraft (when he's not hacking any game servers). He shoots Fortnite for entertainment and watches on YouTube for dividing by zero. Whenever he's not looking at pictures of hobos, he wastes tons of paper trying to find the answer to 0 to the power of 0.</p>
 </div>
 
-<p style="font-weight:bold;">Special Thanks to the Hobo and the Oshen Man</p>
-
 <script>
 function openNav() {
 	document.getElementsByTagName('div')[0].style.width = "80%";
@@ -155,7 +159,6 @@ function openNav() {
 	document.body.style.background = "#eee";
 	setTimeout(function(){
 		document.getElementsByTagName('p')[0].style.opacity = 1;
-		document.getElementsByTagName('p')[1].style.opacity = 1;
 		document.getElementsByTagName('h5')[0].style.opacity = 1;
 		document.getElementsByTagName('h1')[0].style.opacity = 1;
 		document.getElementsByTagName('h2')[0].style.opacity = 1;
