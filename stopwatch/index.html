@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<title>SciPred's Stopwatch</title>
+<meta charset="UTF-8">
+<meta name="description" content="Not that accurate but ok">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: gray;
+	color: white;
+	font-family: sans-serif;
+}
+#stopwatchCounter {
+	font-size: 6em;
+	width: 50%;
+	margin: auto;
+	padding: 2%;
+	text-align: center;
+}
+#laps {
+	font-size: 1em;
+	width: 50%;
+	margin: auto;
+	padding: 1%;
+	text-align: center;
+	background: #aaa;
+	overflow-y: auto;
+	max-height: 50%;
+}
+#laps p {
+	font-weight: bold;
+	text-align: left;
+}
+#controls {
+	width: 10px;
+	height: 100%;
+	overflow: hidden;
+	background: #ccc;
+	position: fixed;
+	top: 0;
+	right: 0;
+	transition: 0.6s;
+	padding-left: 10px;
+	padding-top: 15px;
+	text-align: center;
+	color: #ccc;
+}
+#controls:hover {
+	width: 7%;
+	color: black;
+	padding-right: 10px;
+}
+#controls:hover button {
+	opacity: 1;
+}
+button {
+	background: #ddd;
+	color: black;
+	border: none;
+	border-radius: 5px;
+	padding: 3px;
+	opacity: 0;
+	transition: 0.6s;
+	cursor: pointer;
+	display: block;
+	float: right;
+}
+button:hover {
+	background: #fff;
+}
+#btnStop, #btnLap {
+	display: none;
+}
+</style>
+</head>
+<body>
+<div id="stopwatchCounter">0:00:00.00</div>
+<div id="laps">
+	<h1>LAPS</h1>
+</div>
+<div id="controls">
+	<h3>Controls</h3>
+	<button onclick="startCounter()" id="btnStart">START</button>
+	<button onclick="stopCounter()" id="btnStop">STOP</button>
+	<button onclick="lapCounter()" id="btnLap">LAP</button>
+	<button onclick="resetCounter()" id="btnReset">RESET TIMER</button>
+	<button onclick="resetCounter();lapdisplay.innerHTML='<h1>LAPS</h1>'" id="btnResetAll">RESET ALL</button>
+</div>
+
+<script>
+function gID(id) {return document.getElementById(id);}
+function digitHandler(n) {
+	if (n < 10) return "0" + n;
+	return n;
+}
+function convertCountList(cl) {
+	return cl.ds + (cl.s * 100) + (cl.m * 6000) + (cl.h * 360000);
+}
+function revertCountList(cl, ds) {
+	cl.h = Math.trunc(ds / 360000);
+	cl.m = Math.trunc(ds / 6000);
+	cl.s = Math.trunc(ds / 100);
+	cl.ds = ds % 100;
+	return cl;
+}
+var counter = gID("stopwatchCounter");
+var lapdisplay = gID("laps");
+var CountList = {
+	ds: 0,
+	s: 0,
+	m: 0,
+	h: 0
+};
+var PreviousCountList = {
+	ds: 0,
+	s: 0,
+	m: 0,
+	h: 0
+};
+var DifferenceCountList = {
+	ds: 0,
+	s: 0,
+	m: 0,
+	h: 0
+};
+var counterInterval;
+function displayCount() {
+	counter.innerHTML = CountList.h + ":" + digitHandler(CountList.m) + ":" + digitHandler(CountList.s) + "." + digitHandler(CountList.ds);
+}
+function setPreviousCount() {
+	PreviousCountList.ds = CountList.ds;
+	PreviousCountList.s = CountList.s;
+	PreviousCountList.m = CountList.m;
+	PreviousCountList.h = CountList.h;
+}
+function startCounter() {
+	counterInterval = setInterval(function(){
+		CountList.ds++;
+		if (CountList.ds > 99) {
+			CountList.ds = 0;
+			CountList.s++;
+		}
+		if (CountList.s > 59) {
+			CountList.s = 0;
+			CountList.m++;
+		}
+		if (CountList.m > 59) {
+			CountList.m = 0;
+			CountList.h++;
+		}
+		displayCount();
+	}, 10);
+	gID("btnStart").innerText = "RESUME";
+	gID("btnStart").style.display = "none";
+	gID("btnStop").style.display = "block";
+	gID("btnLap").style.display = "block";
+	gID("btnReset").style.display = "none";
+	gID("btnResetAll").style.display = "none";
+}
+function stopCounter() {
+	clearInterval(counterInterval);
+	gID("btnStart").style.display = "block";
+	gID("btnStop").style.display = "none";
+	gID("btnLap").style.display = "none";
+	gID("btnReset").style.display = "block";
+	gID("btnResetAll").style.display = "block";
+}
+function lapCounter() {
+	let d = convertCountList(CountList) - convertCountList(PreviousCountList);
+	revertCountList(DifferenceCountList, d);
+	let lap = CountList.h + ":" + digitHandler(CountList.m) + ":" + digitHandler(CountList.s) + "." + digitHandler(CountList.ds);
+	let difference = DifferenceCountList.h + ":" + digitHandler(DifferenceCountList.m) + ":" + digitHandler(DifferenceCountList.s) + "." + digitHandler(DifferenceCountList.ds);
+	var p = document.createElement("P");
+	p.innerHTML = lap + "; Difference: " + difference;
+	lapdisplay.appendChild(p);
+	lapdisplay.scrollTop = lapdisplay.scrollHeight;
+	setPreviousCount();
+}
+function resetCounter() {
+	CountList = {
+		ds: 0,
+		s: 0,
+		m: 0,
+		h: 0
+	};
+	var PreviousCountList = {
+		ds: 0,
+		s: 0,
+		m: 0,
+		h: 0
+	};
+	var DifferenceCountList = {
+		ds: 0,
+		s: 0,
+		m: 0,
+		h: 0
+	};
+	gID("btnStart").innerText = "START";
+	displayCount();
+}
+</script>
+</body>
+</html>
