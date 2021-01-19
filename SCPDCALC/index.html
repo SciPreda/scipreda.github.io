@@ -16,8 +16,6 @@ html, body {
 	font-family: sans-serif;
 	text-align: center;
 	overflow: hidden;
-	padding-left: 4px;
-	padding-right: 4px;
 }
 h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span {
 	cursor: default;
@@ -68,7 +66,6 @@ input:focus {
 	width: 19%;
 	background: #eee;
 	height: 77%;
-	border: 2px solid black;
 	padding: 5px;
 	border-radius: 5px;
 	text-align: left;
@@ -82,19 +79,18 @@ input:focus {
 #optionspicker ul li:hover {
 	color: #00F600;
 	background: gray;
-	padding: 2px;
+	padding: 1px;
 	border-radius: 4px;
 }
 #optionspicker ul li:active {
 	color: white;
 }
 #currentCalc {
-	width: 75%;
+	width: 77%;
 	height: 77%;
 	overflow: auto;
 	background: #fff;
 	text-align: left;
-	border: 2px solid black;
 	padding: 5px;
 	border-radius: 5px;
 	display: inline-block;
@@ -123,23 +119,12 @@ function divsw(id) {
 		else {calcs[i].style.display = "none"}
 	}
 }
-function bool(b) {
-	return b === true ? "True" : "False";
-}
-function hypot(a, b) {
-	return Math.sqrt((a**2)+(b**2));
-}
-function cond(a, b) {
-	return a === b ? "True" : "False";
-}
-function conds(a, b, c) {
-	return a === b ? "True" : a === c ? "True" : "False";
-}
-function ncond(a, b) {
-	return a !== b ? "True" : "False";
-}
-function nconds(a, b, c) {
-	return a !== b ? a !== c ? "True" : "False" : "False";
+function custringify(a) {
+	var s = "";
+	for (var i=0; i<a.length; i+=2) {
+		s += "<br>" + a[i] + ": " + a[i + 1];
+	}
+	return s;
 }
 </script>
 </head>
@@ -153,22 +138,19 @@ function nconds(a, b, c) {
 <h2>Calculators</h2>
 <ul>
 <li onclick="divsw('CircleCalc')">Circle Calculator</li>
+<li onclick="divsw('ComplexCalc')">Complex Number Calculator</li>
 <li onclick="divsw('LinearEqCalc')">Linear Equation Calculator</li>
 <li onclick="divsw('NumericCalc')">Numeric Calculator</li>
 <li onclick="divsw('QuadraticEqCalc')">Quadratic Equation Calculator</li>
-<li onclick="divsw('QuadraticFuncCalc')">Quadratic Function Calculator</li>
+<li onclick="divsw('RectangleCalc')">Rectangle Calculator</li>
+<li onclick="divsw('RegPolCalc')">Regular Polygon Calculator</li>
 <li onclick="divsw('SquareCalc')">Square Calculator</li>
-</ul>
-
-<h2>Lists and Info</h2>
-<ul>
-<li onclick="divsw('numberList')">List of Numbers From 0 to 1000000</li>
-<li onclick="divsw('standardForms')">Standard Forms</li>
+<li onclick="divsw('TriangleCalc')">Triangle Calculator</li>
 </ul>
 
 <h2>About</h2>
 <ul>
-<li onclick="divsw('warnInfo')">Warning Information</li>
+<li onclick="divsw('aboutGeneral')">About This Calculator</li>
 </ul>
 </div>
 
@@ -184,12 +166,24 @@ function nconds(a, b, c) {
 		<p id="CircleCalcOutputs"></p>
 	</div>
 
+	<div id="ComplexCalc">
+		<h2>COMPLEX NUMBER CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="A" id="ComplexCalcInputA"></input>
+		<input type="text" placeholder="B" id="ComplexCalcInputB"></input>
+		<button onclick="calcComplexCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="ComplexCalcOutputs"></p>
+	</div>
+
 	<div id="LinearEqCalc">
 		<h2>LINEAR EQUATION CALCULATOR</h2>
 		<hr>
 		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="LinearEqCalcInput"></input>
-		<input type="text" placeholder="B" id="LinearEqCalcInput2"></input>
+		<input type="text" placeholder="A" id="LinearEqCalcInputA"></input>
+		<input type="text" placeholder="B" id="LinearEqCalcInputB"></input>
 		<button onclick="calcLinearEqCalc()">CALCULATE</button>
 		<hr>
 		<h3>OUTPUTS</h3>
@@ -211,307 +205,383 @@ function nconds(a, b, c) {
 		<h2>QUADRATIC EQUATION CALCULATOR</h2>
 		<hr>
 		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="QuadraticEqCalcInput"></input>
-		<input type="text" placeholder="B" id="QuadraticEqCalcInput2"></input>
-		<input type="text" placeholder="C" id="QuadraticEqCalcInput3"></input>
+		<input type="text" placeholder="A" id="QuadraticEqCalcInputA"></input>
+		<input type="text" placeholder="B" id="QuadraticEqCalcInputB"></input>
+		<input type="text" placeholder="B" id="QuadraticEqCalcInputC"></input>
 		<button onclick="calcQuadraticEqCalc()">CALCULATE</button>
 		<hr>
 		<h3>OUTPUTS</h3>
 		<p id="QuadraticEqCalcOutputs"></p>
 	</div>
 
-	<div id="QuadraticFuncCalc">
-		<h2>QUADRATIC FUNCTION CALCULATOR</h2>
+	<div id="RectangleCalc">
+		<h2>RECTANGLE CALCULATOR</h2>
 		<hr>
 		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="QuadraticFuncCalcInput"></input>
-		<input type="text" placeholder="B" id="QuadraticFuncCalcInput2"></input>
-		<input type="text" placeholder="C" id="QuadraticFuncCalcInput3"></input>
-		<button onclick="calcQuadraticFuncCalc()">CALCULATE</button>
+		<input type="text" placeholder="Length" id="RectangleCalcInputA"></input>
+		<input type="text" placeholder="Width" id="RectangleCalcInputB"></input>
+		<button onclick="calcRectangleCalc()">CALCULATE</button>
 		<hr>
 		<h3>OUTPUTS</h3>
-		<p id="QuadraticFuncCalcOutputs"></p>
+		<p id="RectangleCalcOutputs"></p>
+	</div>
+
+	<div id="RegPolCalc">
+		<h2>REGULAR POLYGON CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="Side Length" id="RegPolCalcInputA"></input>
+		<input type="text" placeholder="Number of Sides" id="RegPolCalcInputB"></input>
+		<button onclick="calcRegPolCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="RegPolCalcOutputs"></p>
 	</div>
 
 	<div id="SquareCalc">
 		<h2>SQUARE CALCULATOR</h2>
 		<hr>
 		<h3>INPUTS</h3>
-		<input type="text" placeholder="Side Length" id="SquareCalcInput"></input>
+		<input type="text" placeholder="Side" id="SquareCalcInput"></input>
 		<button onclick="calcSquareCalc()">CALCULATE</button>
 		<hr>
 		<h3>OUTPUTS</h3>
 		<p id="SquareCalcOutputs"></p>
 	</div>
 
-	<div id="numberList">
-		<h2>LIST OF NUMBERS</h2>
-		<h5>This list contains the names of numbers up to a million, arranged in numeric order.</h5>
-		<p id="numberListOutputs"></p>
+	<div id="TriangleCalc">
+		<h2>TRIANGLE CALCULATOR</h2>
+		<hr>
+		<h3>INPUTS</h3>
+		<input type="text" placeholder="A" id="TriangleCalcInputA"></input>
+		<input type="text" placeholder="B" id="TriangleCalcInputB"></input>
+		<input type="text" placeholder="C" id="TriangleCalcInputC"></input>
+		<button onclick="calcTriangleCalc()">CALCULATE</button>
+		<hr>
+		<h3>OUTPUTS</h3>
+		<p id="TriangleCalcOutputs"></p>
 	</div>
 
-	<div id="standardForms">
-		<h2>STANDARD FORMS</h2>
-		<h5>Contains information regarding standard forms of certain equations or functions.</h5>
-		<p>Linear Equations are written in standard form as ax + b = 0.</p>
-		<p>Quadratic Equations are written in standard form as ax<sup>2</sup> + bx + c = 0.</p>
-		<p>The standard form of Quadratic Functions are different from Quadratic Equations: ax<sup>2</sup> + bx + c is only the general form. The standard form for Quadratic Functions is a(x - h)<sup>2</sup> + k. Note that including f(x) or y makes it equal to the form y = a(x - h)<sup>2</sup> + k.</p>
-	</div>
-
-	<div id="warnInfo">
-		<h2>Warning Information</h2>
-		<p>All inputs are evaluated before the operations are run. So if you input 5 + 7, the evaluated input will be 12.</p>
-		<p>Because of the computer's understandable inability to handle really big numbers, 1e+308 is the largest finite number you could input.</p>
-		<p>Many times the given trigonometric functions will output the incorrect answer. For example, inputting Math.tan(90) will NOT be evaluated as either NaN or undefined or even Infinity.</p>
-		<p>All given outputs involving Pi or Euler's Number will never be exact, and may sometimes be incorrect.</p>
-		<p>If you input a number large enough, say, 3141596253589831416, then it will automatically be rounded off by a certain place, such as 3141596253589831000.</p>
-		<p>All numbers larger than 1e20 will output scientific notation. For example, 1000000000000000000000000 will be read as 1e+24.</p>
-		<p>Inputting commas that are not in functions will result in errors.</p>
-		<p>Answers that result as Undefined, such as 0/0, will output as NaN, or "Not A Number".</p>
-		<p>Directly inputting imaginary or complex numbers, such as 2i or 3 - i, will result in errors. JavaScript does not yet support imaginary numbers.</p>
-		<p>Sometimes the outputs will be labeled different from expectations. For example, in the Square Calculator, instead of the label "Diameter of Circumscribed Circle", it is labeled as "Diagonal" instead.</p>
-		<p>Sometimes, inputting decimal numbers result in the wrong outputs. For example, inputting the square root of 2 in the Square Calculator will result in the Area being 2.0000000000000004 instead of 2.</p>
-		<p>Some calculators contain a LOT of extensive information. For example, the Square Calculator will not only calculate for the square, but also for its circumscribed and inscribed circles. This may be useful when dealing with certain problems.</p>
-		<p>Inputting negative numbers in geometric calculators will negate the outputs. Signs don't affect the operations.</p>
-		<p>For calculators involving variables, standard form is observed when inputting numbers.</p>
-		<p>Math.round is used in the Numeric Calculator conditions of Is Odd (Integered) and Is Even (Integered). Is Odd and Is Even will show False if a decimal is inputted.</p>
-		<p>Inputting variables will output errors unless the variable is, by chance, defined. But only when the variable is global, and its definition is a number.</p>
-		<p>In the Numeric Calculator, trigonometric functions accept the input in radians, not degrees. If you input 1, then the conditions for the number being Composite or Prime will return true due to 1's properties, even though it is debatable. (The function used is notably slow, so it may take a while for big numbers.)</p>
-		<p>In the Quadratic Equation Calculator, inputting zero for value A will result in an error. Instead, input B and C as A and B in the Linear Equation Calculator.</p>
+	<div id="aboutGeneral">
+		<h2>About This Calculator</h2>
+		<p>SciPred's Calculator is an Experimental Tool for calculating the most sensible as well as the most absurd values. It ranges from calculating the discriminant of a Quadratic Equation to counting the number of leading zeros in a 32-bit binary number conversion.</p>
+		<p>It developed from a habit to overcomplicate things, which isn't that surprising really.</p>
+		<p>Unfortunately, full calculator accuracy cannot be guaranteed because of certain computational problems with handling decimal operations and functions, as well as the inability to handle considerately large numbers such as 1e400.</p>
 	</div>
 </div>
 
 <script>
-//Filling em in lol
+//Polyfills
 function isPrime(num) {
-  for(var i = 2; i < num; i++)
-    if(num % i === 0) return false;
-  return num > 1;
+	for(var i = 2; i < num; i++)
+		if (num % i === 0) return "False";
+	return num > 1 ? "True" : "False";
 }
-function isComposite(num) {return isPrime(num) === false;}
+function isComposite(num) {return isPrime(num) === false ? "True" : "False";}
+function comp(a, b, c, d) {return a === b ? c : d;}
+function cond(a, b) {return comp(a, b, "True", "False");}
+function ncond(a, b) {return comp(a, b, "False", "True");}
+function isPositive(n) {return n > -1 ? "True" : "False";}
+function isNegative(n) {return n < 1 ? "True" : "False";}
+function charCodeConvert(n, d) {return n.toString(d);}
+function tround(n, d) {
+	return Math.round(n * (10 ** d)) / (10 ** d);
+}
 
+//Input Enter key responses
 iel(gid("CircleCalc").getElementsByTagName('input')[0], calcCircleCalc);
+iel(gid("ComplexCalc").getElementsByTagName('input')[0], calcComplexCalc);
+iel(gid("ComplexCalc").getElementsByTagName('input')[1], calcComplexCalc);
 iel(gid("LinearEqCalc").getElementsByTagName('input')[0], calcLinearEqCalc);
 iel(gid("LinearEqCalc").getElementsByTagName('input')[1], calcLinearEqCalc);
 iel(gid("NumericCalc").getElementsByTagName('input')[0], calcNumericCalc);
 iel(gid("QuadraticEqCalc").getElementsByTagName('input')[0], calcQuadraticEqCalc);
 iel(gid("QuadraticEqCalc").getElementsByTagName('input')[1], calcQuadraticEqCalc);
 iel(gid("QuadraticEqCalc").getElementsByTagName('input')[2], calcQuadraticEqCalc);
-iel(gid("QuadraticFuncCalc").getElementsByTagName('input')[0], calcQuadraticFuncCalc);
-iel(gid("QuadraticFuncCalc").getElementsByTagName('input')[1], calcQuadraticFuncCalc);
-iel(gid("QuadraticFuncCalc").getElementsByTagName('input')[2], calcQuadraticFuncCalc);
+iel(gid("RectangleCalc").getElementsByTagName('input')[0], calcRectangleCalc);
+iel(gid("RectangleCalc").getElementsByTagName('input')[1], calcRectangleCalc);
+iel(gid("RegPolCalc").getElementsByTagName('input')[0], calcRegPolCalc);
+iel(gid("RegPolCalc").getElementsByTagName('input')[1], calcRegPolCalc);
 iel(gid("SquareCalc").getElementsByTagName('input')[0], calcSquareCalc);
+iel(gid("TriangleCalc").getElementsByTagName('input')[0], calcTriangleCalc);
+iel(gid("TriangleCalc").getElementsByTagName('input')[1], calcTriangleCalc);
+iel(gid("TriangleCalc").getElementsByTagName('input')[2], calcTriangleCalc);
+
 function calcCircleCalc() {
 	var p = gid("CircleCalcOutputs");
 	var r = eval(gid("CircleCalcInput").value);
-	p.innerHTML = "Area: " + (Math.PI * r * r)
-		+ "<br>Circumference: " + (2 * r * Math.PI)
-		+ "<br>Diameter: " + (2 * r)
-		+ "<br>Half Area: " + (Math.PI * r * r * 0.5)
-		+ "<br>Semicircumference: " + (r * Math.PI)
-		+ "";
+	p.innerHTML = custringify([
+		"Diameter", r * 2,
+		"Circumference", Math.PI * 2 * r,
+		"Semicircumference", Math.PI * r,
+		"Area", Math.PI * (r ** 2),
+		"Half-Area", Math.PI * (r ** 2) / 2,
+		"Third-Area", Math.PI * (r ** 2) / 3,
+		"Quarter-Area", Math.PI * (r ** 2) / 4,
+		"Fifth-Area", Math.PI * (r ** 2) / 5,
+		"Eighth-Area", Math.PI * (r ** 2) / 8
+	]);
+}
+function calcComplexCalc() {
+	var p = gid("ComplexCalcOutputs");
+	var a = eval(gid("ComplexCalcInputA").value),
+		b = eval(gid("ComplexCalcInputB").value);
+	p.innerHTML = custringify([
+		"Expression", a + comp(isPositive(b), "True", " + " + b, " - " + Math.abs(b)) + "i",
+		"Real Part", a,
+		"Imaginary Part", b,
+		"Purely Real", cond(b, 0),
+		"Purely Imaginary", cond(a, 0),
+		"Conjugate", a + comp(isPositive(-b), "True", " + " + (-b), " - " + Math.abs(-b)) + "i",
+		"Multiplied by the Conjugate", (a ** 2) + (b ** 2),
+		"Magnitude", Math.sqrt((a ** 2) + (b ** 2)),
+		"Angle", Math.atan(b / a) * 180 / Math.PI + "°"
+	]);
 }
 function calcLinearEqCalc() {
 	var p = gid("LinearEqCalcOutputs");
-	var a = eval(gid("LinearEqCalcInput").value);
-	var b = eval(gid("LinearEqCalcInput2").value);
-	p.innerHTML = "Product of A and B: " + (a * b)
-		+ "<br>Sum of A and B: " + (a + b)
-		+ "<br>Total Sum: " + (a + b + (-b / a))
-		+ "<br>X: " + (-b / a)
-		+ "";
+	var a = eval(gid("LinearEqCalcInputA").value),
+		b = eval(gid("LinearEqCalcInputB").value);
+	p.innerHTML = custringify([
+		"Equation", a + "x " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)) + " = 0",
+		"X", -b / a,
+
+		"<br><br>Graphable Equation", "y = " + a + "x " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)),
+		"Is Constant Function", cond(a, 0),
+		"Is Identity Function", comp(a, 1, cond(b, 0), "False"),
+		"Gradient", a,
+		"Y-Intercept", b,
+		"X-Intercept Position", "(" + (-b / a) + ", 0)",
+		"Y-Intercept Position", "(0, " + b + ")"
+	]);
 }
 function calcNumericCalc() {
 	var p = gid("NumericCalcOutputs");
 	var n = eval(gid("NumericCalcInput").value);
-	p.innerHTML = "Absolute Value: " + Math.abs(n)
-		+ "<br>Ceil: " + Math.ceil(n)
-		+ "<br>Floor: " + Math.floor(n)
-		+ "<br>Fround: " + Math.fround(n)
-		+ "<br>Leading Zeros (32-Bit Binary): " + Math.clz32(n)
-		+ "<br>Logarithm of Base 2: " + Math.log2(n)
-		+ "<br>Logarithm of Base 10: " + Math.log10(n)
-		+ "<br>Natural Logarithm: " + Math.log(n)
-		+ "<br>Negation: " + (-n)
-		+ "<br>Round: " + Math.round(n)
-		+ "<br>Sign: " + Math.sign(n)
-		+ "<br>Truncation: " + Math.trunc(n)
+	p.innerHTML = custringify([
+		"Round", Math.round(n),
+		"Rounded to Nearest Tenths", tround(n, 1),
+		"Rounded to Nearest Hundredths", tround(n, 2),
+		"Rounded to Nearest Thousandths", tround(n, 3),
+		"Ceil", Math.ceil(n),
+		"Floor", Math.floor(n),
+		"Fround", Math.fround(n),
+		"Truncation", Math.trunc(n),
+		"Fixed Notation", n.toFixed(),
+		"Exponential Notation", n.toExponential(),
 
-		+ "<br><br><br>Decrement: " + (n - 1)
-		+ "<br>Increment: " + (n + 1)
+		"<br><br>Binary", charCodeConvert(n, 2),
+		"Leading Zeros in 32-Bit Binary", Math.clz32(n),
+		"Ternary", charCodeConvert(n, 3),
+		"Quarternary", charCodeConvert(n, 4),
+		"Octal", charCodeConvert(n, 8),
+		"Duodecimal", charCodeConvert(n, 12),
+		"Hexadecimal", charCodeConvert(n, 16),
 
-		+ "<br><br><br>Double: " + (n * 2)
-		+ "<br>Triple: " + (n * 3)
-		+ "<br>Quadruple: " + (n * 4)
-		+ "<br>Quintuple: " + (n * 5)
-		+ "<br>By 10: " + (n * 10)
-		+ "<br>By 100: " + (n * 100)
-		+ "<br>By 1000: " + (n * 1000)
+		"<br><br>Sign", Math.sign(n),
+		"Sign Type", comp(isPositive(n), "True", comp(isNegative(n), "True", "Zero", "Positive"), "Negative"),
+		"Absolute Value", Math.abs(n),
+		"Negative Value", -Math.abs(n),
+		"Opposite Value", -n,
 
-		+ "<br><br><br>Half: " + (n / 2)
-		+ "<br>Third: " + (n / 3)
-		+ "<br>Quarter: " + (n / 4)
-		+ "<br>Fifth: " + (n / 5)
-		+ "<br>Sixth: " + (n / 6)
-		+ "<br>Seventh: " + (n / 7)
-		+ "<br>Eighth: " + (n / 8)
-		+ "<br>Tenth: " + (n / 10)
-		+ "<br>Sixteenth: " + (n / 16)
-		+ "<br>Hundredth: " + (n / 100)
-		+ "<br>Percentage: " + (n * 100) + "%"
-		+ "<br>Reciprocal: " + (1 / n)
+		"<br><br>Unit Increment", n + 1,
+		"Unit Decrement", n - 1,
+		"Tens Increment", n + 10,
+		"Tens Decrement", n - 10,
+		"Hundreds Increment", n + 100,
+		"Hundreds Decrement", n - 100,
 
-		+ "<br><br><br>Square: " + (n * n)
-		+ "<br>Cube: " + (n * n * n)
-		+ "<br>Nth Power: " + (n ** n)
-		+ "<br>2 to the Nth Power: " + (2 ** n)
-		+ "<br>10 to the Nth Power: " + (10 ** n)
-		+ "<br>E to the Nth Power: " + Math.exp(n)
-		+ "<br>Principal Square Root: " + Math.sqrt(n)
-		+ "<br>Both Square Roots: " + Math.sqrt(n) + ", " + (-Math.sqrt(n))
-		+ "<br>Cube Root: " + Math.cbrt(n)
-		+ "<br>Nth Root: " + (n ** (1 / n))
+		"<br><br>Double", n * 2,
+		"Triple", n * 3,
+		"Quadruple", n * 4,
+		"Quintuple", n * 5,
+		"Times 6", n * 6,
+		"Times 7", n * 7,
+		"Times 8", n * 8,
+		"Times 9", n * 9,
+		"Times 10", n * 10,
+		"Percent", (n * 100) + "%",
+		"Permille", (n * 1000) + "‰",
+		"Permyriad", (n * 10000) + "‱",
 
-		+ "<br><br><br>Cosine: " + Math.cos(n)
-		+ "<br>Sine: " + Math.sin(n)
-		+ "<br>Tangent: " + Math.tan(n)
+		"<br><br>Half", n / 2,
+		"Third", n / 3,
+		"Quarter", n / 4,
+		"Fifth", n / 5,
+		"Sixth", n / 6,
+		"Seventh", n / 7,
+		"Eighth", n / 8,
+		"Ninth", n / 9,
+		"Tenth", n / 10,
+		"Hundredth", n / 100,
+		"Reciprocal", 1 / n,
 
-		+ "<br><br><br>Acos: " + Math.acos(n)
-		+ "<br>Asin: " + Math.asin(n)
-		+ "<br>Atan: " + Math.atan(n)
-		+ "<br>Atan2: " + Math.atan2(n)
+		"<br><br>Squared", n ** 2,
+		"Cubed", n ** 3,
+		"To 4th Power", n ** 4,
+		"To 5th Power", n ** 5,
+		"To nth Power", n ** n,
+		"2 to nth Power", 2 ** n,
+		"10 to nth Power", 10 ** n,
+		"E to nth Power", Math.E ** n,
+		"Principal Square Root", Math.sqrt(n),
+		"Square Roots", Math.sqrt(n) + ", " + -Math.sqrt(n),
+		"Cube Root", Math.cbrt(n),
+		"Nth Root", n ** (1 / n),
+		"<br><br>Base-2 Logarithm", Math.log2(n),
+		"Base-10 Logarithm", Math.log10(n),
+		"Natural Logarithm", Math.log(n),
+		"Natural Logarithm of n + 1", Math.log1p(n),
 
-		+ "<br><br><br>Hyperbolic Cosine: " + Math.cosh(n)
-		+ "<br>Hyperbolic Sine: " + Math.sinh(n)
-		+ "<br>Hyperbolic Tangent: " + Math.tanh(n)
-		+ "<br>Hyperbolic Acos: " + Math.acosh(n)
-		+ "<br>Hyperbolic Asin: " + Math.asinh(n)
-		+ "<br>Hyperbolic Atan: " + Math.atanh(n)
+		"<br><br>Sine", Math.sin(n),
+		"Cosine", Math.cos(n),
+		"Tangent", Math.tan(n),
+		"Asin", Math.asin(n),
+		"Acos", Math.acos(n),
+		"Atan", Math.atan(n),
+		"Hyperbolic Sine", Math.sinh(n),
+		"Hyperbolic Cosine", Math.cosh(n),
+		"Hyperbolic Tangent", Math.tanh(n),
+		"Hyperbolic Asin", Math.asinh(n),
+		"Hyperbolic Acos", Math.acosh(n),
+		"Hyperbolic Atan", Math.atanh(n),
 
-		+ "<br><br><br>Is Binaric: " + conds(n, 0, 1)
-		+ "<br>Is Composite: " + bool(isComposite(n))
-		+ "<br>Is Decimal: " + ncond(n, Math.trunc(n))
-		+ "<br>Is Even: " + cond(n % 2, 0)
-		+ "<br>Is Even (Integered): " + cond(Math.round(n) % 2, 0)
-		+ "<br>Is Finite: " + nconds(n, Infinity, -Infinity)
-		+ "<br>Is Infinite: " + conds(n, Infinity, -Infinity)
-		+ "<br>Is Integer: " + cond(n, Math.trunc(n))
-		+ "<br>Is Negative: " + cond(Math.sign(n), -1)
-		+ "<br>Is Nonzero: " + ncond(n, 0)
-		+ "<br>Is Odd: " + cond(n % 2, 1)
-		+ "<br>Is Odd (Integered): " + cond(Math.round(n) % 2, 1)
-		+ "<br>Is Positive: " + cond(Math.sign(n), 1)
-		+ "<br>Is Prime: " + bool(isPrime(n))
-		+ "<br>Is Zero: " + cond(n, 0)
-		+ "";
+		"<br><br>Sine as Degrees", Math.sin(n * Math.PI / 180),
+		"Cosine as Degrees", Math.cos(n * Math.PI / 180),
+		"Tangent as Degrees", Math.tan(n * Math.PI / 180),
+		"Asin as Degrees", Math.asin(n * Math.PI / 180),
+		"Acos as Degrees", Math.acos(n * Math.PI / 180),
+		"Atan as Degrees", Math.atan(n * Math.PI / 180),
+		"Hyperbolic Sine as Degrees", Math.sinh(n * Math.PI / 180),
+		"Hyperbolic Cosine as Degrees", Math.cosh(n * Math.PI / 180),
+		"Hyperbolic Tangent as Degrees", Math.tanh(n * Math.PI / 180),
+		"Hyperbolic Asin as Degrees", Math.asinh(n * Math.PI / 180),
+		"Hyperbolic Acos as Degrees", Math.acosh(n * Math.PI / 180),
+		"Hyperbolic Atan as Degrees", Math.atanh(n * Math.PI / 180),
+
+		"<br><br>Sine as Gradians", Math.sin(n * Math.PI / 200),
+		"Cosine as Gradians", Math.cos(n * Math.PI / 200),
+		"Tangent as Gradians", Math.tan(n * Math.PI / 200),
+		"Asin as Gradians", Math.asin(n * Math.PI / 200),
+		"Acos as Gradians", Math.acos(n * Math.PI / 200),
+		"Atan as Gradians", Math.atan(n * Math.PI / 200),
+		"Hyperbolic Sine as Gradians", Math.sinh(n * Math.PI / 200),
+		"Hyperbolic Cosine as Gradians", Math.cosh(n * Math.PI / 200),
+		"Hyperbolic Tangent as Gradians", Math.tanh(n * Math.PI / 200),
+		"Hyperbolic Asin as Gradians", Math.asinh(n * Math.PI / 200),
+		"Hyperbolic Acos as Gradians", Math.acosh(n * Math.PI / 200),
+		"Hyperbolic Atan as Gradians", Math.atanh(n * Math.PI / 200),
+
+		"<br><br>Is Integer", cond(Number.isInteger(n), true),
+		"Is Not Integer", cond(Number.isInteger(n), false),
+		"Is Even", cond(n % 2, 0),
+		"Is Odd", cond(n % 2, 1),
+		"Is Prime", isPrime(n),
+		"Is Composite", isComposite(n),
+		"Is Positive", isPositive(n),
+		"Is Negative", isNegative(n),
+		"Is Zero", cond(n, 0),
+		"Is Nonzero", ncond(n, 0)
+	]);
 }
 function calcQuadraticEqCalc() {
 	var p = gid("QuadraticEqCalcOutputs");
-	var a = eval(gid("QuadraticEqCalcInput").value);
-	var b = eval(gid("QuadraticEqCalcInput2").value);
-	var c = eval(gid("QuadraticEqCalcInput3").value);
-	var discriminant = (b ** 2) - (4 * a * c);
-	var x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-	var x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-	p.innerHTML = "Discriminant: " + (discriminant)
-		+ "<br>Discriminant Square Root: " + Math.sqrt(discriminant)
-		+ "<br>Product of Roots: " + (x1 * x2)
-		+ "<br>Sum of Roots: " + (x1 + x2)
-		+ "<br>X: {" + x1 + ", " + x2 + "}"
-		+ "<br>X1: " + x1
-		+ "<br>X2: " + x2
-		+ "<br>X Has One Solution: " + cond(x1, x2)
-		+ "";
-}
-function calcQuadraticFuncCalc() {
-	var p = gid("QuadraticFuncCalcOutputs");
-	var a = eval(gid("QuadraticFuncCalcInput").value);
-	var b = eval(gid("QuadraticFuncCalcInput2").value);
-	var c = eval(gid("QuadraticFuncCalcInput3").value);
-	var h = (-b / (2 * a));
-	var k = c - ((b ** 2) / (4 * a));
-	var discriminant = (b ** 2) - (4 * a * c);
-	var x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-	var x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-	var xinc = x1 === x2 ? x1 : "{" + x1 + ", " + x2 + "}";
-	var parabola = a === 0 ? "Undefined" : a > 0 ? "Upwards" : "Downwards";
-	p.innerHTML = "Discriminant: " + (discriminant)
-		+ "<br>Discriminant Square Root: " + Math.sqrt(discriminant)
-		+ "<br>Product of Zeroes: " + (x1 * x2)
-		+ "<br>Sum of Zeroes: " + (x1 + x2)
-		+ "<br>Zeroes: {" + x1 + ", " + x2 + "}"
-		+ "<br>First Zero: " + x1
-		+ "<br>Second Zero: " + x2
+	var a = eval(gid("QuadraticEqCalcInputA").value),
+		b = eval(gid("QuadraticEqCalcInputB").value),
+		c = eval(gid("QuadraticEqCalcInputC").value);
+	var d = (b ** 2) - (4 * a * c),
+		x1 = (-b + Math.sqrt(d)) / (2 * a),
+		x2 = (-b - Math.sqrt(d)) / (2 * a),
+		h = b / (2 * a),
+		k = c - ((b ** 2) / (4 * a * a));
+	p.innerHTML = custringify([
+		"Equation", a + "x<sup>2</sup> " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)) + "x " + comp(isPositive(c), "True", "+ " + c, "- " + Math.abs(c)) + " = 0",
+		"Discriminant", d,
+		"X", "{ " + x1 + ", " + x2 + "}",
+		"X1", x1,
+		"X2", x2,
+		"Sum of Roots", x1 + x2,
+		"Product of Roots", x1 * x2,
 
-		+ "<br><br><br>H: " + h
-		+ "<br>K: " + k
-		+ "<br>Parabola Direction: " + parabola
-		+ "<br>Vertex: (" + h + ", " + k + ")"
-		+ "<br>X-Intercept: " + xinc
-		+ "<br>Y-Intercept: " + c
-		+ "";
+		"<br><br>Graphable Equation", "y = " + a + "x<sup>2</sup> " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)) + "x " + comp(isPositive(c), "True", "+ " + c, "- " + Math.abs(c)),
+		"Vertex Form", "y = " + a + "(x " + comp(isPositive(h), "True", "+ " + h, "- " + Math.abs(h)) + ")<sup>2</sup> " + comp(isPositive(k), "True", "+ " + k, "- " + Math.abs(k)),
+		"H", h,
+		"K", k,
+		"Vertex", "(" + h + ", " + k + ")",
+		"Direction of Parabola", comp(isPositive(a), "True", "Upwards", "Downwards")
+	]);
+}
+function calcRectangleCalc() {
+	var p = gid("RectangleCalcOutputs");
+	var l = eval(gid("RectangleCalcInputA").value),
+		w = eval(gid("RectangleCalcInputB").value);
+	p.innerHTML = custringify([
+		"Perimeter", 2 * (l + w),
+		"Semiperimeter", l + w,
+		"Area", l * w,
+		"Diagonal", Math.sqrt((l ** 2) + (w ** 2)),
+		"Half-Diagonal", Math.sqrt((l ** 2) + (w ** 2)) / 2,
+
+		"<br><br>Radius of Incircle", Math.min(l, w) / 2,
+		"Radius of Circumcircle", Math.sqrt((l ** 2) + (w ** 2)) / 2,
+		"Smaller Square Area", Math.min(l, w) ** 2,
+		"Larger Square Area", Math.max(l, w) ** 2,
+		"Same-Perimeter Square Equivalent Side", (l + w) / 2
+	]);
+}
+function calcRegPolCalc() {
+	var p = gid("RegPolCalcOutputs");
+	var s = eval(gid("RegPolCalcInputA").value),
+		n = eval(gid("RegPolCalcInputB").value);
+	var cr = (s / 2) * (1 / Math.sin(Math.PI / n)),
+		a = tround(Math.sqrt((cr ** 2) - (s * s / 4)), 12);
+	p.innerHTML = custringify([
+		"Perimeter", s * n,
+		"Semiperimeter", s * n / 2,
+		"Central Angle", 360 / n,
+		"Interior Angle", 180 * (n - 2) / n,
+		"Apothem", a,
+		"Area", a * s * n / 2,
+		"Sector Area", a * s / 2,
+
+		"<br><br>Radius of Incircle", tround(s / (2 * Math.tan(180 / n * Math.PI / 180)), 12),
+		"Radius of Circumcircle", cr
+	]);
 }
 function calcSquareCalc() {
 	var p = gid("SquareCalcOutputs");
 	var s = eval(gid("SquareCalcInput").value);
-	p.innerHTML = "Area: " + (s ** 2)
-		+ "<br>Diagonal: " + hypot(s, s)
-		+ "<br>Half Area: " + ((s ** 2) / 2)
-		+ "<br>Perimeter: " + (4 * s)
-		+ "<br>Semiperimeter: " + (2 * s)
+	p.innerHTML = custringify([
+		"Perimeter", s * 4,
+		"Semiperimeter", s * 2,
+		"Area", s ** 2,
+		"Diagonal", s * Math.SQRT2,
+		"Half-Diagonal", s / Math.SQRT2,
 
-		+ "<br><br><br>Area of Circumscribed Circle: " + (Math.PI * ((hypot(s, s) / 2) ** 2))
-		+ "<br>Circumference of Circumscribed Circle: " + (Math.PI * hypot(s, s))
-		+ "<br>Half Area of Circumscribed Circle: " + (Math.PI * ((hypot(s, s) / 2) ** 2) * 0.5)
-		+ "<br>Radius of Circumscribed Circle: " + (hypot(s, s) / 2)
-		+ "<br>Semicircumference of Circumscribed Circle: " + (Math.PI * hypot(s, s) * 0.5)
-
-		+ "<br><br><br>Area of Inscribed Circle: " + (Math.PI * ((s / 2) ** 2))
-		+ "<br>Circumference of Inscribed Circle: " + (Math.PI * s)
-		+ "<br>Half Area of Inscribed Circle: " + (Math.PI * ((s / 2) ** 2) * 0.5)
-		+ "<br>Radius of Inscribed Circle: " + (s / 2)
-		+ "<br>Semicircumference of Inscribed Circle: " + (Math.PI * s * 0.5)
-		+ "";
+		"<br><br>Radius of Incircle", s / 2,
+		"Radius of Circumcircle", s / Math.SQRT2
+	]);
 }
+function calcTriangleCalc() {
+	var p = gid("TriangleCalcOutputs");
+	var a = eval(gid("TriangleCalcInputA").value),
+		b = eval(gid("TriangleCalcInputB").value),
+		c = eval(gid("TriangleCalcInputC").value);
+	var s = (a + b + c) / 2,
+		A = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+	p.innerHTML = custringify([
+		"Perimeter", s * 2,
+		"Semiperimeter", s,
+		"Area", A,
+		"Height Perpendicular to Side A", 2 * A / a,
+		"Height Perpendicular to Side B", 2 * A / b,
+		"Height Perpendicular to Side C", 2 * A / c,
 
-(function(){
-	var p = gid("numberListOutputs");
-	p.innerHTML = "Eyelash Mite-Speck: 0.000002<br>Percent: 0.01"
-		+ "<br>" + "Tenth: 0.1"
-		+ "<br>" + "Champernowne\'s Constant: 0.12345678910111213141516"
-		+ "<br>" + "Fifth: 0.2"
-		+ "<br>" + "Quarter: 0.25"
-		+ "<br>" + "Aarex\'s Funny Number: 0.42513153135"
-		+ "<br>" + "Half: 0.5"
-		+ "<br>" + "Apéry\'s Constant: 1.20205"
-		+ "<br>" + "Phi / Golden Ratio: " + ((1 + Math.sqrt(5))/2)
-		+ "<br>" + "Euler's Number: " + Math.E
-		+ "<br>" + "Pi: " + Math.PI
-		+ "<br>" + "Tau: " + (Math.PI * 2)
-		+ "<br>" + "Dozen: 12"
-		+ "<br>" + "Baker\'s Dozen: 13"
-		+ "<br>" + "Poulter\'s Dozen: 14"
-		+ "<br>" + "Dumevalka: 22"
-		+ "<br>" + "Gaz: " + (23 + (2/3))
-		+ "<br>" + "Fzthree: 27"
-		+ "<br>" + "Binary Eyelash-Mite: 32"
-		+ "<br>" + "Phiplex: " + (10 ** ((1 + Math.sqrt(5))/2))
-		+ "<br>" + "Gagthree: 61"
-		+ "<br>" + "Hundred: 100"
-		+ "<br>" + "Eleventy: 110"
-		+ "<br>" + "Twelfty / Long Hundred: 120"
-		+ "<br>" + "Gross: 144<br>Baker\'s Gross: 169<br>Poulter\'s Gross: 196"
-		+ "<br>" + "Fzfour: 256<br>Short Ream: 480<br>Ream: 500"
-		+ "<br>" + "Eulerplex: " + (10 ** Math.E)
-		+ "<br>" + "Piplex: " + (10 ** Math.PI)
-		+ "<br>" + "Great Gross: 1728<br>Hardy-Ramanujan Number: 1729<br>Fzfive: 3125"
-		+ "<br>" + "Kaprekar\'s Constant: 6174<br>Myriad: 10000"
-		+ "<br>" + "Fuga-three: 19683<br>Eyelash Mite: 20000"
-		+ "<br>" + "Great Great Gross / Gargantuan Gross: 20736<br>Binary Small-fry: 32768<br>Fzsix: 46656"
-		+ "<br>" + "Dust Mite: 50000<br>Cheese Mite: 80000<br>Lakh: 100000<br>Integral-megaseptile: 142857"
-		+ "<br>" + "Clover Mite: 200000<br>Fzseven: 823543<br>Million: 1000000"
-		+ "";
-})();
+		"<br><br>Rectangle Area", A * 2,
+		"Radius of Incircle", A / s,
+		"Radius of Circumcircle", a * b * c / (4 * A)
+	]);
+}
 </script>
 </body>
 </html>
