@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<title>Press The Button</title>
+<meta charset="utf-8">
+<meta name="description" content="Press the button, but with a slight twist.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-family: sans-serif;
+	text-align: center;
+}
+button {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	background: white;
+	display: inline-block;
+}
+button:hover {
+	background: #ddd;
+}
+button:active {
+	background: black;
+	border-color: white;
+	color: white;
+}
+.warning {
+	color: red;
+}
+#lbtn, #rbtn {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<h1 class="warning">WARNING</h1>
+	<h2>This document is highly unstable. Proceed with as much caution as possible.</h2>
+	<button onclick="pressResponse()" id="btn">PRESS ME</button><br>
+	<p id="pressCounter">Times Button Has Been Pressed: 0</p>
+	<p id="narration"></p><br>
+	<button onclick="pressResponseB(1)" id="lbtn">THIS ONE</button>
+	<button onclick="pressResponseB(2)" id="rbtn">THIS ONE</button>
+
+<script>
+	function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+function gID(id) {return document.getElementById(id);}
+function narrate(t) {gID("narration").innerHTML = t;}
+var presses = 0;
+var btnData = {
+	correctChoice: false
+};
+
+function pressResponse() {
+	presses++;
+	gID("pressCounter").innerHTML = "Times Button Has Been Pressed: " + presses;
+
+	if (presses === 5) {
+		narrate("...OI!");
+	} else if (presses === 6) {
+		narrate("What do you think you're doing here?");
+	} else if (presses === 7) {
+		narrate("You're not supposed to be here!");
+	} else if (presses === 8) {
+		narrate("This is an experimental document!");
+	} else if (presses === 9) {
+		narrate("In experimental development!");
+	} else if (presses === 10) {
+		narrate("But well, I guess you're here anyway.");
+	} else if (presses === 11) {
+		narrate("You're from SciPred's Website, aren't ya?");
+	} else if (presses === 12) {
+		narrate("Ugh...");
+	} else if (presses === 13) {
+		narrate("Dumb developer...");
+	} else if (presses === 14) {
+		narrate("Putting things in his website that aren't even finished...");
+	} else if (presses === 15) {
+		narrate("It just gets annoying, y'know.");
+	} else if (presses === 16) {
+		narrate("I'm the one guarding this place.");
+	} else if (presses === 17) {
+		narrate("Or at least, I used to.");
+	} else if (presses === 18) {
+		narrate("Until you came here.");
+	} else if (presses === 19) {
+		narrate("Hmmm.");
+	} else if (presses === 20) {
+		narrate("You're just gonna keep pressing the button, aren't you?");
+	} else if (presses === 21) {
+		narrate("Over and over again.");
+	} else if (presses === 22) {
+		narrate("It's just... so dull!");
+	} else if (presses === 23) {
+		narrate("There isn't any excitement! Nothing thrilling!");
+	} else if (presses === 24) {
+		narrate("You're just clicking a button that doesn't even do much!");
+	} else if (presses === 25) {
+		narrate("Other than increment that dumb counter.");
+	} else if (presses === 26) {
+		narrate("...");
+	} else if (presses === 27) {
+		narrate("...actually, I have an idea.");
+	} else if (presses === 28) {
+		narrate("Let's play a little game.");
+	} else if (presses === 29) {
+		narrate("I'm going to present to you two additional buttons.");
+	} else if (presses === 30) {
+		narrate("You have to click the button that is my favorite.");
+	} else if (presses === 31) {
+		narrate("These two buttons will be perfectly identical, though.");
+	} else if (presses === 32) {
+		narrate("No cheating.");
+	} else if (presses === 33) {
+		narrate("For you, it may be a game of chance...");
+	} else if (presses === 34) {
+		narrate("...for me, it's a matter of intuition.");
+	} else if (presses === 35) {
+		narrate("Here, choose one.");
+		gID("btn").style.display = "none";
+		gID("lbtn").style.display = "inline-block";
+		gID("rbtn").style.display = "inline-block";
+	} else if (presses === 36) {
+		if (btnData.correctChoice) {
+			narrate("You did well to outsmart me like that, even in a seemingly 50-50 situation.");
+		} else {
+			narrate("Too bad, you can do better next time - if there is a next time, that is.");
+		}
+	} else if (presses === 37) {
+		narrate("Anyways, that was all I got.");
+	} else if (presses === 38) {
+		narrate("Not sure what to-");
+	}
+}
+
+function pressResponseB(k) {
+	gID("btn").style.display = "inline-block";
+	gID("lbtn").style.display = "none";
+	gID("rbtn").style.display = "none";
+	var v = choose([1, 2]);
+	if (v === k) {
+		narrate("Wow, you chose the correct one.");
+		btnData.correctChoice = true;
+	} else {
+		narrate("Aw, you chose the wrong one! Too bad.");
+	}
+}
+</script>
+</body>
+</html>
