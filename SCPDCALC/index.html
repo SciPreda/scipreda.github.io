@@ -159,7 +159,9 @@ function custringify(a) {
 		<h2>CIRCLE CALCULATOR</h2>
 		<hr>
 		<h3>INPUTS</h3>
-		<input type="text" placeholder="Radius" id="CircleCalcInput"></input>
+		<input type="text" placeholder="Radius" id="CircleCalcInputA"></input>
+		<input type="text" placeholder="Center X" id="CircleCalcInputB"></input>
+		<input type="text" placeholder="Center Y" id="CircleCalcInputC"></input>
 		<button onclick="calcCircleCalc()">CALCULATE</button>
 		<hr>
 		<h3>OUTPUTS</h3>
@@ -279,6 +281,14 @@ function isPrime(num) {
 }
 function isComposite(num) {return isPrime(num) === false ? "True" : "False";}
 function comp(a, b, c, d) {return a === b ? c : d;}
+function compZero(a, b, c, d) {
+	if (c.constructor === String && d.constructor === String) {
+		if (c.startsWith(" + 0") && d.startsWith(" - 0")) {
+			return "";
+		}
+	}
+	return a === b ? c : d;
+}
 function cond(a, b) {return comp(a, b, "True", "False");}
 function ncond(a, b) {return comp(a, b, "False", "True");}
 function isPositive(n) {return n > -1 ? "True" : "False";}
@@ -290,6 +300,8 @@ function tround(n, d) {
 
 //Input Enter key responses
 iel(gid("CircleCalc").getElementsByTagName('input')[0], calcCircleCalc);
+iel(gid("CircleCalc").getElementsByTagName('input')[1], calcCircleCalc);
+iel(gid("CircleCalc").getElementsByTagName('input')[2], calcCircleCalc);
 iel(gid("ComplexCalc").getElementsByTagName('input')[0], calcComplexCalc);
 iel(gid("ComplexCalc").getElementsByTagName('input')[1], calcComplexCalc);
 iel(gid("LinearEqCalc").getElementsByTagName('input')[0], calcLinearEqCalc);
@@ -309,7 +321,9 @@ iel(gid("TriangleCalc").getElementsByTagName('input')[2], calcTriangleCalc);
 
 function calcCircleCalc() {
 	var p = gid("CircleCalcOutputs");
-	var r = eval(gid("CircleCalcInput").value);
+	var r = Math.abs(eval(gid("CircleCalcInputA").value)) || 1,
+		x = eval(gid("CircleCalcInputB").value) || 0,
+		y = eval(gid("CircleCalcInputC").value) || 0;
 	p.innerHTML = custringify([
 		"Diameter", r * 2,
 		"Circumference", Math.PI * 2 * r,
@@ -319,15 +333,17 @@ function calcCircleCalc() {
 		"Third-Area", Math.PI * (r ** 2) / 3,
 		"Quarter-Area", Math.PI * (r ** 2) / 4,
 		"Fifth-Area", Math.PI * (r ** 2) / 5,
-		"Eighth-Area", Math.PI * (r ** 2) / 8
+		"Eighth-Area", Math.PI * (r ** 2) / 8,
+
+		"<br><br>Equation in Standard Form", "(x" + compZero(isPositive(-x), "True", " + " + (-x), " - " + Math.abs(-x)) + ")<sup>2</sup> + (y" + compZero(isPositive(-y), "True", " + " + (-y), " - " + Math.abs(-y)) + ")<sup>2</sup> = " + r + "<sup>2</sup>"
 	]);
 }
 function calcComplexCalc() {
 	var p = gid("ComplexCalcOutputs");
-	var a = eval(gid("ComplexCalcInputA").value),
-		b = eval(gid("ComplexCalcInputB").value);
+	var a = eval(gid("ComplexCalcInputA").value) || 0,
+		b = eval(gid("ComplexCalcInputB").value) || 0;
 	p.innerHTML = custringify([
-		"Expression", a + comp(isPositive(b), "True", " + " + b, " - " + Math.abs(b)) + "i",
+		"Expression", a + compZero(isPositive(b), "True", " + " + b + "i", " - " + Math.abs(b) + "i"),
 		"Real Part", a,
 		"Imaginary Part", b,
 		"Purely Real", cond(b, 0),
@@ -341,12 +357,12 @@ function calcComplexCalc() {
 function calcLinearEqCalc() {
 	var p = gid("LinearEqCalcOutputs");
 	var a = eval(gid("LinearEqCalcInputA").value),
-		b = eval(gid("LinearEqCalcInputB").value);
+		b = eval(gid("LinearEqCalcInputB").value) || 0;
 	p.innerHTML = custringify([
-		"Equation", a + "x " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)) + " = 0",
+		"Equation", a + "x" + compZero(isPositive(b), "True", " + " + b, " - " + Math.abs(b)) + " = 0",
 		"X", -b / a,
 
-		"<br><br>Graphable Equation", "y = " + a + "x " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)),
+		"<br><br>Graphable Equation", "y = " + a + "x" + compZero(isPositive(b), "True", " + " + b, " - " + Math.abs(b)),
 		"Is Constant Function", cond(a, 0),
 		"Is Identity Function", comp(a, 1, cond(b, 0), "False"),
 		"Gradient", a,
@@ -357,7 +373,7 @@ function calcLinearEqCalc() {
 }
 function calcNumericCalc() {
 	var p = gid("NumericCalcOutputs");
-	var n = eval(gid("NumericCalcInput").value);
+	var n = eval(gid("NumericCalcInput").value) || 1;
 	p.innerHTML = custringify([
 		"Round", Math.round(n),
 		"Rounded to Nearest Tenths", tround(n, 1),
@@ -487,15 +503,15 @@ function calcNumericCalc() {
 function calcQuadraticEqCalc() {
 	var p = gid("QuadraticEqCalcOutputs");
 	var a = eval(gid("QuadraticEqCalcInputA").value),
-		b = eval(gid("QuadraticEqCalcInputB").value),
-		c = eval(gid("QuadraticEqCalcInputC").value);
+		b = eval(gid("QuadraticEqCalcInputB").value) || 0,
+		c = eval(gid("QuadraticEqCalcInputC").value) || 0;
 	var d = (b ** 2) - (4 * a * c),
 		x1 = (-b + Math.sqrt(d)) / (2 * a),
 		x2 = (-b - Math.sqrt(d)) / (2 * a),
 		h = b / (2 * a),
 		k = c - ((b ** 2) / (4 * a * a));
 	p.innerHTML = custringify([
-		"Equation", a + "x<sup>2</sup> " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)) + "x " + comp(isPositive(c), "True", "+ " + c, "- " + Math.abs(c)) + " = 0",
+		"Equation", a + "x<sup>2</sup>" + compZero(isPositive(b), "True", " + " + b + "x", " - " + Math.abs(b) + "x") + compZero(isPositive(c), "True", " + " + c, " - " + Math.abs(c)) + " = 0",
 		"Discriminant", d,
 		"X", "{ " + x1 + ", " + x2 + "}",
 		"X1", x1,
@@ -503,8 +519,8 @@ function calcQuadraticEqCalc() {
 		"Sum of Roots", x1 + x2,
 		"Product of Roots", x1 * x2,
 
-		"<br><br>Graphable Equation", "y = " + a + "x<sup>2</sup> " + comp(isPositive(b), "True", "+ " + b, "- " + Math.abs(b)) + "x " + comp(isPositive(c), "True", "+ " + c, "- " + Math.abs(c)),
-		"Vertex Form", "y = " + a + "(x " + comp(isPositive(h), "True", "+ " + h, "- " + Math.abs(h)) + ")<sup>2</sup> " + comp(isPositive(k), "True", "+ " + k, "- " + Math.abs(k)),
+		"<br><br>Graphable Equation", "y = " + a + "x<sup>2</sup>" + compZero(isPositive(b), "True", " + " + b + "x", " - " + Math.abs(b) + "x") + compZero(isPositive(c), "True", " + " + c, " - " + Math.abs(c)),
+		"Vertex Form", "y = " + a + "(x" + compZero(isPositive(h), "True", " + " + h, " - " + Math.abs(h)) + ")<sup>2</sup>" + compZero(isPositive(k), "True", " + " + k, " - " + Math.abs(k)),
 		"H", h,
 		"K", k,
 		"Vertex", "(" + h + ", " + k + ")",
@@ -513,8 +529,8 @@ function calcQuadraticEqCalc() {
 }
 function calcRectangleCalc() {
 	var p = gid("RectangleCalcOutputs");
-	var l = eval(gid("RectangleCalcInputA").value),
-		w = eval(gid("RectangleCalcInputB").value);
+	var l = Math.abs(eval(gid("RectangleCalcInputA").value)) || 1,
+		w = Math.abs(eval(gid("RectangleCalcInputB").value)) || 2;
 	p.innerHTML = custringify([
 		"Perimeter", 2 * (l + w),
 		"Semiperimeter", l + w,
@@ -531,8 +547,8 @@ function calcRectangleCalc() {
 }
 function calcRegPolCalc() {
 	var p = gid("RegPolCalcOutputs");
-	var s = eval(gid("RegPolCalcInputA").value),
-		n = eval(gid("RegPolCalcInputB").value);
+	var s = Math.abs(eval(gid("RegPolCalcInputA").value)) || 3,
+		n = Math.abs(eval(gid("RegPolCalcInputB").value)) || 1;
 	var cr = (s / 2) * (1 / Math.sin(Math.PI / n)),
 		a = tround(Math.sqrt((cr ** 2) - (s * s / 4)), 12);
 	p.innerHTML = custringify([
@@ -550,7 +566,7 @@ function calcRegPolCalc() {
 }
 function calcSquareCalc() {
 	var p = gid("SquareCalcOutputs");
-	var s = eval(gid("SquareCalcInput").value);
+	var s = Math.abs(eval(gid("SquareCalcInput").value)) || 1;
 	p.innerHTML = custringify([
 		"Perimeter", s * 4,
 		"Semiperimeter", s * 2,
@@ -564,9 +580,9 @@ function calcSquareCalc() {
 }
 function calcTriangleCalc() {
 	var p = gid("TriangleCalcOutputs");
-	var a = eval(gid("TriangleCalcInputA").value),
-		b = eval(gid("TriangleCalcInputB").value),
-		c = eval(gid("TriangleCalcInputC").value);
+	var a = Math.abs(eval(gid("TriangleCalcInputA").value)) || 1,
+		b = Math.abs(eval(gid("TriangleCalcInputB").value)) || 1,
+		c = Math.abs(eval(gid("TriangleCalcInputC").value)) || 1;
 	var s = (a + b + c) / 2,
 		A = Math.sqrt(s * (s - a) * (s - b) * (s - c));
 	p.innerHTML = custringify([

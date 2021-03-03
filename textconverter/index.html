@@ -1,0 +1,308 @@
+<!doctype html>
+<html>
+<head>
+<title>Text Converter</title>
+<meta charset="utf-8">
+<meta name="description" content="You input text and the document converts it into the output of your choice.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+	font-family: sans-serif;
+    font-family: "Courier", Courier New, monospace;
+    background: #888;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+button {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	background: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover {
+	background: #ddd;
+}
+button:active {
+	background: black;
+	border-color: white;
+	color: white;
+}
+aside {
+    left: 0;
+    top: 0;
+    position: fixed;
+    background: #333;
+    width: 0;
+    height: 100%;
+    transition: 0.6s;
+    overflow-x: hidden;
+    padding-left: 0;
+    padding-right: 0;
+}
+aside button {
+    border-left: none;
+    border-right: none;
+    border-top: 3px solid gray;
+    border-bottom: 3px solid gray;
+    border-radius: none;
+    padding: 7px;
+    background: inherit;
+    color: white;
+    width: 100%;
+    transition: 0.4s;
+}
+aside button:hover {
+    background: #ccc;
+    color: black;
+    border-color: #ccc;
+}
+aside h2 {
+    text-align: center;
+}
+select {
+    display: none;
+}
+#converted {
+    font-weight: bold;
+    color: black;
+}
+#convertible {
+    width: 40%;
+}
+#mainContent {
+    transition: 0.6s;
+}
+#menubutton {
+    right: 0;
+    top: 0;
+    position: fixed;
+    background: gray;
+    cursor: pointer;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 20px;
+}
+#menubutton:hover {
+    color: #aaa;
+}
+#selType {
+    text-decoration: underline;
+}
+</style>
+<script>
+var STANDARD_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+function charRotCipher(str, chars) {
+    var s = "";
+    for (var i = 0; i < str.length; i++) {
+        if (STANDARD_STRING.indexOf(str[i]) !== -1) {
+            s += chars[STANDARD_STRING.indexOf(str[i])];
+        } else {
+            s += str[i];
+        }
+    }
+    return s;
+}
+function charCode(str, n) {
+    var s = "";
+    for (var i = 0; i < str.length; i++) {
+        s += str[i].charCodeAt(0).toString(n) + " ";
+    }
+    return s;
+}
+function a1z26(str) {
+    var s = charRotCipher(str, ["1-", "2-", "3-", "4-", "5-", "6-", "7-", "8-", "9-", "10-", "11-", "12-", "13-", "14-", "15-", "16-", "17-", "18-", "19-", "20-", "21-", "22-", "23-", "24-", "25-", "26-", "1-", "2-", "3-", "4-", "5-", "6-", "7-", "8-", "9-", "10-", "11-", "12-", "13-", "14-", "15-", "16-", "17-", "18-", "19-", "20-", "21-", "22-", "23-", "24-", "25-", "26-"]);
+    for (var i = 0; i < s.length; i++) {
+        while (s.indexOf("- ") !== -1) {
+            s = s.replace("- ", " ");
+        }
+    }
+    if (s[s.length - 1] === "-") {
+        s = s.slice(0, s.length - 1);
+    }
+    return s;
+}
+function morse(s) {
+    var tocipher = String(s), str = "";
+    var slct = gID("MorseSelection");
+    var t = String(slct.options[slct.selectedIndex].text);
+    for (var i = 0; i < tocipher.length; i++) {
+        var c = tocipher[i].toLowerCase();
+        if (t === "International") {
+            var m = c === "a" ? ".-" : c === "b" ? "-..." : c === "c" ? "-.-." : c === "d" ? "-.." : c === "e" ? "." : c === "f" ? "..-." : c === "g" ? "--." : c === "h" ? "...." : c === "i" ? ".." : c === "j" ? ".---" : c === "k" ? "-.-" : c === "l" ? ".-.." : c === "m" ? "--" : c === "n" ? "-." : c === "o" ? "---" : c === "p" ? ".--." : c === "q" ? "--.-" : c === "r" ? ".-." : c === "s" ? "..." : c === "t" ? "-" : c === "u" ? "..-" : c === "v" ? "...-" : c === "w" ? ".--" : c === "x" ? "-..-" : c === "y" ? "-.--" : c === "z" ? "--.." : c === "0" ? "-----" : c === "1" ? ".----" : c === "2" ? "..---" : c === "3" ? "...--" : c === "4" ? "....-" : c === "5" ? "....." : c === "6" ? "-...." : c === "7" ? "--..." : c === "8" ? "---.." : c === "9" ? "----." : c === "." ? ".-.-.-" : c === "," ? "--..--" : c === "?" ? "..--.." : c === "!" ? "-.-.--" : c === "&" ? ".-..." : c === "/" ? "-..-." : c === "'" ? ".----." : c === "\"" ? ".-..-." : c === ":" ? "---..." : c === "@" ? ".--.-." : c === "(" ? "-.--." : c === ")" ? "-.--.-" : c === "=" ? "-...-" : c === "-" ? "-....-" : c === "+" ? ".-.-." : c === " " ? "/" : c;
+        } else if (t === "Continental") {
+            var m = c === "a" ? ".-" : c === "b" ? "-..." : c === "c" ? "-.-." : c === "d" ? "-.." : c === "e" ? "." : c === "f" ? "..-." : c === "g" ? "--." : c === "h" ? "...." : c === "i" ? ".." : c === "j" ? ".." : c === "k" ? "-.-" : c === "l" ? ".-.." : c === "m" ? "--" : c === "n" ? "-." : c === "o" ? ".-..." : c === "p" ? "....." : c === "q" ? "--.-" : c === "r" ? ".-." : c === "s" ? "..." : c === "t" ? "-" : c === "u" ? "..-" : c === "v" ? "...-" : c === "w" ? ".--" : c === "x" ? "..-..." : c === "y" ? "--..." : c === "z" ? ".--.." : c === "0" ? "——" : c === "1" ? ".--." : c === "2" ? "..-.." : c === "3" ? "...-." : c === "4" ? "....-" : c === "5" ? "---" : c === "6" ? "......" : c === "7" ? "--.." : c === "8" ? "-...." : c === "9" ? "-..-" : c === "." ? ".-.-.-" : c === "," ? "--..--" : c === "?" ? "..--.." : c === "!" ? "-.-.--" : c === "&" ? ".-..." : c === "/" ? "-..-." : c === "'" ? ".----." : c === "\"" ? ".-..-." : c === ":" ? "---..." : c === "@" ? ".--.-." : c === "(" ? "-.--." : c === ")" ? "-.--.-" : c === "=" ? "-...-" : c === "-" ? "-....-" : c === "+" ? ".-.-." : c === " " ? "/" : c;
+        } else if (t === "Railroad") {
+            var m = c === "a" ? ".-" : c === "b" ? "-..." : c === "c" ? ".. ." : c === "d" ? "-.." : c === "e" ? "." : c === "f" ? ".-." : c === "g" ? "--." : c === "h" ? "...." : c === "i" ? ".." : c === "j" ? "-.-." : c === "k" ? "-.-" : c === "l" ? "—" : c === "m" ? "--" : c === "n" ? "-." : c === "o" ? ". ." : c === "p" ? "....." : c === "q" ? "..-." : c === "r" ? ". .." : c === "s" ? "..." : c === "t" ? "-" : c === "u" ? "..-" : c === "v" ? "...-" : c === "w" ? ".--" : c === "x" ? ".-.." : c === "y" ? ".. .." : c === "z" ? "... ." : c === "0" ? "——" : c === "1" ? ".--." : c === "2" ? "..-.." : c === "3" ? "...-." : c === "4" ? "....-" : c === "5" ? "---" : c === "6" ? "......" : c === "7" ? "--.." : c === "8" ? "-...." : c === "9" ? "-..-" : c === "." ? "..--.." : c === "," ? ".-.-" : c === "?" ? "-..-." : c === "!" ? "---." : c === "&" ? ".-..." : c === "/" ? "-..-." : c === "'" ? ".----." : c === "\"" ? ".-..-." : c === ":" ? "---..." : c === "@" ? ".--.-." : c === "(" ? "-.--." : c === ")" ? "-.--.-" : c === "=" ? "-...-" : c === "-" ? "-....-" : c === "+" ? ".-.-." : c === " " ? "/" : c;
+        }
+        str += m + "  ";
+    }
+    return str;
+}
+</script>
+</head>
+<span id="menubutton" onclick="toggleAside()">CONVERSION MENU</span>
+<body><div id="mainContent">
+
+<h1>Text Converter by SciPred</h1>
+<h3>Enter the requirements below.</h3>
+<input type="text" placeholder="String To Convert" id="convertible" oninput="convertLive()">
+
+<select id="KeyboardSelection">
+    <option value="1">AZERTY</option>
+    <option value="2" selected="selected">QWERTY</option>
+    <option value="3">QWERTZ</option>
+    <option value="4">QZERTY</option>
+    <option value="5">Colemak</option>
+</select>
+
+<select id="MorseSelection">
+    <option value="1" selected="selected">International</option>
+    <option value="2">Continental</option>
+    <option value="3">Railroad</option>
+
+</select>
+
+<button onclick="convertString()">CONVERT</button>
+<button onclick="liveConversion()" id="liveControl">ENABLE LIVE CONVERSION</button>
+<p id="selType">SELECTED TYPE: Reverse</p>
+<hr>
+<div id="converted"></div>
+<button onclick="copyText()">COPY</button>
+<button onclick="pasteText()">PASTE TO INPUT</button>
+
+
+</div>
+<aside id="converterMenu">
+<h2>CONVERSION LIST</h2>
+<button onclick="toggleAside();switchType('Reverse')">Reverse</button><br><br>
+<button onclick="toggleAside();switchType('A1Z26')">A1Z26</button>
+<button onclick="toggleAside();switchType('Atbash')">Atbash</button>
+<button onclick="toggleAside();switchType('Binary')">Binary</button>
+<button onclick="toggleAside();switchType('Decimal')">Decimal</button>
+<button onclick="toggleAside();switchType('Duodecimal')">Duodecimal</button>
+<button onclick="toggleAside();switchType('Hexadecimal')">Hexadecimal</button>
+<button onclick="toggleAside();switchType('Keyboard')">Keyboard</button>
+<button onclick="toggleAside();switchType('Morse')">Morse</button>
+<button onclick="toggleAside();switchType('Octal')">Octal</button>
+<button onclick="toggleAside();switchType('Quarternary')">Quarternary</button>
+<button onclick="toggleAside();switchType('Ternary')">Ternary</button>
+</aside>
+<script>
+function gID(id) {return document.getElementById(id);}
+function gTag(tag) {return document.getElementsByTagName(tag);}
+
+var TYPE = 'Reverse';
+function switchType(s) {
+    TYPE = s;
+    gID("selType").innerHTML = "SELECTED TYPE: " + s;
+    convertString();
+
+    if (TYPE === 'Keyboard') {
+        gID("KeyboardSelection").style.display = "inline-block";
+    } else {
+        gID("KeyboardSelection").style.display = "none";
+    }
+    if (TYPE === 'Morse') {
+        gID("MorseSelection").style.display = "inline-block";
+    } else {
+        gID("MorseSelection").style.display = "none";
+    }
+}
+
+function copyText() {
+    var seldiv = gID("converted");
+    var range = document.createRange();
+    range.selectNode(seldiv);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+}
+function pasteText() {
+    var cnt = gID("converted").innerHTML;
+    gID("convertible").value = cnt;
+    convertString();
+}
+
+var asideToggle = false;
+function toggleAside() {
+    if (!asideToggle) {
+        gTag("aside")[0].style.width = "15%";
+        gTag("aside")[0].style.paddingLeft = "7px";
+        gTag("aside")[0].style.paddingRight = "7px";
+        gID("mainContent").style.opacity = 0;
+        asideToggle = true;
+    } else {
+        gTag("aside")[0].style.width = "0";
+        gTag("aside")[0].style.paddingLeft = "0";
+        gTag("aside")[0].style.paddingRight = "0";
+        gID("mainContent").style.opacity = 1;
+        asideToggle = false;
+    }
+}
+
+var liveToggle = false;
+function liveConversion() {
+    if (!liveToggle) {
+        liveToggle = true;
+        gID("liveControl").innerHTML = "DISABLE LIVE CONVERSION";
+    } else {
+        liveToggle = false;
+        gID("liveControl").innerHTML = "ENABLE LIVE CONVERSION";
+    }
+}
+function convertLive() {
+    if (liveToggle) {
+        convertString();
+    }
+}
+
+function convertString() {
+    var input = gID("convertible").value, conv = gID("converted");
+    if (TYPE === 'A1Z26') {
+        conv.innerHTML = a1z26(input);
+    } else if (TYPE === 'Atbash') {
+        conv.innerHTML = charRotCipher(input, "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba");
+    } else if (TYPE === 'Binary') {
+        conv.innerHTML = charCode(input, 2);
+    } else if (TYPE === 'Decimal') {
+        conv.innerHTML = charCode(input, 10);
+    } else if (TYPE === 'Duodecimal') {
+        conv.innerHTML = charCode(input, 12);
+    } else if (TYPE === 'Hexadecimal') {
+        conv.innerHTML = charCode(input, 16);
+    } else if (TYPE === 'Keyboard') {
+        var slct = gID("KeyboardSelection");
+        var t = String(slct.options[slct.selectedIndex].text);
+        if (t === "AZERTY") {
+            conv.innerHTML = charRotCipher(input, "AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn");
+        } else if (t === "QWERTY") {
+            conv.innerHTML = charRotCipher(input, "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm");
+        } else if (t === "QWERTZ") {
+            conv.innerHTML = charRotCipher(input, "QWERTZUIOPASDFGHJKLYXCVBNMqwertzuiopasdfghjklyxcvbnm");
+        } else if (t === "QZERTY") {
+            conv.innerHTML = charRotCipher(input, "QZERTYUIOPASDFGHJKLMWXCVBNqzertyuiopasdfghjklmwxcvbn");
+        } else if (t === "Colemak") {
+            conv.innerHTML = charRotCipher(input, "QWFPGJLUYARSTDHNEIOZXCVBKMqwfpgjluyarstdhneiozxcvbkm");
+        }
+    } else if (TYPE === 'Morse') {
+        conv.innerHTML = morse(input);
+    } else if (TYPE === 'Octal') {
+        conv.innerHTML = charCode(input, 8);
+    } else if (TYPE === 'Quarternary') {
+        conv.innerHTML = charCode(input, 4);
+    } else if (TYPE === 'Reverse') {
+        conv.innerHTML = input.split('').reverse().join('');
+    } else if (TYPE === 'Ternary') {
+        conv.innerHTML = charCode(input, 3);
+    } else {
+        conv.innerHTML = input;
+    }
+}
+</script>
+</body>
+</html>
