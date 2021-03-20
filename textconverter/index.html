@@ -113,6 +113,76 @@ function charCode(str, n) {
     }
     return s;
 }
+function charCodeBinArray(bin, len) {
+    function duplic(c, n) {
+        var str = "";
+        for (var i = 0; i < n; i++) {
+            str += c;
+        }
+        return str;
+    }
+    var s = "";
+    var b, l;
+    for (var i = 0; i < bin.length; i++) {
+        b = bin[i];
+        l = len - b.length;
+        s += duplic("0", l) + b + " ";
+    }
+    return s;
+}
+function convertBase(str, fromBase, toBase, frmt) {
+    const DIGITS = frmt || "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/";
+    const add = (x, y, base) => {
+        let z = [];
+        const n = Math.max(x.length, y.length);
+        let carry = 0;
+        let i = 0;
+        while (i < n || carry) {
+            const xi = i < x.length ? x[i] : 0;
+            const yi = i < y.length ? y[i] : 0;
+            const zi = carry + xi + yi;
+            z.push(zi % base);
+            carry = Math.floor(zi / base);
+            i++;
+        }
+        return z;
+    }
+    const multiplyByNumber = (num, x, base) => {
+        if (num < 0) return null;
+        if (num == 0) return [];
+        let result = [];
+        let power = x;
+        while (true) {
+            num & 1 && (result = add(result, power, base));
+            num = num >> 1;
+            if (num === 0) break;
+            power = add(power, power, base);
+        }
+        return result;
+    }
+    const parseToDigitsArray = (str, base) => {
+        const digits = str.split('');
+        let arr = [];
+        for (let i = digits.length - 1; i >= 0; i--) {
+            const n = DIGITS.indexOf(digits[i])
+            if (n == -1) return null;
+            arr.push(n);
+        }
+        return arr;
+    }
+    const digits = parseToDigitsArray(str, fromBase);
+    if (digits === null) return null;
+    let outArray = [];
+    let power = [1];
+    for (let i = 0; i < digits.length; i++) {
+        digits[i] && (outArray = add(outArray, multiplyByNumber(digits[i], power, toBase), toBase));
+        power = multiplyByNumber(fromBase, power, toBase);
+    }
+    let out = '';
+    for (let i = outArray.length - 1; i >= 0; i--)
+        out += DIGITS[outArray[i]];
+    return out;
+}
 function a1z26(str) {
     var s = charRotCipher(str, ["1-", "2-", "3-", "4-", "5-", "6-", "7-", "8-", "9-", "10-", "11-", "12-", "13-", "14-", "15-", "16-", "17-", "18-", "19-", "20-", "21-", "22-", "23-", "24-", "25-", "26-", "1-", "2-", "3-", "4-", "5-", "6-", "7-", "8-", "9-", "10-", "11-", "12-", "13-", "14-", "15-", "16-", "17-", "18-", "19-", "20-", "21-", "22-", "23-", "24-", "25-", "26-"]);
     for (var i = 0; i < s.length; i++) {
@@ -125,6 +195,29 @@ function a1z26(str) {
     }
     return s;
 }
+var Base64 = {
+_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+encode: function(input) {
+    var output = ""; var chr1, chr2, chr3, enc1, enc2, enc3, enc4; var i = 0; input = Base64._utf8_encode(input);
+    while (i < input.length) {
+        chr1 = input.charCodeAt(i++); chr2 = input.charCodeAt(i++); chr3 = input.charCodeAt(i++);
+        enc1 = chr1 >> 2; enc2 = ((chr1 & 3) << 4) | (chr2 >> 4); enc3 = ((chr2 & 15) << 2) | (chr3 >> 6); enc4 = chr3 & 63;
+        if (isNaN(chr2)) {enc3 = enc4 = 64;} else if (isNaN(chr3)) {enc4 = 64;}
+        output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+    }
+    return output;
+},
+_utf8_encode: function(string) {
+    string = string.replace(/\r\n/g,"\n"); var utftext = "";
+    for (var n = 0; n < string.length; n++) {
+        var c = string.charCodeAt(n);
+        if (c < 128) {utftext += String.fromCharCode(c);}
+        else if((c > 127) && (c < 2048)) {utftext += String.fromCharCode((c >> 6) | 192); utftext += String.fromCharCode((c & 63) | 128);}
+        else {utftext += String.fromCharCode((c >> 12) | 224); utftext += String.fromCharCode(((c >> 6) & 63) | 128); utftext += String.fromCharCode((c & 63) | 128);}
+    }
+    return utftext;
+}
+};
 function morse(s) {
     var tocipher = String(s), str = "";
     var slct = gID("MorseSelection");
@@ -142,6 +235,18 @@ function morse(s) {
     }
     return str;
 }
+function polybius(str) {
+    var s = charRotCipher(str, ["11-", "12-", "13-", "14-", "15-", "21-", "22-", "23-", "24-", "24-", "25-", "31-", "32-", "33-", "34-", "35-", "41-", "42-", "43-", "44-", "45-", "51-", "52-", "53-", "54-", "55-", "11-", "12-", "13-", "14-", "15-", "21-", "22-", "23-", "24-", "24-", "25-", "31-", "32-", "33-", "34-", "35-", "41-", "42-", "43-", "44-", "45-", "51-", "52-", "53-", "54-", "55-"]);
+    for (var i = 0; i < s.length; i++) {
+        while (s.indexOf("- ") !== -1) {
+            s = s.replace("- ", " ");
+        }
+    }
+    if (s[s.length - 1] === "-") {
+        s = s.slice(0, s.length - 1);
+    }
+    return s;
+}
 </script>
 </head>
 <span id="menubutton" onclick="toggleAside()">CONVERSION MENU</span>
@@ -150,6 +255,13 @@ function morse(s) {
 <h1>Text Converter by SciPred</h1>
 <h3>Enter the requirements below.</h3>
 <input type="text" placeholder="String To Convert" id="convertible" oninput="convertLive()">
+
+<select id="BinarySelection">
+    <option value="1" selected="selected">Unpadded</option>
+    <option value="2">8-Bit Padded</option>
+    <option value="3">16-Bit Padded</option>
+    <option value="4">32-Bit Padded</option>
+</select>
 
 <select id="KeyboardSelection">
     <option value="1">AZERTY</option>
@@ -163,7 +275,6 @@ function morse(s) {
     <option value="1" selected="selected">International</option>
     <option value="2">Continental</option>
     <option value="3">Railroad</option>
-
 </select>
 
 <button onclick="convertString()">CONVERT</button>
@@ -172,7 +283,9 @@ function morse(s) {
 <hr>
 <div id="converted"></div>
 <button onclick="copyText()">COPY</button>
+<button onclick="copyText();clearText()">CUT</button>
 <button onclick="pasteText()">PASTE TO INPUT</button>
+<button onclick="clearText()">CLEAR</button>
 
 
 </div>
@@ -181,15 +294,26 @@ function morse(s) {
 <button onclick="toggleAside();switchType('Reverse')">Reverse</button><br><br>
 <button onclick="toggleAside();switchType('A1Z26')">A1Z26</button>
 <button onclick="toggleAside();switchType('Atbash')">Atbash</button>
+<button onclick="toggleAside();switchType('Base64')">Base64</button>
 <button onclick="toggleAside();switchType('Binary')">Binary</button>
 <button onclick="toggleAside();switchType('Decimal')">Decimal</button>
 <button onclick="toggleAside();switchType('Duodecimal')">Duodecimal</button>
 <button onclick="toggleAside();switchType('Hexadecimal')">Hexadecimal</button>
+<button onclick="toggleAside();switchType('Hexatrigesimal')">Hexatrigesimal</button>
 <button onclick="toggleAside();switchType('Keyboard')">Keyboard</button>
 <button onclick="toggleAside();switchType('Morse')">Morse</button>
+<button onclick="toggleAside();switchType('Nonary')">Nonary</button>
 <button onclick="toggleAside();switchType('Octal')">Octal</button>
+<button onclick="toggleAside();switchType('Polybius')">Polybius</button>
 <button onclick="toggleAside();switchType('Quarternary')">Quarternary</button>
+<button onclick="toggleAside();switchType('Quinary')">Quinary</button>
+<button onclick="toggleAside();switchType('Senary')">Senary</button>
+<button onclick="toggleAside();switchType('Septenary')">Septenary</button>
 <button onclick="toggleAside();switchType('Ternary')">Ternary</button>
+<button onclick="toggleAside();switchType('Tetradecimal')">Tetradecimal</button>
+<button onclick="toggleAside();switchType('Trigesimal')">Trigesimal</button>
+<button onclick="toggleAside();switchType('Undecimal')">Undecimal</button>
+<button onclick="toggleAside();switchType('Vigesimal')">Vigesimal</button>
 </aside>
 <script>
 function gID(id) {return document.getElementById(id);}
@@ -201,6 +325,11 @@ function switchType(s) {
     gID("selType").innerHTML = "SELECTED TYPE: " + s;
     convertString();
 
+    if (TYPE === 'Binary') {
+        gID("BinarySelection").style.display = "inline-block";
+    } else {
+        gID("BinarySelection").style.display = "none";
+    }
     if (TYPE === 'Keyboard') {
         gID("KeyboardSelection").style.display = "inline-block";
     } else {
@@ -227,6 +356,10 @@ function pasteText() {
     gID("convertible").value = cnt;
     convertString();
 }
+function clearText() {
+    gID("convertible").value = "";
+    convertString();
+}
 
 var asideToggle = false;
 function toggleAside() {
@@ -249,6 +382,7 @@ var liveToggle = false;
 function liveConversion() {
     if (!liveToggle) {
         liveToggle = true;
+        convertString();
         gID("liveControl").innerHTML = "DISABLE LIVE CONVERSION";
     } else {
         liveToggle = false;
@@ -267,14 +401,28 @@ function convertString() {
         conv.innerHTML = a1z26(input);
     } else if (TYPE === 'Atbash') {
         conv.innerHTML = charRotCipher(input, "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba");
+    } else if (TYPE === 'Base64') {
+        conv.innerHTML = Base64.encode(input);
     } else if (TYPE === 'Binary') {
-        conv.innerHTML = charCode(input, 2);
+        var slct = gID("BinarySelection");
+        var t = String(slct.options[slct.selectedIndex].text);
+        if (t === "Unpadded") {
+            conv.innerHTML = charCode(input, 2);
+        } else if (t === "8-Bit Padded") {
+            conv.innerHTML = charCodeBinArray(charCode(input, 2).split(" "), 8);
+        } else if (t === "16-Bit Padded") {
+            conv.innerHTML = charCodeBinArray(charCode(input, 2).split(" "), 16);
+        } else if (t === "32-Bit Padded") {
+            conv.innerHTML = charCodeBinArray(charCode(input, 2).split(" "), 32);
+        }
     } else if (TYPE === 'Decimal') {
         conv.innerHTML = charCode(input, 10);
     } else if (TYPE === 'Duodecimal') {
         conv.innerHTML = charCode(input, 12);
     } else if (TYPE === 'Hexadecimal') {
         conv.innerHTML = charCode(input, 16);
+    } else if (TYPE === 'Hexatrigesimal') {
+        conv.innerHTML = charCode(input, 36);
     } else if (TYPE === 'Keyboard') {
         var slct = gID("KeyboardSelection");
         var t = String(slct.options[slct.selectedIndex].text);
@@ -291,14 +439,32 @@ function convertString() {
         }
     } else if (TYPE === 'Morse') {
         conv.innerHTML = morse(input);
+    } else if (TYPE === 'Nonary') {
+        conv.innerHTML = charCode(input, 9);
     } else if (TYPE === 'Octal') {
         conv.innerHTML = charCode(input, 8);
+    } else if (TYPE === 'Polybius') {
+        conv.innerHTML = polybius(input);
     } else if (TYPE === 'Quarternary') {
         conv.innerHTML = charCode(input, 4);
+    } else if (TYPE === 'Quinary') {
+        conv.innerHTML = charCode(input, 5);
     } else if (TYPE === 'Reverse') {
         conv.innerHTML = input.split('').reverse().join('');
+    } else if (TYPE === 'Senary') {
+        conv.innerHTML = charCode(input, 6);
+    } else if (TYPE === 'Septenary') {
+        conv.innerHTML = charCode(input, 7);
     } else if (TYPE === 'Ternary') {
         conv.innerHTML = charCode(input, 3);
+    } else if (TYPE === 'Tetradecimal') {
+        conv.innerHTML = charCode(input, 14);
+    } else if (TYPE === 'Trigesimal') {
+        conv.innerHTML = charCode(input, 30);
+    } else if (TYPE === 'Undecimal') {
+        conv.innerHTML = charCode(input, 11);
+    } else if (TYPE === 'Vigesimal') {
+        conv.innerHTML = charCode(input, 20);
     } else {
         conv.innerHTML = input;
     }
