@@ -17,25 +17,20 @@ html, body {
 	text-align: center;
 	overflow: hidden;
 }
-h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span {
+h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span, footer {
 	cursor: default;
 }
-div {
-	overflow: auto;
+h4 {
+	color: blue;
 }
-div div h2, div div h5 {
-	text-align: center;
-}
-#optionspicker h2 {
-	transition: all 0.3s;
+a {
 	cursor: pointer;
-	text-align: center;
+	text-decoration: underline;
+	color: white;
+	transition: color 0.5s;
 }
-#optionspicker h2:hover {
-	color: #00E600;
-	background: gray;
-	padding: 2px;
-	border-radius: 5px;
+a:hover {
+	color: darkorchid;
 }
 button {
 	background: white;
@@ -43,6 +38,7 @@ button {
 	border: 2px solid black;
 	border-radius: 5px;
 	padding: 4px;
+	cursor: pointer;
 }
 button:hover {
 	background: #ddd;
@@ -60,42 +56,25 @@ input {
 }
 input:focus {
 	background: #fff;
-	color: black;
 }
-#optionspicker {
-	width: 19%;
-	background: #eee;
-	height: 77%;
-	padding: 5px;
-	border-radius: 5px;
-	text-align: left;
-	display: inline-block;
-	float: left;
+div {
+	transition: opacity 0.5s;
+	opacity: 0;
 }
-#optionspicker ul li {
-	transition: all 0.3s;
-	cursor: pointer;
-}
-#optionspicker ul li:hover {
-	color: #00F600;
-	background: gray;
-	padding: 1px;
-	border-radius: 4px;
-}
-#optionspicker ul li:active {
+footer {
+	position: fixed;
+	height: 20px;
+	width: 100%;
 	color: white;
+	background: #444;
+	bottom: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
-#currentCalc {
-	width: 77%;
-	height: 77%;
-	overflow: auto;
-	background: #fff;
-	text-align: left;
-	padding: 5px;
-	border-radius: 5px;
-	display: inline-block;
+#menuscreen {
+	opacity: 1;
 }
-#currentCalc div {
+#inputEverything input {
 	display: none;
 }
 ::-webkit-scrollbar {width:10px;}
@@ -103,500 +82,688 @@ input:focus {
 ::-webkit-scrollbar-thumb {background:#00E600;}
 </style>
 <script>
-function gid(id) {return document.getElementById(id)}
-function db(id) {gid(id).style.display = "block"}
-function dn(id) {gid(id).style.display = "none"}
-function iel(elm, func) {
-	elm.addEventListener('keydown', function(e){
-		if (e.keyCode === 13) {func()}
-	});
+function gid(id) {return document.getElementById(id);}
+function dispb(id) {gid(id).style.display = "block";}
+function dispn(id) {gid(id).style.display = "none";}
+function setT(func, ms) {return setTimeout(func, ms);}
+function setOp(id, op) {gid(id).style.opacity = op;}
+function animdispB(id) {
+	setOp(id, 0);
+	dispb(id);
+	setOp(id, 1);
 }
-function divsw(id) {
-	let divs = gid('currentCalc');
-	let calcs = divs.getElementsByTagName('div');
-	for (var i=0; i<calcs.length; i++) {
-		if (calcs[i].id === id) {db(id)}
-		else {calcs[i].style.display = "none"}
-	}
-}
-function custringify(a) {
-	var s = "";
-	for (var i=0; i<a.length; i+=2) {
-		s += "<br>" + a[i] + ": " + a[i + 1];
-	}
-	return s;
+function animdispN(id) {
+	setOp(id, 0);
+	setT(function() {
+		dispn(id);
+	}, 600);
 }
 </script>
 </head>
 <body>
-	<div style="height: 20%;border:1px dashed gray">
+<div id="menuscreen">
 	<h1>SCIPRED'S CALCULATOR</h1>
 	<h2>A Beta Document by SciPred</h2>
-	</div>
-
-<div id="optionspicker">
-<h2>Calculators</h2>
-<ul>
-<li onclick="divsw('CircleCalc')">Circle Calculator</li>
-<li onclick="divsw('ComplexCalc')">Complex Number Calculator</li>
-<li onclick="divsw('LinearEqCalc')">Linear Equation Calculator</li>
-<li onclick="divsw('NumericCalc')">Numeric Calculator</li>
-<li onclick="divsw('QuadraticEqCalc')">Quadratic Equation Calculator</li>
-<li onclick="divsw('RectangleCalc')">Rectangle Calculator</li>
-<li onclick="divsw('RegPolCalc')">Regular Polygon Calculator</li>
-<li onclick="divsw('SquareCalc')">Square Calculator</li>
-<li onclick="divsw('TriangleCalc')">Triangle Calculator</li>
-</ul>
-
-<h2>About</h2>
-<ul>
-<li onclick="divsw('aboutGeneral')">About This Calculator</li>
-</ul>
+	<h3>Click on the button below to begin the calculation.</h3>
+	<button onclick="startProcess()">START</button>
+</div>
+<div id="inputSelection">
+	<h2>Let's get you prepped up first.</h2>
+	<h3>How many inputs do you want to process calculating?</h3>
+	<h4>You can have a minimum of 1 input and a maximum of 4 inputs.</h4>
+	<select id="inputAmount">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+	</select>
+	<br><br>
+	<button onclick="startProcess2()">NEXT</button>
+</div>
+<div id="inputProcessing" align="center">
+	<h2>Next, let's see what you want to do with the inputs.</h2>
+	<h3>Choose your form of calculation.</h3>
+	<h4 id="inputNumberDisplay"></h4>
+	<select id="inputs1">
+		<option value="Circle">Circle</option>
+		<option value="Cube">Cube</option>
+		<option value="Dodecahedron">Dodecahedron</option>
+		<option value="Triangle">Equilateral Triangle</option>
+		<option value="Exponents">Exponents and Roots</option>
+		<option value="Icosahedron">Icosahedron</option>
+		<option value="Addition">Increments and Decrements</option>
+		<option value="Multiplication">Multipliers and Divisions</option>
+		<option value="Octahedron">Octahedron</option>
+		<option value="Properties">Properties</option>
+		<option value="Sphere">Sphere</option>
+		<option value="Square">Square</option>
+		<option value="Tetrahedron">Tetrahedron</option>
+	</select>
+	<select id="inputs2">
+		<option value="Arithmetic">Basic Arithmetic</option>
+		<option value="Cone">Cone</option>
+		<option value="Cylinder">Cylinder</option>
+		<option value="Ellipse">Ellipse</option>
+		<option value="Exponents">Exponents and Roots</option>
+		<option value="Equation">Linear Equation</option>
+		<option value="Function">Linear Function</option>
+		<option value="Parallelogram">Parallelogram</option>
+		<option value="Point">Point on a Plane</option>
+		<option value="Rectangle">Rectangle</option>
+		<option value="Polygon">Regular Polygon</option>
+		<option value="Right">Right Triangle</option>
+		<option value="Triangle">Triangle</option>
+	</select>
+	<select id="inputs3">
+		<option value="Cuboid">Cuboid</option>
+		<option value="Point">Point on a Plane</option>
+		<option value="Equation">Quadratic Equation</option>
+		<option value="Function">Quadratic Function</option>
+		<option value="Trapezoid">Trapezoid</option>
+		<option value="Triangle">Triangle</option>
+	</select>
+	<select id="inputs4">
+		<option value="Cyclic">Cyclic Quadrilateral</option>
+		<option value="Trapezium">Trapezium</option>
+	</select>
+	<br>
+	<button onclick="startProcess3()">NEXT</button>
+</div>
+<div id="inputEverything" align="center">
+	<h2>Just one more step!</h2>
+	<h3>Enter your numerical values into their designated inputs.</h3>
+	<h4>If you didn't want the selected amount of inputs, you can refresh the page and select another amount.</h4>
+	<input type="text" id="inputA">
+	<input type="text" id="inputB">
+	<input type="text" id="inputC">
+	<input type="text" id="inputD">
+	<br>
+	<button onclick="processEverything()">CALCULATE!</button>
+</div>
+<div id="outputContainer">
+	<h2>Finished Calculating.</h2>
+	<h3>Here are your results.</h3>
+	<p id="result"></p>
 </div>
 
-<div id="currentCalc">
-	<div id="CircleCalc">
-		<h2>CIRCLE CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="Radius" id="CircleCalcInputA"></input>
-		<input type="text" placeholder="Center X" id="CircleCalcInputB"></input>
-		<input type="text" placeholder="Center Y" id="CircleCalcInputC"></input>
-		<button onclick="calcCircleCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="CircleCalcOutputs"></p>
-	</div>
-
-	<div id="ComplexCalc">
-		<h2>COMPLEX NUMBER CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="ComplexCalcInputA"></input>
-		<input type="text" placeholder="B" id="ComplexCalcInputB"></input>
-		<button onclick="calcComplexCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="ComplexCalcOutputs"></p>
-	</div>
-
-	<div id="LinearEqCalc">
-		<h2>LINEAR EQUATION CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="LinearEqCalcInputA"></input>
-		<input type="text" placeholder="B" id="LinearEqCalcInputB"></input>
-		<button onclick="calcLinearEqCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="LinearEqCalcOutputs"></p>
-	</div>
-
-	<div id="NumericCalc">
-		<h2>NUMERIC CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="Number" id="NumericCalcInput"></input>
-		<button onclick="calcNumericCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="NumericCalcOutputs"></p>
-	</div>
-
-	<div id="QuadraticEqCalc">
-		<h2>QUADRATIC EQUATION CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="QuadraticEqCalcInputA"></input>
-		<input type="text" placeholder="B" id="QuadraticEqCalcInputB"></input>
-		<input type="text" placeholder="B" id="QuadraticEqCalcInputC"></input>
-		<button onclick="calcQuadraticEqCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="QuadraticEqCalcOutputs"></p>
-	</div>
-
-	<div id="RectangleCalc">
-		<h2>RECTANGLE CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="Length" id="RectangleCalcInputA"></input>
-		<input type="text" placeholder="Width" id="RectangleCalcInputB"></input>
-		<button onclick="calcRectangleCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="RectangleCalcOutputs"></p>
-	</div>
-
-	<div id="RegPolCalc">
-		<h2>REGULAR POLYGON CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="Side Length" id="RegPolCalcInputA"></input>
-		<input type="text" placeholder="Number of Sides" id="RegPolCalcInputB"></input>
-		<button onclick="calcRegPolCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="RegPolCalcOutputs"></p>
-	</div>
-
-	<div id="SquareCalc">
-		<h2>SQUARE CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="Side" id="SquareCalcInput"></input>
-		<button onclick="calcSquareCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="SquareCalcOutputs"></p>
-	</div>
-
-	<div id="TriangleCalc">
-		<h2>TRIANGLE CALCULATOR</h2>
-		<hr>
-		<h3>INPUTS</h3>
-		<input type="text" placeholder="A" id="TriangleCalcInputA"></input>
-		<input type="text" placeholder="B" id="TriangleCalcInputB"></input>
-		<input type="text" placeholder="C" id="TriangleCalcInputC"></input>
-		<button onclick="calcTriangleCalc()">CALCULATE</button>
-		<hr>
-		<h3>OUTPUTS</h3>
-		<p id="TriangleCalcOutputs"></p>
-	</div>
-
-	<div id="aboutGeneral">
-		<h2>About This Calculator</h2>
-		<p>SciPred's Calculator is an Experimental Tool for calculating the most sensible as well as the most absurd values. It ranges from calculating the discriminant of a Quadratic Equation to counting the number of leading zeros in a 32-bit binary number conversion.</p>
-		<p>It developed from a habit to overcomplicate things, which isn't that surprising really.</p>
-		<p>Unfortunately, full calculator accuracy cannot be guaranteed because of certain computational problems with handling decimal operations and functions, as well as the inability to handle considerately large numbers such as 1e400.</p>
-	</div>
-</div>
+<footer>This calculator is in development. For suggestions, reviews, and bug reports, you can contact me via <a href="https://discord.gg/2DDqrUbkYX" target="_blank">Discord</a>.</footer>
 
 <script>
-//Polyfills
-function isPrime(num) {
-	for(var i = 2; i < num; i++)
-		if (num % i === 0) return "False";
-	return num > 1 ? "True" : "False";
+function startProcess() {
+	animdispN("menuscreen");
+	setT(function(){animdispB("inputSelection");}, 600);
 }
-function isComposite(num) {return isPrime(num) === false ? "True" : "False";}
-function comp(a, b, c, d) {return a === b ? c : d;}
-function compZero(a, b, c, d) {
-	if (c.constructor === String && d.constructor === String) {
-		if (c.startsWith(" + 0") && d.startsWith(" - 0")) {
-			return "";
+var amountofInputs = 1, selectedCalculation = "";
+function startProcess2() {
+	animdispN("inputSelection");
+	amountofInputs = Number(gid("inputAmount").value);
+	gid("inputNumberDisplay").innerHTML = "You have selected " + amountofInputs + " inputs for this calculation.";
+	dispn("inputs1"); dispn("inputs2"); dispn("inputs3"); dispn("inputs4");
+	dispb("inputs" + amountofInputs);
+	setT(function(){animdispB("inputProcessing");}, 600);
+}
+function startProcess3() {
+	animdispN("inputProcessing");
+	selectedCalculation = gid("inputs" + amountofInputs).value;
+	if (amountofInputs > 0) {dispb("inputA");}
+	if (amountofInputs > 1) {dispb("inputB");}
+	if (amountofInputs > 2) {dispb("inputC");}
+	if (amountofInputs > 3) {dispb("inputD");}
+	setT(function(){animdispB("inputEverything");}, 600);
+}
+
+function processEverything() {
+	//this is the most tedious non-native function in the document
+	animdispN("inputEverything");
+	var resultString = "";
+	var a = Number(gid("inputA").value),
+		b = Number(gid("inputB").value),
+		c = Number(gid("inputC").value),
+		d = Number(gid("inputD").value);
+	a = isNaN(a) ? 1 : a;
+	b = isNaN(b) ? 1 : b;
+	c = isNaN(c) ? 1 : c;
+	d = isNaN(d) ? 1 : d;
+
+	//Custom Mathematical Polyfills
+	var NewMath = {
+		PHI: 1.618033988749894848,
+		SQRT3: Math.sqrt(3),
+		SQRT5: Math.sqrt(5),
+
+		Axis: function(x, y) {
+			if (x === 0 && y !== 0) return "Y-Axis";
+			if (x !== 0 && y === 0) return "X-Axis";
+			if (x === 0 && y === 0) return "Both";
+			return "None";
+		},
+		Axis3D: function(x, y, z) {
+			if (x === 0 && y === 0 && z !== 0) return "Z-Axis";
+			if (x === 0 && y !== 0 && z === 0) return "Y-Axis";
+			if (x !== 0 && y === 0 && z === 0) return "X-Axis";
+			if (x === 0 && y === 0 && z === 0) return "All";
+			return "None";
+		},
+		BrahmaguptaCyclic: function(a, b, c, d) {
+			let s = (a + b + c + d) / 2;
+			return Math.sqrt((s - a) * (s - b) * (s - c) * (s - d));
+		},
+		Discriminant: function(a, b, c) {
+			return (b * b) - (4 * a * c);
+		},
+		DiscriminantNature: function(d) {
+			if (d > -1) return "Real";
+			return "Unreal";
+		},
+		HeronTriangle: function(a, b, c) {
+			let s = (a + b + c) / 2;
+			return Math.sqrt(s * (s - a) * (s - b) * (s - c));
+		},
+		IsDecimal: function(n) {
+			return n % 1 !== 0 && Number.isInteger(n) === false;
+		},
+		IsEven: function(n) {
+			return n % 2 === 0;
+		},
+		IsNegative: function(n) {
+			return n < 1;
+		},
+		IsNonzero: function(n) {
+			return n !== 0;
+		},
+		IsOdd: function(n) {
+			return n % 2 !== 0;
+		},
+		IsPositive: function(n) {
+			return n > -1;
+		},
+		IsZero: function(n) {
+			return n === 0;
+		},
+		ParabolaDirection: function(a) {
+			if (a > 0) return "Upwards";
+			return "Downwards";
+		},
+		Quadrant: function(x, y) {
+			if (x > 0 && y > 0) return "I";
+			if (x < 0 && y > 0) return "II";
+			if (x < 0 && y < 0) return "III";
+			if (x > 0 && y < 0) return "IV";
+			return "Multiple";
+		},
+		StringSigns: function(n, omitPlus) {
+			if (this.IsPositive(n)) {
+				return omitPlus === true ? n : "+ " + n;
+			} else {
+				return "- " + Math.abs(n);
+			}
+		},
+		TrapeziumArea: function(a, b, c, d) {
+			//Currently using the formula by Hu Yi Jie, unsure if using ½(a+c)*b*sin{cos-1[(d2-(a-c)2-b2)/(-2(a-c)b)]} or (a+c)(½bd(sin(cos-1(b2+d2-(a-c)2))))/4(a-c) is more efficient
+			//Place in note: a = larger base, b = left leg, c = smaller base, d = right leg
+			console.log((a + b - c + d) * (a - b - c + d) * (a + b - c - d) * (-a + b + c + d));
+			var e = (a + c) / (4 * (a - c));
+			var f = Math.sqrt((a + b - c + d) * (a - b - c + d) * (a + b - c - d) * (-a + b + c + d));
+			return e * f;
+		},
+		toRadians: function(d) {
+			return d * Math.PI / 180;
+		}
+	};
+	NewMath.DodecahedronArea = 3 * Math.sqrt(25 + (10 * NewMath.SQRT5));
+	NewMath.DodecahedronVolume = (15 + (7 * NewMath.SQRT5)) / 4;
+	NewMath.IcosahedronArea = 5 * NewMath.SQRT3;
+	NewMath.IcosahedronVolume = 5 * (3 + Math.SQRT5) / 12;
+	NewMath.PentagonArea = 0.25 * NewMath.SQRT5 + Math.sqrt(5 + (2 * NewMath.SQRT5));
+
+	if (amountofInputs === 1) {
+		switch (selectedCalculation) {
+			case "Circle":
+				resultString = [
+					"Radius: ", a, "<br>",
+					"Area: ", a * a * Math.PI, "<br>",
+					"Circumference: ", a * 2 * Math.PI, "<br>",
+					"Diameter: ", a * 2, "<br>",
+					"Semicircumference: ", a * Math.PI, "<br>",
+					""
+				].join("");
+				break;
+			case "Cube":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Diagonal: ", a * NewMath.SQRT3, "<br>",
+					"Face Area: ", a * a, "<br>",
+					"Face Diagonal: ", a * Math.SQRT2, "<br>",
+					"Face Perimeter: ", a * 4, "<br>",
+					"Face Semiperimeter: ", a * 2, "<br>",
+					"Total Perimeter: ", a * 12, "<br>",
+					"Total Semiperimeter: ", a * 6, "<br>",
+					"Total Surface Area: ", a * a * 6, "<br>",
+					"Volume: ", a ** 3, "<br>",
+					""
+				].join("");
+				break;
+			case "Dodecahedron":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Face Area: ", a * a * NewMath.PentagonArea, "<br>",
+					"Face Perimeter: ", a * 5, "<br>",
+					"Face Semiperimeter: ", a * 2.5, "<br>",
+					"Total Perimeter: ", a * 30, "<br>",
+					"Total Semiperimeter: ", a * 15, "<br>",
+					"Total Surface Area: ", a * a * NewMath.DodecahedronArea, "<br>",
+					"Volume: ", a * a * a * NewMath.DodecahedronVolume, "<br>",
+					""
+				].join("");
+				break;
+			case "Triangle":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Area: ", a * a * NewMath.SQRT3 / 4, "<br>",
+					"Height: ", a * NewMath.SQRT3 / 2, "<br>",
+					"Perimeter: ", a * 3, "<br>",
+					"Semiperimeter: ", a * 1.5, "<br>",
+					""
+				].join("");
+				break;
+			case "Exponents":
+				resultString = [
+					"10 to Nth Root: ", 10 ** a, "<br>",
+					"2 to Nth Root: ", 2 ** a, "<br>",
+					"Base-10 Logarithm: ", Math.log10(a), "<br>",
+					"Base-2 Logarithm: ", Math.log2(a), "<br>",
+					"Natural Logarithm: ", Math.log(a), "<br>",
+					"Cube: ", a ** 3, "<br>",
+					"Cube Root: ", Math.cbrt(a), "<br>",
+					"E to Nth Root: ", Math.E ** a, "<br>",
+					"Nth Power: ", a ** a, "<br>",
+					"Nth Root: ", a ** (1 / a), "<br>",
+					"Pi to Nth Root: ", Math.PI ** a, "<br>",
+					"Square: ", a ** 2, "<br>",
+					"Square Root: ", Math.sqrt(a), "<br>",
+					""
+				].join("");
+				break;
+			case "Icosahedron":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Face Area: ", a * a * NewMath.SQRT3 / 4, "<br>",
+					"Face Perimeter: ", a * 3, "<br>",
+					"Face Semiperimeter: ", a * 1.5, "<br>",
+					"Total Perimeter: ", a * 30, "<br>",
+					"Total Semiperimeter: ", a * 15, "<br>",
+					"Total Surface Area: ", a * a * NewMath.IcosahedronArea, "<br>",
+					"Volume: ", a * a * a * NewMath.IcosahedronVolume, "<br>",
+					""
+				].join("");
+				break;
+			case "Addition":
+				resultString = [
+					"Decrement by 1: ", a - 1, "<br>",
+					"Decrement by 10: ", a - 10, "<br>",
+					"Decrement by 100: ", a - 100, "<br>",
+					"Decrement by 1000: ", a - 1000, "<br>",
+					"Decrement by 10000: ", a - 10000, "<br>",
+					"Decrement by 100000: ", a - 100000, "<br>",
+					"Decrement by 1000000: ", a - 1000000, "<br>",
+					"Increment by 1: ", a + 1, "<br>",
+					"Increment by 10: ", a + 10, "<br>",
+					"Increment by 100: ", a + 100, "<br>",
+					"Increment by 1000: ", a + 1000, "<br>",
+					"Increment by 10000: ", a + 10000, "<br>",
+					"Increment by 100000: ", a + 100000, "<br>",
+					"Increment by 1000000: ", a + 1000000, "<br>",
+					""
+				].join("");
+				break;
+			case "Multiplication":
+				resultString = [
+					"Single: ", a, "<br>",
+					"Double: ", a * 2, "<br>",
+					"Triple: ", a * 3, "<br>",
+					"Quadruple: ", a * 4, "<br>",
+					"Quintuple: ", a * 5, "<br>",
+					"Hextuple: ", a * 6, "<br>",
+					"Heptuple: ", a * 7, "<br>",
+					"Octuple: ", a * 8, "<br>",
+					"Nonuple: ", a * 9, "<br>",
+					"Decuple: ", a * 10, "<br>",
+					"Centuple: ", a * 100, "<br>",
+					"Milluple: ", a * 1000, "<br>",
+					"Half: ", a / 2, "<br>",
+					"Third: ", a / 3, "<br>",
+					"Fourth: ", a / 4, "<br>",
+					"Fifth: ", a / 5, "<br>",
+					"Sixth: ", a / 6, "<br>",
+					"Seventh: ", a / 7, "<br>",
+					"Eighth: ", a / 8, "<br>",
+					"Ninth: ", a / 9, "<br>",
+					"Tenth: ", a / 10, "<br>",
+					"Hundredth: ", a / 100, "<br>",
+					"Thousandth: ", a / 1000, "<br>",
+					"Reciprocal: ", 1 / a, "<br",
+					""
+				].join("");
+				break;
+			case "Octahedron":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Face Area: ", a * a * NewMath.SQRT3 / 4, "<br>",
+					"Face Perimeter: ", a * 3, "<br>",
+					"Face Semiperimeter: ", a * 1.5, "<br>",
+					"Total Perimeter: ", a * 12, "<br>",
+					"Total Semiperimeter: ", a * 6, "<br>",
+					"Total Surface Area: ", a * a * 2 * NewMath.SQRT3, "<br>",
+					"Volume: ", a * a * a * Math.SQRT2 / 3, "<br>",
+					""
+				].join("");
+				break;
+			case "Properties":
+				resultString = [
+					"Is Decimal: ", NewMath.IsDecimal(a), "<br>",
+					"Is Even: ", NewMath.IsEven(a), "<br>",
+					"Is Integer: ", Number.isInteger(a), "<br>",
+					"Is NaN: ", isNaN(a), "<br>",
+					"Is Negative: ", NewMath.IsNegative(a), "<br>",
+					"Is Nonzero: ", NewMath.IsNonzero(a), "<br>",
+					"Is Odd: ", NewMath.IsOdd(a), "<br>",
+					"Is Positive: ", NewMath.IsPositive(a), "<br>",
+					"Is Zero: ", NewMath.IsZero(a), "<br>",
+					""
+				].join("");
+				break;
+			case "Sphere":
+				resultString = [
+					"Radius: ", a, "<br>",
+					"Diameter: ", a * 2, "<br>",
+					"Surface Area: ", a * a * 4 * Math.PI, "<br>",
+					"Two-Dimensional Area: ", a * a * Math.PI, "<br>",
+					"Two-Dimensional Circumference: ", a * 2 * Math.PI, "<br>",
+					"Two-Dimensional Semicircumference: ", a * Math.PI, "<br>",
+					"Volume: ", a * a * a * 4 * Math.PI / 3, "<br>",
+					""
+				].join("");
+				break;
+			case "Square":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Area: ", a * a, "<br>",
+					"Diagonal: ", a * Math.SQRT2, "<br>",
+					"Perimeter: ", a * 4, "<br>",
+					"Semiperimeter: ", a * 2, "<br>",
+					""
+				].join("");
+				break;
+			case "Tetrahedron":
+				resultString = [
+					"Side: ", a, "<br>",
+					"Face Area: ", a * a * NewMath.SQRT3 / 4, "<br>",
+					"Face Perimeter: ", a * 3, "<br>",
+					"Face Semiperimeter: ", a * 1.5, "<br>",
+					"Total Perimeter: ", a * 6, "<br>",
+					"Total Semiperimeter: ", a * 3, "<br>",
+					"Total Surface Area: ", a * a * NewMath.SQRT3, "<br>",
+					"Volume: ", a * a * a / (6 * Math.SQRT2), "<br>",
+					""
+				].join("");
+				break;
 		}
 	}
-	return a === b ? c : d;
-}
-function cond(a, b) {return comp(a, b, "True", "False");}
-function ncond(a, b) {return comp(a, b, "False", "True");}
-function isPositive(n) {return n > -1 ? "True" : "False";}
-function isNegative(n) {return n < 1 ? "True" : "False";}
-function charCodeConvert(n, d) {return n.toString(d);}
-function tround(n, d) {
-	return Math.round(n * (10 ** d)) / (10 ** d);
-}
 
-//Input Enter key responses
-iel(gid("CircleCalc").getElementsByTagName('input')[0], calcCircleCalc);
-iel(gid("CircleCalc").getElementsByTagName('input')[1], calcCircleCalc);
-iel(gid("CircleCalc").getElementsByTagName('input')[2], calcCircleCalc);
-iel(gid("ComplexCalc").getElementsByTagName('input')[0], calcComplexCalc);
-iel(gid("ComplexCalc").getElementsByTagName('input')[1], calcComplexCalc);
-iel(gid("LinearEqCalc").getElementsByTagName('input')[0], calcLinearEqCalc);
-iel(gid("LinearEqCalc").getElementsByTagName('input')[1], calcLinearEqCalc);
-iel(gid("NumericCalc").getElementsByTagName('input')[0], calcNumericCalc);
-iel(gid("QuadraticEqCalc").getElementsByTagName('input')[0], calcQuadraticEqCalc);
-iel(gid("QuadraticEqCalc").getElementsByTagName('input')[1], calcQuadraticEqCalc);
-iel(gid("QuadraticEqCalc").getElementsByTagName('input')[2], calcQuadraticEqCalc);
-iel(gid("RectangleCalc").getElementsByTagName('input')[0], calcRectangleCalc);
-iel(gid("RectangleCalc").getElementsByTagName('input')[1], calcRectangleCalc);
-iel(gid("RegPolCalc").getElementsByTagName('input')[0], calcRegPolCalc);
-iel(gid("RegPolCalc").getElementsByTagName('input')[1], calcRegPolCalc);
-iel(gid("SquareCalc").getElementsByTagName('input')[0], calcSquareCalc);
-iel(gid("TriangleCalc").getElementsByTagName('input')[0], calcTriangleCalc);
-iel(gid("TriangleCalc").getElementsByTagName('input')[1], calcTriangleCalc);
-iel(gid("TriangleCalc").getElementsByTagName('input')[2], calcTriangleCalc);
+	if (amountofInputs === 2) {
+		switch (selectedCalculation) {
+			case "Arithmetic":
+				resultString = [
+					"A Minus B: ", a - b, "<br>",
+					"A Over B: ", a / b, "<br>",
+					"B Minus A: ", b - a, "<br>",
+					"B Over A: ", b / a, "<br>",
+					"Difference: ", Math.abs(a - b), "<br>",
+					"Maximum: ", Math.max(a, b), "<br>",
+					"Minimum: ", Math.min(a, b), "<br>",
+					"Product: ", a * b, "<br>",
+					"Reciprocal of Product: ", 1 / (a * b), "<br>",
+					"Sum: ", a + b, "<br>",
+					"Sum of Reciprocals: ", (1 / a) + (1 / b), "<br>",
+					""
+				].join("");
+				break;
+			case "Cone":
+				resultString = [
+					"Height: ", a, "<br>",
+					"Radius of Circular Base: ", b, "<br>",
+					"Area of Circular Base: ", b * b * Math.PI, "<br>",
+					"Circumference of Circular Base: ", b * 2 * Math.PI, "<br>",
+					"Diameter of Circular Base: ", b * 2, "<br>",
+					"Lateral Height: ", Math.sqrt((a * a) + (b * b)), "<br>",
+					"Lateral Surface Area: ", Math.sqrt((a * a) + (b * b)) * b * Math.PI, "<br>",
+					"Semicircumference of Circular Base: ", b * Math.PI, "<br>",
+					"Total Surface Area: ", (Math.sqrt((a * a) + (b * b)) * b * Math.PI) + (b * b * Math.PI), "<br>",
+					"Volume: ", b * b * Math.PI * a / 3, "<br>",
+					""
+				].join("");
+				break;
+			case "Cylinder":
+				resultString = [
+					"Height: ", a, "<br>",
+					"Radius of Circular Base: ", b, "<br>",
+					"Area of Circular Base: ", b * b * Math.PI, "<br>",
+					"Circumference of Circular Base: ", b * 2 * Math.PI, "<br>",
+					"Diameter of Circular Base: ", b * 2, "<br>",
+					"Lateral Surface Area: ", 2 * Math.PI * b * a, "<br>",
+					"Semicircumference of Circular Base: ", b * Math.PI, "<br>",
+					"Total Surface Area: ", (2 * a * b * Math.PI) + (2 * b * b * Math.PI), "<br>",
+					"Volume: ", b * b * Math.PI * a, "<br>",
+					""
+				].join("");
+				break;
+			case "Ellipse":
+				resultString = [
+					"Distance to Vertex:", a, "<br>",
+					"Distance to Co-Vertex:", b, "<br>",
+					"Area: ", a * b * Math.PI, "<br>",
+					"Eccentricity: ", Math.sqrt((a * a) - (b * b)) / a, "<br>",
+					""
+				].join("");
+				break;
+			case "Exponents":
+				resultString = [
+					"A to Bth Power", a ** b, "<br>",
+					"A to Bth Root", a ** (1 / b), "<br>",
+					"AB to ABth Power", (a * b) ** (a * b), "<br>",
+					"AB to ABth Root", (a * b) ** (1 / (a * b)), "<br>",
+					"B to Ath Power", b ** a, "<br>",
+					"B to Ath Root", b ** (1 / a), "<br>",
+					""
+				].join("");
+				break;
+			case "Equation":
+				resultString = [
+					"Equation: ", NewMath.StringSigns(a, true) + "x " + NewMath.StringSigns(b) + " = 0", "<br>",
+					"A: ", a, "<br>",
+					"B: ", b, "<br>",
+					"X: ", -b / a, "<br>",
+					""
+				].join("");
+				break;
+			case "Function":
+				resultString = [
+					"Equation: ", "y = " + NewMath.StringSigns(a, true) + "x " + NewMath.StringSigns(b), "<br>",
+					"Slope: ", a, "<br>",
+					"X-Intercept: ", -b / a, "<br>",
+					"Y-Intercept: ", b, "<br>",
+					""
+				].join("");
+				break;
+			case "Parallelogram":
+				resultString = [
+					"Height: ", a, "<br>",
+					"Base: ", b, "<br>",
+					"Area: ", a * b, "<br>",
+					"Perimeter: ", a + a + b + b, "<br>",
+					"Semiperimeter: ", a + b, "<br>",
+					""
+				].join("");
+				break;
+			case "Point":
+				resultString = [
+					"X: ", a, "<br>",
+					"Y: ", b, "<br>",
+					"Axis: ", NewMath.Axis(a, b), "<br>",
+					"Distance to Point of Origin: ", Math.sqrt((a ** 2) + (b ** 2)), "<br>",
+					"Negation: ", "(" + (-a) + ", " + (-b) + ")", "<br>",
+					"Quadrant: ", NewMath.Quadrant(a, b), "<br>",
+					""
+				].join("");
+				break;
+			case "Rectangle":
+				resultString = [
+					"Width: ", a, "<br>",
+					"Height: ", b, "<br>",
+					"Area: ", a * b, "<br>",
+					"Diagonal: ", Math.sqrt((a * a) + (b * b)), "<br>",
+					"Perimeter: ", 2 * (a + b), "<br>",
+					"Semiperimeter: ", a + b, "<br>",
+					""
+				].join("");
+				break;
+			case "Polygon":
+				resultString = [
+					"Number of Sides: ", a, "<br>",
+					"Side Length: ", b, "<br>",
+					"Apothem: ", b / (2 * Math.tan(NewMath.toRadians(180 / a))), "<br>",
+					"Area: ", a * b * (b / (2 * Math.tan(NewMath.toRadians(180 / a)))) / 2, "<br>",
+					"Perimeter: ", a * b, "<br>",
+					"Semiperimeter: ", a * b / 2, "<br>",
+					""
+				].join("");
+				break;
+			case "Right":
+				resultString = [
+					"Adjacent: ", a, "<br>",
+					"Opposite: ", b, "<br>",
+					"Angle Opposite the Adjacent: ", Math.asin(a / Math.sqrt((a * a) + (b * b))) * 180 / Math.PI, "<br>",
+					"Angle Opposite the Opposite: ", Math.acos(a / Math.sqrt((a * a) + (b * b))) * 180 / Math.PI, "<br>",
+					"Area: ", a * b / 2, "<br>",
+					"Hypotenuse: ", Math.sqrt((a * a) + (b * b)), "<br>",
+					"Perimeter: ", a + b + Math.sqrt((a * a) + (b * b)), "<br>",
+					"Semiperimeter: ", (a + b + Math.sqrt((a * a) + (b * b))) / 2, "<br>",
+					""
+				].join("");
+				break;
+			case "Triangle":
+				resultString = [
+					"Height: ", a, "<br>",
+					"Base: ", b, "<br>",
+					"Area: ", a * b / 2, "<br>",
+					""
+				].join("");
+				break;
+		}
+	}
 
-function calcCircleCalc() {
-	var p = gid("CircleCalcOutputs");
-	var r = Math.abs(eval(gid("CircleCalcInputA").value)) || 1,
-		x = eval(gid("CircleCalcInputB").value) || 0,
-		y = eval(gid("CircleCalcInputC").value) || 0;
-	p.innerHTML = custringify([
-		"Diameter", r * 2,
-		"Circumference", Math.PI * 2 * r,
-		"Semicircumference", Math.PI * r,
-		"Area", Math.PI * (r ** 2),
-		"Half-Area", Math.PI * (r ** 2) / 2,
-		"Third-Area", Math.PI * (r ** 2) / 3,
-		"Quarter-Area", Math.PI * (r ** 2) / 4,
-		"Fifth-Area", Math.PI * (r ** 2) / 5,
-		"Eighth-Area", Math.PI * (r ** 2) / 8,
+	if (amountofInputs === 3) {
+		let x1 = (-b + Math.sqrt(NewMath.Discriminant(a, b, c))) / (2 * a), x2 = (-b - Math.sqrt(NewMath.Discriminant(a, b, c))) / (2 * a);
+		switch (selectedCalculation) {
+			case "Cuboid":
+				resultString = [
+					"Length: ", a, "<br>",
+					"Width: ", b, "<br>",
+					"Height: ", c, "<br>",
+					"Diagonal: ", Math.sqrt((a * a) + (b * b) + (c * c)), "<br>",
+					"Total Perimeter: ", 4 * (a + b + c), "<br>",
+					"Total Semiperimeter: ", 2 * (a + b + c), "<br>",
+					"Total Surface Area: ", 2 * ((a * b) + (a * c) + (b * c)), "<br>",
+					"Volume: ", a * b * c, "<br>",
+					""
+				].join("");
+				break;
+			case "Point":
+				resultString = [
+					"X: ", a, "<br>",
+					"Y: ", b, "<br>",
+					"Z: ", c, "<br>",
+					"Axis: ", NewMath.Axis3D(a, b, c), "<br>",
+					"Distance to Point of Origin: ", Math.sqrt((a ** 2) + (b ** 2) + (c ** 2)), "<br>",
+					"Negation: ", "(" + (-a) + ", " + (-b) + ", " + (-c) + ")", "<br>",
+					""
+				].join("");
+				break;
+			case "Equation":
+				if (a === 0) {a = 1;}
+				resultString = [
+					"Equation: ", NewMath.StringSigns(a, true) + "x<sup>2</sup> " + NewMath.StringSigns(b) + "x " + NewMath.StringSigns(c) + " = 0", "<br>",
+					"A: ", a, "<br>",
+					"B: ", b, "<br>",
+					"C: ", c, "<br>",
+					"Discriminant: ", NewMath.Discriminant(a, b, c), "<br>",
+					"Nature of Roots: ", NewMath.DiscriminantNature(NewMath.Discriminant(a, b, c)), "<br>",
+					"Product of Roots: ", x1 * x2, "<br>",
+					"Sum of Roots: ", x1 + x2, "<br>",
+					"X: ", "{" + x1 + ", " + x2 + "}", "<br>",
+					"X1: ", x1, "<br>",
+					"X2: ", x2, "<br>",
+					""
+				].join("");
+				break;
+			case "Function":
+				if (a === 0) {a = 1;}
+				resultString = [
+					"Equation: ", "y = " + NewMath.StringSigns(a, true) + "x<sup>2</sup> " + NewMath.StringSigns(b) + "x " + NewMath.StringSigns(c), "<br>",
+					"Direction of Parabola: ", NewMath.ParabolaDirection(a), "<br>",
+					"H: ", -b / (2 * a), "<br>",
+					"K: ", c - ((b ** 2) / (4 * a)), "<br>",
+					"Vertex: ", "{" + (-b / (2 * a)) + ", " + (c - ((b ** 2) / (4 * a))) + "}", "<br>",
+					"X-Intercepts: ", "{" + x1 + ", " + x2 + "}", "<br>",
+					"Y-Intercept: ", c, "<br>",
+					""
+				].join("");
+				break;
+			case "Trapezoid":
+				resultString = [
+					"First Base: ", a, "<br>",
+					"Second Base: ", b, "<br>",
+					"Height: ", c, "<br>",
+					"Area: ", h * (a + b) / 2, "<br>",
+					""
+				].join("");
+				break;
+			case "Triangle":
+				resultString = [
+					"Area: ", NewMath.HeronTriangle(a, b, c), "<br>",
+					"Height Perpendicular to A: ", 2 * NewMath.HeronTriangle(a, b, c) / a, "<br>",
+					"Height Perpendicular to B: ", 2 * NewMath.HeronTriangle(a, b, c) / b, "<br>",
+					"Height Perpendicular to C: ", 2 * NewMath.HeronTriangle(a, b, c) / c, "<br>",
+					"Perimeter: ", a + b + c, "<br>",
+					"Semiperimeter: ", (a + b + c) / 2, "<br>",
+					""
+				].join("");
+				break;
+		}
+	}
 
-		"<br><br>Equation in Standard Form", "(x" + compZero(isPositive(-x), "True", " + " + (-x), " - " + Math.abs(-x)) + ")<sup>2</sup> + (y" + compZero(isPositive(-y), "True", " + " + (-y), " - " + Math.abs(-y)) + ")<sup>2</sup> = " + r + "<sup>2</sup>"
-	]);
-}
-function calcComplexCalc() {
-	var p = gid("ComplexCalcOutputs");
-	var a = eval(gid("ComplexCalcInputA").value) || 0,
-		b = eval(gid("ComplexCalcInputB").value) || 0;
-	p.innerHTML = custringify([
-		"Expression", a + compZero(isPositive(b), "True", " + " + b + "i", " - " + Math.abs(b) + "i"),
-		"Real Part", a,
-		"Imaginary Part", b,
-		"Purely Real", cond(b, 0),
-		"Purely Imaginary", cond(a, 0),
-		"Conjugate", a + comp(isPositive(-b), "True", " + " + (-b), " - " + Math.abs(-b)) + "i",
-		"Multiplied by the Conjugate", (a ** 2) + (b ** 2),
-		"Magnitude", Math.sqrt((a ** 2) + (b ** 2)),
-		"Angle", Math.atan(b / a) * 180 / Math.PI + "°"
-	]);
-}
-function calcLinearEqCalc() {
-	var p = gid("LinearEqCalcOutputs");
-	var a = eval(gid("LinearEqCalcInputA").value),
-		b = eval(gid("LinearEqCalcInputB").value) || 0;
-	p.innerHTML = custringify([
-		"Equation", a + "x" + compZero(isPositive(b), "True", " + " + b, " - " + Math.abs(b)) + " = 0",
-		"X", -b / a,
-
-		"<br><br>Graphable Equation", "y = " + a + "x" + compZero(isPositive(b), "True", " + " + b, " - " + Math.abs(b)),
-		"Is Constant Function", cond(a, 0),
-		"Is Identity Function", comp(a, 1, cond(b, 0), "False"),
-		"Gradient", a,
-		"Y-Intercept", b,
-		"X-Intercept Position", "(" + (-b / a) + ", 0)",
-		"Y-Intercept Position", "(0, " + b + ")"
-	]);
-}
-function calcNumericCalc() {
-	var p = gid("NumericCalcOutputs");
-	var n = eval(gid("NumericCalcInput").value) || 1;
-	p.innerHTML = custringify([
-		"Round", Math.round(n),
-		"Rounded to Nearest Tenths", tround(n, 1),
-		"Rounded to Nearest Hundredths", tround(n, 2),
-		"Rounded to Nearest Thousandths", tround(n, 3),
-		"Ceil", Math.ceil(n),
-		"Floor", Math.floor(n),
-		"Fround", Math.fround(n),
-		"Truncation", Math.trunc(n),
-		"Fixed Notation", n.toFixed(),
-		"Exponential Notation", n.toExponential(),
-
-		"<br><br>Binary", charCodeConvert(n, 2),
-		"Leading Zeros in 32-Bit Binary", Math.clz32(n),
-		"Ternary", charCodeConvert(n, 3),
-		"Quarternary", charCodeConvert(n, 4),
-		"Octal", charCodeConvert(n, 8),
-		"Duodecimal", charCodeConvert(n, 12),
-		"Hexadecimal", charCodeConvert(n, 16),
-
-		"<br><br>Sign", Math.sign(n),
-		"Sign Type", comp(isPositive(n), "True", comp(isNegative(n), "True", "Zero", "Positive"), "Negative"),
-		"Absolute Value", Math.abs(n),
-		"Negative Value", -Math.abs(n),
-		"Opposite Value", -n,
-
-		"<br><br>Unit Increment", n + 1,
-		"Unit Decrement", n - 1,
-		"Tens Increment", n + 10,
-		"Tens Decrement", n - 10,
-		"Hundreds Increment", n + 100,
-		"Hundreds Decrement", n - 100,
-
-		"<br><br>Double", n * 2,
-		"Triple", n * 3,
-		"Quadruple", n * 4,
-		"Quintuple", n * 5,
-		"Times 6", n * 6,
-		"Times 7", n * 7,
-		"Times 8", n * 8,
-		"Times 9", n * 9,
-		"Times 10", n * 10,
-		"Percent", (n * 100) + "%",
-		"Permille", (n * 1000) + "‰",
-		"Permyriad", (n * 10000) + "‱",
-
-		"<br><br>Half", n / 2,
-		"Third", n / 3,
-		"Quarter", n / 4,
-		"Fifth", n / 5,
-		"Sixth", n / 6,
-		"Seventh", n / 7,
-		"Eighth", n / 8,
-		"Ninth", n / 9,
-		"Tenth", n / 10,
-		"Hundredth", n / 100,
-		"Reciprocal", 1 / n,
-
-		"<br><br>Squared", n ** 2,
-		"Cubed", n ** 3,
-		"To 4th Power", n ** 4,
-		"To 5th Power", n ** 5,
-		"To nth Power", n ** n,
-		"2 to nth Power", 2 ** n,
-		"10 to nth Power", 10 ** n,
-		"E to nth Power", Math.E ** n,
-		"Principal Square Root", Math.sqrt(n),
-		"Square Roots", Math.sqrt(n) + ", " + -Math.sqrt(n),
-		"Cube Root", Math.cbrt(n),
-		"Nth Root", n ** (1 / n),
-		"<br><br>Base-2 Logarithm", Math.log2(n),
-		"Base-10 Logarithm", Math.log10(n),
-		"Natural Logarithm", Math.log(n),
-		"Natural Logarithm of n + 1", Math.log1p(n),
-
-		"<br><br>Sine", Math.sin(n),
-		"Cosine", Math.cos(n),
-		"Tangent", Math.tan(n),
-		"Asin", Math.asin(n),
-		"Acos", Math.acos(n),
-		"Atan", Math.atan(n),
-		"Hyperbolic Sine", Math.sinh(n),
-		"Hyperbolic Cosine", Math.cosh(n),
-		"Hyperbolic Tangent", Math.tanh(n),
-		"Hyperbolic Asin", Math.asinh(n),
-		"Hyperbolic Acos", Math.acosh(n),
-		"Hyperbolic Atan", Math.atanh(n),
-
-		"<br><br>Sine as Degrees", Math.sin(n * Math.PI / 180),
-		"Cosine as Degrees", Math.cos(n * Math.PI / 180),
-		"Tangent as Degrees", Math.tan(n * Math.PI / 180),
-		"Asin as Degrees", Math.asin(n * Math.PI / 180),
-		"Acos as Degrees", Math.acos(n * Math.PI / 180),
-		"Atan as Degrees", Math.atan(n * Math.PI / 180),
-		"Hyperbolic Sine as Degrees", Math.sinh(n * Math.PI / 180),
-		"Hyperbolic Cosine as Degrees", Math.cosh(n * Math.PI / 180),
-		"Hyperbolic Tangent as Degrees", Math.tanh(n * Math.PI / 180),
-		"Hyperbolic Asin as Degrees", Math.asinh(n * Math.PI / 180),
-		"Hyperbolic Acos as Degrees", Math.acosh(n * Math.PI / 180),
-		"Hyperbolic Atan as Degrees", Math.atanh(n * Math.PI / 180),
-
-		"<br><br>Sine as Gradians", Math.sin(n * Math.PI / 200),
-		"Cosine as Gradians", Math.cos(n * Math.PI / 200),
-		"Tangent as Gradians", Math.tan(n * Math.PI / 200),
-		"Asin as Gradians", Math.asin(n * Math.PI / 200),
-		"Acos as Gradians", Math.acos(n * Math.PI / 200),
-		"Atan as Gradians", Math.atan(n * Math.PI / 200),
-		"Hyperbolic Sine as Gradians", Math.sinh(n * Math.PI / 200),
-		"Hyperbolic Cosine as Gradians", Math.cosh(n * Math.PI / 200),
-		"Hyperbolic Tangent as Gradians", Math.tanh(n * Math.PI / 200),
-		"Hyperbolic Asin as Gradians", Math.asinh(n * Math.PI / 200),
-		"Hyperbolic Acos as Gradians", Math.acosh(n * Math.PI / 200),
-		"Hyperbolic Atan as Gradians", Math.atanh(n * Math.PI / 200),
-
-		"<br><br>Is Integer", cond(Number.isInteger(n), true),
-		"Is Not Integer", cond(Number.isInteger(n), false),
-		"Is Even", cond(n % 2, 0),
-		"Is Odd", cond(n % 2, 1),
-		"Is Prime", isPrime(n),
-		"Is Composite", isComposite(n),
-		"Is Positive", isPositive(n),
-		"Is Negative", isNegative(n),
-		"Is Zero", cond(n, 0),
-		"Is Nonzero", ncond(n, 0)
-	]);
-}
-function calcQuadraticEqCalc() {
-	var p = gid("QuadraticEqCalcOutputs");
-	var a = eval(gid("QuadraticEqCalcInputA").value),
-		b = eval(gid("QuadraticEqCalcInputB").value) || 0,
-		c = eval(gid("QuadraticEqCalcInputC").value) || 0;
-	var d = (b ** 2) - (4 * a * c),
-		x1 = (-b + Math.sqrt(d)) / (2 * a),
-		x2 = (-b - Math.sqrt(d)) / (2 * a),
-		h = b / (2 * a),
-		k = c - ((b ** 2) / (4 * a * a));
-	p.innerHTML = custringify([
-		"Equation", a + "x<sup>2</sup>" + compZero(isPositive(b), "True", " + " + b + "x", " - " + Math.abs(b) + "x") + compZero(isPositive(c), "True", " + " + c, " - " + Math.abs(c)) + " = 0",
-		"Discriminant", d,
-		"X", "{ " + x1 + ", " + x2 + "}",
-		"X1", x1,
-		"X2", x2,
-		"Sum of Roots", x1 + x2,
-		"Product of Roots", x1 * x2,
-
-		"<br><br>Graphable Equation", "y = " + a + "x<sup>2</sup>" + compZero(isPositive(b), "True", " + " + b + "x", " - " + Math.abs(b) + "x") + compZero(isPositive(c), "True", " + " + c, " - " + Math.abs(c)),
-		"Vertex Form", "y = " + a + "(x" + compZero(isPositive(h), "True", " + " + h, " - " + Math.abs(h)) + ")<sup>2</sup>" + compZero(isPositive(k), "True", " + " + k, " - " + Math.abs(k)),
-		"H", h,
-		"K", k,
-		"Vertex", "(" + h + ", " + k + ")",
-		"Direction of Parabola", comp(isPositive(a), "True", "Upwards", "Downwards")
-	]);
-}
-function calcRectangleCalc() {
-	var p = gid("RectangleCalcOutputs");
-	var l = Math.abs(eval(gid("RectangleCalcInputA").value)) || 1,
-		w = Math.abs(eval(gid("RectangleCalcInputB").value)) || 2;
-	p.innerHTML = custringify([
-		"Perimeter", 2 * (l + w),
-		"Semiperimeter", l + w,
-		"Area", l * w,
-		"Diagonal", Math.sqrt((l ** 2) + (w ** 2)),
-		"Half-Diagonal", Math.sqrt((l ** 2) + (w ** 2)) / 2,
-
-		"<br><br>Radius of Incircle", Math.min(l, w) / 2,
-		"Radius of Circumcircle", Math.sqrt((l ** 2) + (w ** 2)) / 2,
-		"Smaller Square Area", Math.min(l, w) ** 2,
-		"Larger Square Area", Math.max(l, w) ** 2,
-		"Same-Perimeter Square Equivalent Side", (l + w) / 2
-	]);
-}
-function calcRegPolCalc() {
-	var p = gid("RegPolCalcOutputs");
-	var s = Math.abs(eval(gid("RegPolCalcInputA").value)) || 3,
-		n = Math.abs(eval(gid("RegPolCalcInputB").value)) || 1;
-	var cr = (s / 2) * (1 / Math.sin(Math.PI / n)),
-		a = tround(Math.sqrt((cr ** 2) - (s * s / 4)), 12);
-	p.innerHTML = custringify([
-		"Perimeter", s * n,
-		"Semiperimeter", s * n / 2,
-		"Central Angle", 360 / n,
-		"Interior Angle", 180 * (n - 2) / n,
-		"Apothem", a,
-		"Area", a * s * n / 2,
-		"Sector Area", a * s / 2,
-
-		"<br><br>Radius of Incircle", tround(s / (2 * Math.tan(180 / n * Math.PI / 180)), 12),
-		"Radius of Circumcircle", cr
-	]);
-}
-function calcSquareCalc() {
-	var p = gid("SquareCalcOutputs");
-	var s = Math.abs(eval(gid("SquareCalcInput").value)) || 1;
-	p.innerHTML = custringify([
-		"Perimeter", s * 4,
-		"Semiperimeter", s * 2,
-		"Area", s ** 2,
-		"Diagonal", s * Math.SQRT2,
-		"Half-Diagonal", s / Math.SQRT2,
-
-		"<br><br>Radius of Incircle", s / 2,
-		"Radius of Circumcircle", s / Math.SQRT2
-	]);
-}
-function calcTriangleCalc() {
-	var p = gid("TriangleCalcOutputs");
-	var a = Math.abs(eval(gid("TriangleCalcInputA").value)) || 1,
-		b = Math.abs(eval(gid("TriangleCalcInputB").value)) || 1,
-		c = Math.abs(eval(gid("TriangleCalcInputC").value)) || 1;
-	var s = (a + b + c) / 2,
-		A = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-	p.innerHTML = custringify([
-		"Perimeter", s * 2,
-		"Semiperimeter", s,
-		"Area", A,
-		"Height Perpendicular to Side A", 2 * A / a,
-		"Height Perpendicular to Side B", 2 * A / b,
-		"Height Perpendicular to Side C", 2 * A / c,
-
-		"<br><br>Rectangle Area", A * 2,
-		"Radius of Incircle", A / s,
-		"Radius of Circumcircle", a * b * c / (4 * A)
-	]);
+	if (amountofInputs === 4) {
+		switch (selectedCalculation) {
+			case "Cyclic":
+				resultString = [
+					"Area: ", NewMath.BrahmaguptaCyclic(a, b, c, d), "<br>",
+					"Perimeter: ", a + b + c + d, "<br>",
+					"Semiperimeter: ", (a + b + c + d) / 2, "<br>",
+					""
+				].join("");
+				break;
+			case "Trapezium":
+				resultString = [
+					"Area: ", NewMath.TrapeziumArea(a, b, c, d), "<br>",
+					"Perimeter: ", a + b + c + d, "<br>",
+					"Semiperimeter: ", (a + b + c + d) / 2, "<br>",
+					""
+				].join("");
+				break;
+		}
+	}
+	gid("result").innerHTML = resultString;
+	setT(function(){animdispB("outputContainer");}, 700);
 }
 </script>
 </body>
