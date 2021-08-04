@@ -125,6 +125,9 @@ section i {
 section::-webkit-scrollbar { 
 	display: none;
 }
+details ul li {
+	color: #00e600;
+}
 #menuscreen {
 	opacity: 1;
 }
@@ -181,6 +184,7 @@ function animdispN(id) {
 	<select id="inputs1">
 		<option value="Circle">Circle</option>
 		<option value="Cube">Cube</option>
+		<option value="Decimals">Decimals</option>
 		<option value="Dodecahedron">Dodecahedron</option>
 		<option value="Triangle">Equilateral Triangle</option>
 		<option value="Exponents">Exponents and Roots</option>
@@ -209,6 +213,7 @@ function animdispN(id) {
 		<option value="Triangle">Triangle</option>
 	</select>
 	<select id="inputs3">
+		<option value="Circle">Circle</option>
 		<option value="Cuboid">Cuboid</option>
 		<option value="Point">Point on a Plane</option>
 		<option value="Equation">Quadratic Equation</option>
@@ -260,6 +265,7 @@ function animdispN(id) {
 <ul style="list-style-type:square;">
 	<li>Circle: radius</li>
 	<li>Cube: side</li>
+	<li>Decimals: decimal</li>
 	<li>Dodecahedron: side</li>
 	<li>Equilateral Triangle: side</li>
 	<li>Exponents and Roots: number</li>
@@ -290,6 +296,7 @@ function animdispN(id) {
 </ul>
 <h4>For calculations that require 3 inputs:</h4>
 <ul style="list-style-type:square;">
+	<li>Circle: radius, x, y</li>
 	<li>Cuboid: length, width, height</li>
 	<li>Point on a Plane: x, y, z</li>
 	<li>Quadratic Equation: a, b, c</li>
@@ -302,6 +309,36 @@ function animdispN(id) {
 	<li>Cyclic Quadrilateral: side, side, side, side</li>
 	<li>Trapezium: larger base, left leg, smaller base, right leg</li>
 </ul>
+<h3>Update History</h3>
+<p>A list of updates that came and went from time to time.</p>
+
+<details>
+<summary>Update v1.02</summary>
+<ul>
+	<li>Added an Update History.</li>
+	<li>Added Absolute Value and Sign for 1-input Multipliers Calculator.</li>
+	<li>Added 1-input Decimal Calculator.</li>
+	<li>Added 3-input Circle Calculator.</li>
+	<li>Removed the 2-input Ellipse NaN bug.</li>
+</ul>
+</details>
+
+<details>
+<summary>Update v1.01</summary>
+<ul>
+	<li>Added a "How To Use The Calculator" button on the Top Right.</li>
+	<li>Removed the 3-input Trapezoid disappearance bug.</li>
+</ul>
+</details>
+
+<details>
+<summary>v1.0</summary>
+<ul>
+	<li>First version of the renewed SCPDCALC.</li>
+</ul>
+</details>
+
+<br><br><br><br><br>
 </section>
 
 <strong onclick="showGuide()" unselectable="on">How To Use The Calculator</strong>
@@ -366,6 +403,18 @@ function processEverything() {
 		BrahmaguptaCyclic: function(a, b, c, d) {
 			let s = (a + b + c + d) / 2;
 			return Math.sqrt((s - a) * (s - b) * (s - c) * (s - d));
+		},
+		DecimalCeil: function(n, d) {
+			return Math.ceil(n * (10 ** d)) / (10 ** d);
+		},
+		DecimalFloor: function(n, d) {
+			return Math.floor(n * (10 ** d)) / (10 ** d);
+		},
+		DecimalRound: function(n, d) {
+			return Math.round(n * (10 ** d)) / (10 ** d);
+		},
+		DecimalTrunc: function(n, d) {
+			return Math.trunc(n * (10 ** d)) / (10 ** d);
 		},
 		Discriminant: function(a, b, c) {
 			return (b * b) - (4 * a * c);
@@ -459,6 +508,25 @@ function processEverything() {
 					"Total Semiperimeter: ", a * 6, "<br>",
 					"Total Surface Area: ", a * a * 6, "<br>",
 					"Volume: ", a ** 3, "<br>",
+					""
+				].join("");
+				break;
+			case "Decimals":
+				resultString = [
+					"Ceil to Nearest Integer: ", Math.ceil(a), "<br>",
+					"Floor to Nearest Integer: ", Math.floor(a), "<br>",
+					"Fround: ", Math.fround(a), "<br>",
+					"Round to Nearest Integer: ", Math.round(a), "<br>",
+					"Truncation: ", Math.trunc(a), "<br>",
+					"Ceil to Nearest Hundredths: ", NewMath.DecimalCeil(a, 2), "<br>",
+					"Floor to Nearest Hundredths: ", NewMath.DecimalFloor(a, 2), "<br>",
+					"Round to Nearest Hundredths: ", NewMath.DecimalRound(a, 2), "<br>",
+					"Truncate to Nearest Hundredths: ", NewMath.DecimalTrunc(a, 2), "<br>",
+					"Ceil to Nearest Thousandths: ", NewMath.DecimalCeil(a, 3), "<br>",
+					"Floor to Nearest Thousandths: ", NewMath.DecimalFloor(a, 3), "<br>",
+					"Round to Nearest Thousandths: ", NewMath.DecimalRound(a, 3), "<br>",
+					"Truncate to Nearest Thousandths: ", NewMath.DecimalTrunc(a, 3), "<br>",
+					"Exponential Form: ", a.toExponential(), "<br>",
 					""
 				].join("");
 				break;
@@ -560,7 +628,9 @@ function processEverything() {
 					"Tenth: ", a / 10, "<br>",
 					"Hundredth: ", a / 100, "<br>",
 					"Thousandth: ", a / 1000, "<br>",
-					"Reciprocal: ", 1 / a, "<br",
+					"Reciprocal: ", 1 / a, "<br>",
+					"Absolute Value: ", Math.abs(a), "<br>",
+					"Sign: ", Math.sign(a), "<br>",
 					""
 				].join("");
 				break;
@@ -784,6 +854,19 @@ function processEverything() {
 	if (amountofInputs === 3) {
 		let x1 = (-b + Math.sqrt(NewMath.Discriminant(a, b, c))) / (2 * a), x2 = (-b - Math.sqrt(NewMath.Discriminant(a, b, c))) / (2 * a);
 		switch (selectedCalculation) {
+			case "Circle":
+				resultString = [
+					"Radius: ", a, "<br>",
+					"X: ", b, "<br>",
+					"Y: ", c, "<br>",
+					"Area: ", a * a * Math.PI, "<br>",
+					"Diameter: ", a * 2, "<br>",
+					"Equation: ", "(x " + NewMath.StringSigns(b) + ")<sup>2</sup> + (y " + NewMath.StringSigns(c) + ")<sup>2</sup> = " + NewMath.StringSigns(a, true) + "<sup>2</sup>", "<br>",
+					"Circumference: ", a * 2 * Math.PI, "<br>",
+					"Semicircumference: ", a * Math.PI, "<br>",
+					""
+				].join("");
+				break;
 			case "Cuboid":
 				resultString = [
 					"Length: ", a, "<br>",
