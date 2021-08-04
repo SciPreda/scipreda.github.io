@@ -247,6 +247,7 @@ function animdispN(id) {
 <p>The <i>SciPred Calculator</i>, also called the <i>SCPDCALC</i>, is a slightly experimental project that includes a variety of things you want to calculate, graphs and calculus excluded.</p>
 <p>It can range from calculating the circumference of a circle to the total perimeter of an icosahedron to the direction of the parabola formed by a quadratic function.</p>
 <p>You are given a minimum of 1 input to fill in, and a maximum of 4 inputs to fill in. The number of inputs and the way you want to process those inputs is up to you.</p>
+<p>The amount of possibilities for processing inputs varies for how many inputs you have selected.</p>
 <h3>Programmer's Warnings</h3>
 <p>Some outputs may return <i>NaN</i>, which is an acronym for "Not A Number". This may mean that the resulting output is an imaginary number (most likely from using the <i>Math.sqrt</i> function to determine the square roots of negative numbers), or the answer is <i>Undefined</i>.</p>
 <p>Numbers with a considerable amount of digits will be shortened into <i>Scientific Notation</i>. These are numbers with the lowercase letter <i>e</i> in them.</p>
@@ -842,7 +843,7 @@ function processEverything() {
 					"First Base: ", a, "<br>",
 					"Second Base: ", b, "<br>",
 					"Height: ", c, "<br>",
-					"Area: ", h * (a + b) / 2, "<br>",
+					"Area: ", c * (a + b) / 2, "<br>",
 					""
 				].join("");
 				break;
