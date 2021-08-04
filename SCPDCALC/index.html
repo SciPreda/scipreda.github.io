@@ -12,7 +12,7 @@ html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
-	background: #ddd;
+	background: #eee;
 	font-family: sans-serif;
 	text-align: center;
 	overflow: hidden;
@@ -71,6 +71,60 @@ footer {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+strong {
+	position: fixed;
+	font-size: 15px;
+	color: #00e600;
+	top: -21px;
+	right: -100px;
+	background: black;
+	padding: 7px;
+	padding-bottom: 10px;
+	border-bottom-left-radius: 15px;
+	transition: 0.5s;
+	cursor: pointer;
+	z-index: 999;
+}
+strong:hover {
+	top: 0;
+	right: 0;
+}
+strong, section {
+	font-family: "Courier", Courier New, monospace;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+section {
+	width: 100%;
+	height: 0;
+	background: #222;
+	color: white;
+	z-index: 888;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-y: scroll;
+	transition: 0.5s;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+section h1 {
+	color: #00e600;
+}
+section h2, section h3 {
+	color: yellow;
+}
+section h4 {
+	color: cyan;
+}
+section i {
+	color: blue;
+}
+section::-webkit-scrollbar { 
+	display: none;
+}
 #menuscreen {
 	opacity: 1;
 }
@@ -80,6 +134,7 @@ footer {
 ::-webkit-scrollbar {width:10px;}
 ::-webkit-scrollbar-track {background:black}
 ::-webkit-scrollbar-thumb {background:#00E600;}
+
 </style>
 <script>
 function gid(id) {return document.getElementById(id);}
@@ -88,7 +143,6 @@ function dispn(id) {gid(id).style.display = "none";}
 function setT(func, ms) {return setTimeout(func, ms);}
 function setOp(id, op) {gid(id).style.opacity = op;}
 function animdispB(id) {
-	setOp(id, 0);
 	dispb(id);
 	setOp(id, 1);
 }
@@ -173,10 +227,10 @@ function animdispN(id) {
 	<h2>Just one more step!</h2>
 	<h3>Enter your numerical values into their designated inputs.</h3>
 	<h4>If you didn't want the selected amount of inputs, you can refresh the page and select another amount.</h4>
-	<input type="text" id="inputA">
-	<input type="text" id="inputB">
-	<input type="text" id="inputC">
-	<input type="text" id="inputD">
+	<input type="number" id="inputA">
+	<input type="number" id="inputB">
+	<input type="number" id="inputC">
+	<input type="number" id="inputD">
 	<br>
 	<button onclick="processEverything()">CALCULATE!</button>
 </div>
@@ -184,8 +238,72 @@ function animdispN(id) {
 	<h2>Finished Calculating.</h2>
 	<h3>Here are your results.</h3>
 	<p id="result"></p>
+	<button onclick="resetEverything()">TRY AGAIN?</button>
 </div>
 
+<section>
+<h1>How To Use The SciPred Calculator</h1>
+<h2>About The Calculator</h2>
+<p>The <i>SciPred Calculator</i>, also called the <i>SCPDCALC</i>, is a slightly experimental project that includes a variety of things you want to calculate, graphs and calculus excluded.</p>
+<p>It can range from calculating the circumference of a circle to the total perimeter of an icosahedron to the direction of the parabola formed by a quadratic function.</p>
+<p>You are given a minimum of 1 input to fill in, and a maximum of 4 inputs to fill in. The number of inputs and the way you want to process those inputs is up to you.</p>
+<h3>Programmer's Warnings</h3>
+<p>Some outputs may return <i>NaN</i>, which is an acronym for "Not A Number". This may mean that the resulting output is an imaginary number (most likely from using the <i>Math.sqrt</i> function to determine the square roots of negative numbers), or the answer is <i>Undefined</i>.</p>
+<p>Numbers with a considerable amount of digits will be shortened into <i>Scientific Notation</i>. These are numbers with the lowercase letter <i>e</i> in them.</p>
+<p>Sometimes, when handling decimals (usually in square roots or trigonometric functions), the answer will be inaccurate by a small amount (e.g. 5.33 + 5.2 = 10.530000000000001). These are called <i>floating-point errors</i>, and in most cases it is best to just round the results off to the hundredth digit.</p>
+<p>The <i>order of inputs</i> is extremely important. You might accidentally mistake the input for the <i>base</i> of a triangle as an input for the <i>height</i> of a triangle. In some cases the outputs may return <i>NaN</i> even though there is nothing wrong with the values you have inputted. In this case, you may want to consider reading the <i>Input Guide</i> below.</p>
+<p>Leaving an input empty will default the value of that input to <i>zero</i>.</p>
+<h3>Input Guide</h3>
+<p>Input values here from left to right belong to their respective inputs from top to bottom. Make sure that the resulting inputs for geometric calculators do not lead to impossible geometrical formations.</p>
+<h4>For calculations that require 1 input:</h4>
+<ul style="list-style-type:square;">
+	<li>Circle: radius</li>
+	<li>Cube: side</li>
+	<li>Dodecahedron: side</li>
+	<li>Equilateral Triangle: side</li>
+	<li>Exponents and Roots: number</li>
+	<li>Icosahedron: side</li>
+	<li>Increments and Decrements: number</li>
+	<li>Multipliers and Divisions: number</li>
+	<li>Octahedron: side</li>
+	<li>Properties: number</li>
+	<li>Sphere: radius</li>
+	<li>Square: side
+	<li>Tetrahedron: side</li>
+</ul>
+<h4>For calculations that require 2 inputs:</h4>
+<ul style="list-style-type:square;">
+	<li>Basic Arithmetic: number, number</li>
+	<li>Cone: height, radius (circular base)</li>
+	<li>Cylinder: height, radius (circular base)</li>
+	<li>Ellipse: distance of vertex, distance of co-vertex</li>
+	<li>Exponents and Roots: number, number</li>
+	<li>Linear Equation: a, b</li>
+	<li>Linear Function: a, b</li>
+	<li>Parallelogram: altitude, base</li>
+	<li>Point on a Plane: x, y</li>
+	<li>Rectangle: length, width</li>
+	<li>Regular Polygon: number of sides, side length</li>
+	<li>Right Triangle: adjacent, opposite</li>
+	<li>Triangle: height, base</li>
+</ul>
+<h4>For calculations that require 3 inputs:</h4>
+<ul style="list-style-type:square;">
+	<li>Cuboid: length, width, height</li>
+	<li>Point on a Plane: x, y, z</li>
+	<li>Quadratic Equation: a, b, c</li>
+	<li>Quadratic Function: a, b, c</li>
+	<li>Trapezoid: smaller base, larger base, height</li>
+	<li>Triangle: side, side, side</li>
+</ul>
+<h4>For calculations that require 4 inputs:</h4>
+<ul style="list-style-type:square;">
+	<li>Cyclic Quadrilateral: side, side, side, side</li>
+	<li>Trapezium: larger base, left leg, smaller base, right leg</li>
+</ul>
+</section>
+
+<strong onclick="showGuide()" unselectable="on">How To Use The Calculator</strong>
 <footer>This calculator is in development. For suggestions, reviews, and bug reports, you can contact me via <a href="https://discord.gg/2DDqrUbkYX" target="_blank">Discord</a>.</footer>
 
 <script>
@@ -195,6 +313,7 @@ function startProcess() {
 }
 var amountofInputs = 1, selectedCalculation = "";
 function startProcess2() {
+	dispb("outputContainer");
 	animdispN("inputSelection");
 	amountofInputs = Number(gid("inputAmount").value);
 	gid("inputNumberDisplay").innerHTML = "You have selected " + amountofInputs + " inputs for this calculation.";
@@ -213,17 +332,16 @@ function startProcess3() {
 }
 
 function processEverything() {
-	//this is the most tedious non-native function in the document
 	animdispN("inputEverything");
 	var resultString = "";
 	var a = Number(gid("inputA").value),
 		b = Number(gid("inputB").value),
 		c = Number(gid("inputC").value),
 		d = Number(gid("inputD").value);
-	a = isNaN(a) ? 1 : a;
-	b = isNaN(b) ? 1 : b;
-	c = isNaN(c) ? 1 : c;
-	d = isNaN(d) ? 1 : d;
+	a = isNaN(a) ? 0 : a;
+	b = isNaN(b) ? 0 : b;
+	c = isNaN(c) ? 0 : c;
+	d = isNaN(d) ? 0 : d;
 
 	//Custom Mathematical Polyfills
 	var NewMath = {
@@ -764,6 +882,40 @@ function processEverything() {
 	}
 	gid("result").innerHTML = resultString;
 	setT(function(){animdispB("outputContainer");}, 700);
+}
+
+function resetEverything() {
+	animdispN("outputContainer");
+	gid("inputA").value = "";
+	gid("inputB").value = "";
+	gid("inputC").value = "";
+	gid("inputD").value = "";
+	gid("inputA").style.display = "none";
+	gid("inputB").style.display = "none";
+	gid("inputC").style.display = "none";
+	gid("inputD").style.display = "none";
+	var divs = document.getElementsByTagName("div");
+	for (var i=0; i<divs.length; i++) {
+		divs[i].style.display = "block";
+		divs[i].style.opacity = 0;
+	}
+	setT(function(){animdispB("menuscreen");}, 600);
+}
+
+var hidingGuide = true;
+function showGuide() {
+	var guide = document.getElementsByTagName("section")[0], guidebtn = document.getElementsByTagName("strong")[0];
+	if (hidingGuide) {
+		guide.style.height = "100%";
+		guidebtn.style.background = "#eee";
+		guidebtn.style.color = "green";
+		hidingGuide = false;
+	} else {
+		guide.style.height = "0";
+		guidebtn.style.background = "black";
+		guidebtn.style.color = "#00e600";
+		hidingGuide = true;
+	}
 }
 </script>
 </body>
