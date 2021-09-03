@@ -215,6 +215,7 @@ function animdispN(id) {
 	<select id="inputs3">
 		<option value="Circle">Circle</option>
 		<option value="Cuboid">Cuboid</option>
+		<option value="Parallelogram">Parallelogram</option>
 		<option value="Point">Point on a Plane</option>
 		<option value="Equation">Quadratic Equation</option>
 		<option value="Function">Quadratic Function</option>
@@ -298,6 +299,7 @@ function animdispN(id) {
 <ul style="list-style-type:square;">
 	<li>Circle: radius, x, y</li>
 	<li>Cuboid: length, width, height</li>
+	<li>Parallelogram: altitude, base, angle</li>
 	<li>Point on a Plane: x, y, z</li>
 	<li>Quadratic Equation: a, b, c</li>
 	<li>Quadratic Function: a, b, c</li>
@@ -311,6 +313,15 @@ function animdispN(id) {
 </ul>
 <h3>Update History</h3>
 <p>A list of updates that came and went from time to time.</p>
+
+<details>
+<summary>Update v1.1</summary>
+<ul>
+	<li>Added the radii of incircles/inspheres and circumcircles/circumspheres of the following geometric forms: Cube, Cuboid, Dodecahedron, Icosahedron, Octahedron, Rectangle, Right Triangle, Square, Tetrahedron, and Equilateral Triangle.</li>
+	<li>Added a 3-input Parallelogram Calculation.</li>
+	<li>Fixed a ReferenceError from accidentally placing Math.SQRT3 instead of NewMath.SQRT3.</li>
+</ul>
+</details>
 
 <details>
 <summary>Update v1.02</summary>
@@ -386,6 +397,8 @@ function processEverything() {
 		PHI: 1.618033988749894848,
 		SQRT3: Math.sqrt(3),
 		SQRT5: Math.sqrt(5),
+		SQRT40: Math.sqrt(40),
+		sin72: Math.sin(72 * Math.PI / 180),
 
 		Axis: function(x, y) {
 			if (x === 0 && y !== 0) return "Y-Axis";
@@ -504,10 +517,15 @@ function processEverything() {
 					"Face Diagonal: ", a * Math.SQRT2, "<br>",
 					"Face Perimeter: ", a * 4, "<br>",
 					"Face Semiperimeter: ", a * 2, "<br>",
+					"Half FA: ", a * a / 2, "<br>",
+					"Half TSA: ", a * a * 3, "<br>",
 					"Total Perimeter: ", a * 12, "<br>",
 					"Total Semiperimeter: ", a * 6, "<br>",
 					"Total Surface Area: ", a * a * 6, "<br>",
 					"Volume: ", a ** 3, "<br>",
+					"<br><br><br>",
+					"Radius of Circumsphere: ", a * NewMath.SQRT3 / 2, "<br>",
+					"Radius of Insphere: ", a / 2, "<br>",
 					""
 				].join("");
 				break;
@@ -540,6 +558,9 @@ function processEverything() {
 					"Total Semiperimeter: ", a * 15, "<br>",
 					"Total Surface Area: ", a * a * NewMath.DodecahedronArea, "<br>",
 					"Volume: ", a * a * a * NewMath.DodecahedronVolume, "<br>",
+					"<br><br><br>",
+					"Radius of Circumsphere: ", a * (NewMath.SQRT3 + Math.sqrt(15)) / 4, "<br>",
+					"Radius of Insphere: ", a * Math.sqrt(25 + (11 * NewMath.SQRT5)) / NewMath.SQRT40, "<br>",
 					""
 				].join("");
 				break;
@@ -550,6 +571,9 @@ function processEverything() {
 					"Height: ", a * NewMath.SQRT3 / 2, "<br>",
 					"Perimeter: ", a * 3, "<br>",
 					"Semiperimeter: ", a * 1.5, "<br>",
+					"<br><br><br>",
+					"Radius of Circumcircle: ", a / NewMath.SQRT3, "<br>",
+					"Radius of Incircle: ", a / (NewMath.SQRT3 * 2), "<br>",
 					""
 				].join("");
 				break;
@@ -581,6 +605,9 @@ function processEverything() {
 					"Total Semiperimeter: ", a * 15, "<br>",
 					"Total Surface Area: ", a * a * NewMath.IcosahedronArea, "<br>",
 					"Volume: ", a * a * a * NewMath.IcosahedronVolume, "<br>",
+					"<br><br><br>",
+					"Radius of Circumsphere: ", a * NewMath.sin72, "<br>",
+					"Radius of Insphere: ", a * ((3 * NewMath.SQRT3) + (NewMath.SQRT3 * NewMath.SQRT5)) / 12, "<br>",
 					""
 				].join("");
 				break;
@@ -644,6 +671,9 @@ function processEverything() {
 					"Total Semiperimeter: ", a * 6, "<br>",
 					"Total Surface Area: ", a * a * 2 * NewMath.SQRT3, "<br>",
 					"Volume: ", a * a * a * Math.SQRT2 / 3, "<br>",
+					"<br><br><br>",
+					"Radius of Circumsphere: ", a * Math.SQRT2 / 2, "<br>",
+					"Radius of Insphere: ", a / (Math.SQRT2 * NewMath.SQRT3), "<br>",
 					""
 				].join("");
 				break;
@@ -678,8 +708,12 @@ function processEverything() {
 					"Side: ", a, "<br>",
 					"Area: ", a * a, "<br>",
 					"Diagonal: ", a * Math.SQRT2, "<br>",
+					"Half Area: ", a * a / 2, "<br>",
 					"Perimeter: ", a * 4, "<br>",
 					"Semiperimeter: ", a * 2, "<br>",
+					"<br><br><br>",
+					"Radius of Circumcircle: ", a / Math.SQRT2, "<br>",
+					"Radius of Incircle: ", a / 2, "<br>",
 					""
 				].join("");
 				break;
@@ -693,6 +727,9 @@ function processEverything() {
 					"Total Semiperimeter: ", a * 3, "<br>",
 					"Total Surface Area: ", a * a * NewMath.SQRT3, "<br>",
 					"Volume: ", a * a * a / (6 * Math.SQRT2), "<br>",
+					"<br><br><br>",
+					"Radius of Circumsphere: ", a * (Math.SQRT2 * NewMath.SQRT3) / 4, "<br>",
+					"Radius of Insphere: ", a / Math.sqrt(24), "<br>",
 					""
 				].join("");
 				break;
@@ -789,8 +826,6 @@ function processEverything() {
 					"Height: ", a, "<br>",
 					"Base: ", b, "<br>",
 					"Area: ", a * b, "<br>",
-					"Perimeter: ", a + a + b + b, "<br>",
-					"Semiperimeter: ", a + b, "<br>",
 					""
 				].join("");
 				break;
@@ -813,6 +848,10 @@ function processEverything() {
 					"Diagonal: ", Math.sqrt((a * a) + (b * b)), "<br>",
 					"Perimeter: ", 2 * (a + b), "<br>",
 					"Semiperimeter: ", a + b, "<br>",
+					"Half Area: ", a * b / 2, "<br>",
+					"<br><br><br>",
+					"Radius of Circumcircle: ", Math.sqrt((a * a) + (b * b)) / 2, "<br>",
+					"Radius of Incircle: ", Math.min(a, b) / 2, "<br>",
 					""
 				].join("");
 				break;
@@ -822,6 +861,8 @@ function processEverything() {
 					"Side Length: ", b, "<br>",
 					"Apothem: ", b / (2 * Math.tan(NewMath.toRadians(180 / a))), "<br>",
 					"Area: ", a * b * (b / (2 * Math.tan(NewMath.toRadians(180 / a)))) / 2, "<br>",
+					"Central Angle: ", 360 / a, "<br>",
+					"Interior Angle: ", 180 - (360 / a), "<br>",
 					"Perimeter: ", a * b, "<br>",
 					"Semiperimeter: ", a * b / 2, "<br>",
 					""
@@ -837,6 +878,9 @@ function processEverything() {
 					"Hypotenuse: ", Math.sqrt((a * a) + (b * b)), "<br>",
 					"Perimeter: ", a + b + Math.sqrt((a * a) + (b * b)), "<br>",
 					"Semiperimeter: ", (a + b + Math.sqrt((a * a) + (b * b))) / 2, "<br>",
+					"<br><br><br>",
+					"Radius of Circumcircle: ", Math.sqrt((a * a) + (b * b)) / 2, "<br>",
+					"Radius of Incircle: ", (a * b / 2) / ((a + b + Math.sqrt((a * a) + (b * b))) / 2), "<br>",
 					""
 				].join("");
 				break;
@@ -860,9 +904,9 @@ function processEverything() {
 					"X: ", b, "<br>",
 					"Y: ", c, "<br>",
 					"Area: ", a * a * Math.PI, "<br>",
+					"Circumference: ", a * 2 * Math.PI, "<br>",
 					"Diameter: ", a * 2, "<br>",
 					"Equation: ", "(x " + NewMath.StringSigns(b) + ")<sup>2</sup> + (y " + NewMath.StringSigns(c) + ")<sup>2</sup> = " + NewMath.StringSigns(a, true) + "<sup>2</sup>", "<br>",
-					"Circumference: ", a * 2 * Math.PI, "<br>",
 					"Semicircumference: ", a * Math.PI, "<br>",
 					""
 				].join("");
@@ -873,10 +917,27 @@ function processEverything() {
 					"Width: ", b, "<br>",
 					"Height: ", c, "<br>",
 					"Diagonal: ", Math.sqrt((a * a) + (b * b) + (c * c)), "<br>",
+					"Half TSA: ", (a * b) + (a * c) + (b * c), "<br>",
 					"Total Perimeter: ", 4 * (a + b + c), "<br>",
 					"Total Semiperimeter: ", 2 * (a + b + c), "<br>",
 					"Total Surface Area: ", 2 * ((a * b) + (a * c) + (b * c)), "<br>",
 					"Volume: ", a * b * c, "<br>",
+					"<br><br><br>",
+					"Radius of Circumsphere: ", Math.sqrt((a * a) + (b * b) + (c * c)) / 2, "<br>",
+					"Radius of Insphere: ", Math.min(a, b, c) / 2, "<br>",
+					""
+				].join("");
+				break;
+			case "Parallelogram":
+				resultString = [
+					"Height: ", a, "<br>",
+					"Base: ", b, "<br>",
+					"Angle: ", c, "<br>",
+					"Area: ", a * b, "<br>",
+					"Perimeter: ", b + b + (a / Math.cos((90 - c) * Math.PI / 180) * 2), "<br>",
+					"Semiperimeter: ", b + (a / Math.cos((90 - c) * Math.PI / 180)), "<br>",
+					"Side: ", a / Math.cos((90 - c) * Math.PI / 180), "<br>",
+					"Supplementary Angle: ", 180 - c, "<br>",
 					""
 				].join("");
 				break;
