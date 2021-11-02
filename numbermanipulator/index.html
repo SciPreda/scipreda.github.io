@@ -1,0 +1,414 @@
+<!doctype html>
+<html>
+<head>
+<title>Number Manipulator</title>
+<meta charset="UTF-8">
+<meta name="description" content="Like a calculator, but useless.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body, canvas {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: black;
+    font-family: sans-serif;
+    color: white;
+}
+aside {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    bottom: 0;
+    transition: all 0.5s;
+    background: white;
+}
+aside h5 {
+    color: #444;
+    transition: all 0.5s;
+}
+aside:hover {
+    height: 60%;
+    background: #444;
+}
+aside:hover h5 {
+    height: 0;
+    width: 0;
+}
+button {
+    color: black;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    font-size: 17px;
+}
+canvas {
+    z-index: 0;
+}
+div {
+    display: none;
+}
+h2 {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+#numberDisplay {
+    font-size: 5em;
+    font-weight: bold;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+</style>
+<script>
+function gID(id) {return document.getElementById(id);}
+function gTag(tag) {return document.getElementsByTagName(tag);}
+</script>
+</head>
+<body>
+<canvas></canvas>
+<h2>Your current number is</h2>
+<p id="numberDisplay">1</p>
+
+<aside>
+<h5>Hover for tools</h5>
+<h3>TOOLS</h3>
+<button onclick="ResetNumber()">Reset</button>
+
+<hr>
+<button onclick="previousPage()">PREVIOUS PAGE</button>
+<button onclick="nextPage()">NEXT PAGE</button>
+<hr>
+
+<div>
+<button onclick="IncrementNumber()">Increment</button>
+<button onclick="Increment10Number()">Increment By 10</button>
+<button onclick="Increment100Number()">Increment By 100</button>
+<button onclick="Increment1000Number()">Increment By 1000</button>
+<button onclick="Increment10000Number()">Increment By 10000</button>
+<br><br>
+<button onclick="DecrementNumber()">Decrement</button>
+<button onclick="Decrement10Number()">Decrement By 10</button>
+<button onclick="Decrement100Number()">Decrement By 100</button>
+<button onclick="Decrement1000Number()">Decrement By 1000</button>
+<button onclick="Decrement10000Number()">Decrement By 10000</button>
+</div>
+
+<div>
+<button onclick="DoubleNumber()">Double</button>
+<button onclick="TripleNumber()">Triple</button>
+<button onclick="QuadrupleNumber()">Quadruple</button>
+<button onclick="QuintupleNumber()">Quintuple</button>
+<button onclick="MultipliedBy10Number()">Multiplied By 10</button>
+<button onclick="ToPercentNumber()">To Percent</button>
+<br><br>
+<button onclick="HalfNumber()">Half</button>
+<button onclick="ThirdNumber()">Third</button>
+<button onclick="QuarterNumber()">Quarter</button>
+<button onclick="FifthNumber()">Fifth</button>
+<button onclick="DividedBy10Number()">Divided By 10</button>
+<button onclick="FromPercentNumber()">From Percent</button>
+<br><br>
+<button onclick="ReciprocalNumber()">Reciprocal</button>
+<button onclick="DividedByItselfNumber()">Divided By Itself</button>
+</div>
+
+<div>
+<button onclick="SquareNumber()">Square</button>
+<button onclick="CubeNumber()">Cube</button>
+<br><br>
+<button onclick="SquareRootNumber()">Square Root</button>
+<button onclick="CubeRootNumber()">Cube Root</button>
+</div>
+
+</aside>
+
+<script>
+var n = 1;
+function displayNumber() {
+    gID("numberDisplay").innerHTML = n;
+}
+
+var divNum = 0;
+var divs = gTag("div");
+function displayPage() {
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].style.display = "none";
+    }
+    divs[divNum].style.display = "block";
+}
+function nextPage() {
+    divNum++;
+    if (divNum > divs.length - 1) {
+        divNum = divs.length - 1;
+    }
+    displayPage();
+}
+function previousPage() {
+    divNum--;
+    if (divNum < 0) {
+        divNum = 0;
+    }
+    displayPage();
+}
+function ResetNumber() {
+    n = 1;
+    displayNumber();
+}
+displayPage();
+
+function CubeNumber() {
+    n = n ** 3;
+    displayNumber();
+}
+function CubeRootNumber() {
+    n = Math.cbrt(n);
+    displayNumber();
+}
+function DecrementNumber() {
+    n -= 1;
+    displayNumber();
+}
+function Decrement10Number() {
+    n -= 10;
+    displayNumber();
+}
+function Decrement100Number() {
+    n -= 100;
+    displayNumber();
+}
+function Decrement1000Number() {
+    n -= 1000;
+    displayNumber();
+}
+function Decrement10000Number() {
+    n -= 10000;
+    displayNumber();
+}
+function DividedBy10Number() {
+    n /= 10;
+    displayNumber();
+}
+function DividedByItselfNumber() {
+    n /= n;
+    displayNumber();
+}
+function DoubleNumber() {
+    n *= 2;
+    displayNumber();
+}
+function FifthNumber() {
+    n /= 5;
+    displayNumber();
+}
+function FromPercentNumber() {
+    n /= 100;
+    displayNumber();
+}
+function HalfNumber() {
+    n /= 2;
+    displayNumber();
+}
+function IncrementNumber() {
+    n += 1;
+    displayNumber();
+}
+function Increment10Number() {
+    n += 10;
+    displayNumber();
+}
+function Increment100Number() {
+    n += 100;
+    displayNumber();
+}
+function Increment1000Number() {
+    n += 1000;
+    displayNumber();
+}
+function Increment10000Number() {
+    n += 10000;
+    displayNumber();
+}
+function MultipliedBy10Number() {
+    n *= 10;
+    displayNumber();
+}
+function SquareNumber() {
+    n = n ** 2;
+    displayNumber();
+}
+function SquareRootNumber() {
+    n = Math.sqrt(n);
+    displayNumber();
+}
+function ThirdNumber() {
+    n /= 3;
+    displayNumber();
+}
+function ToPercentNumber() {
+    n *= 100;
+    displayNumber();
+}
+function TripleNumber() {
+    n *= 3;
+    displayNumber();
+}
+function QuadrupleNumber() {
+    n *= 4;
+    displayNumber();
+}
+function QuarterNumber() {
+    n /= 4;
+    displayNumber();
+}
+function QuintupleNumber() {
+    n *= 5;
+    displayNumber();
+}
+function ReciprocalNumber() {
+    n = 1 / n;
+    displayNumber();
+}
+
+// the canvas and whatnot
+var canvas = gTag("canvas")[0];
+var ctx = canvas.getContext("2d");
+var hw = canvas.width / 2, hh = canvas.height / 2;
+function convertX(x, y) {return x + hw;}
+function convertY(y) {return -y + hh;}
+function drawStationaryLines() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(hw), convertY(hh));
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(hw), convertY(-hh));
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(-hw), convertY(-hh));
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(-hw), convertY(hh));
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = "#bbb";
+    ctx.stroke();
+    ctx.closePath();
+}
+var q11 = {x: 0, y: 0}, q12 = {x: 0, y: 0}, q13 = {x: 0, y: 0}, q14 = {x: 0, y: 0};
+function drawMovingLines1() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q11.x), convertY(q11.y));
+    ctx.lineTo(convertX(q12.x), convertY(q12.y));
+    ctx.lineTo(convertX(q13.x), convertY(q13.y));
+    ctx.lineTo(convertX(q14.x), convertY(q14.y));
+    ctx.lineTo(convertX(q11.x), convertY(q11.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q11.x += 0.4; q11.y += 0.2;
+    q12.x += 0.4; q12.y -= 0.2;
+    q13.x -= 0.4; q13.y -= 0.2;
+    q14.x -= 0.4; q14.y += 0.2;
+    if (q11.x >= 240) {q11 = {x: 0, y: 0}; q12 = {x: 0, y: 0}; q13 = {x: 0, y: 0}; q14 = {x: 0, y: 0};}
+}
+var q21 = {x: 0, y: 0}, q22 = {x: 0, y: 0}, q23 = {x: 0, y: 0}, q24 = {x: 0, y: 0};
+function drawMovingLines2() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q21.x), convertY(q21.y));
+    ctx.lineTo(convertX(q22.x), convertY(q22.y));
+    ctx.lineTo(convertX(q23.x), convertY(q23.y));
+    ctx.lineTo(convertX(q24.x), convertY(q24.y));
+    ctx.lineTo(convertX(q21.x), convertY(q21.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q21.x += 0.4; q21.y += 0.2;
+    q22.x += 0.4; q22.y -= 0.2;
+    q23.x -= 0.4; q23.y -= 0.2;
+    q24.x -= 0.4; q24.y += 0.2;
+    if (q21.x >= 240) {q21 = {x: 0, y: 0}; q22 = {x: 0, y: 0}; q23 = {x: 0, y: 0}; q24 = {x: 0, y: 0};}
+}
+var q31 = {x: 0, y: 0}, q32 = {x: 0, y: 0}, q33 = {x: 0, y: 0}, q34 = {x: 0, y: 0};
+function drawMovingLines3() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q31.x), convertY(q31.y));
+    ctx.lineTo(convertX(q32.x), convertY(q32.y));
+    ctx.lineTo(convertX(q33.x), convertY(q33.y));
+    ctx.lineTo(convertX(q34.x), convertY(q34.y));
+    ctx.lineTo(convertX(q31.x), convertY(q31.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q31.x += 0.4; q31.y += 0.2;
+    q32.x += 0.4; q32.y -= 0.2;
+    q33.x -= 0.4; q33.y -= 0.2;
+    q34.x -= 0.4; q34.y += 0.2;
+    if (q31.x >= 240) {q31 = {x: 0, y: 0}; q32 = {x: 0, y: 0}; q33 = {x: 0, y: 0}; q34 = {x: 0, y: 0};}
+}
+var q41 = {x: 0, y: 0}, q42 = {x: 0, y: 0}, q43 = {x: 0, y: 0}, q44 = {x: 0, y: 0};
+function drawMovingLines4() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q41.x), convertY(q41.y));
+    ctx.lineTo(convertX(q42.x), convertY(q42.y));
+    ctx.lineTo(convertX(q43.x), convertY(q43.y));
+    ctx.lineTo(convertX(q44.x), convertY(q44.y));
+    ctx.lineTo(convertX(q41.x), convertY(q41.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q41.x += 0.4; q41.y += 0.2;
+    q42.x += 0.4; q42.y -= 0.2;
+    q43.x -= 0.4; q43.y -= 0.2;
+    q44.x -= 0.4; q44.y += 0.2;
+    if (q41.x >= 240) {q41 = {x: 0, y: 0}; q42 = {x: 0, y: 0}; q43 = {x: 0, y: 0}; q44 = {x: 0, y: 0};}
+}
+var q51 = {x: 0, y: 0}, q52 = {x: 0, y: 0}, q53 = {x: 0, y: 0}, q54 = {x: 0, y: 0};
+function drawMovingLines5() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q51.x), convertY(q51.y));
+    ctx.lineTo(convertX(q52.x), convertY(q52.y));
+    ctx.lineTo(convertX(q53.x), convertY(q53.y));
+    ctx.lineTo(convertX(q54.x), convertY(q54.y));
+    ctx.lineTo(convertX(q51.x), convertY(q51.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q51.x += 0.4; q51.y += 0.2;
+    q52.x += 0.4; q52.y -= 0.2;
+    q53.x -= 0.4; q53.y -= 0.2;
+    q54.x -= 0.4; q54.y += 0.2;
+    if (q51.x >= 240) {q51 = {x: 0, y: 0}; q52 = {x: 0, y: 0}; q53 = {x: 0, y: 0}; q54 = {x: 0, y: 0};}
+}
+var q61 = {x: 0, y: 0}, q62 = {x: 0, y: 0}, q63 = {x: 0, y: 0}, q64 = {x: 0, y: 0};
+function drawMovingLines6() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q61.x), convertY(q61.y));
+    ctx.lineTo(convertX(q62.x), convertY(q62.y));
+    ctx.lineTo(convertX(q63.x), convertY(q63.y));
+    ctx.lineTo(convertX(q64.x), convertY(q64.y));
+    ctx.lineTo(convertX(q61.x), convertY(q61.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q61.x += 0.4; q61.y += 0.2;
+    q62.x += 0.4; q62.y -= 0.2;
+    q63.x -= 0.4; q63.y -= 0.2;
+    q64.x -= 0.4; q64.y += 0.2;
+    if (q61.x >= 240) {q61 = {x: 0, y: 0}; q62 = {x: 0, y: 0}; q63 = {x: 0, y: 0}; q64 = {x: 0, y: 0};}
+}
+var keyLines = 0;
+function mainRender() {
+    if (keyLines < 600) {keyLines += 1;}
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawStationaryLines();
+    drawMovingLines1();
+    if (keyLines > 99) {drawMovingLines2();}
+    if (keyLines > 199) {drawMovingLines3();}
+    if (keyLines > 299) {drawMovingLines4();}
+    if (keyLines > 399) {drawMovingLines5();}
+    if (keyLines > 499) {drawMovingLines6();}
+    requestAnimationFrame(mainRender);
+}
+mainRender();
+</script>
+</body>
+</html>

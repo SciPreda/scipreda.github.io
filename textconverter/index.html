@@ -63,7 +63,10 @@ aside button:hover {
 aside h2 {
     text-align: center;
 }
-select {
+section p, section select {
+    display: inline-block;
+}
+select, section {
     display: none;
 }
 #converted {
@@ -253,7 +256,7 @@ function polybius(str) {
 <body><div id="mainContent">
 
 <h1>Text Converter by SciPred</h1>
-<h3>Enter the requirements below.</h3>
+<h3>Enter the requirements below to get the encoded result. Press the button on the right to open a menu with more encryption options.</h3>
 <input type="text" placeholder="String To Convert" id="convertible" oninput="convertLive()">
 
 <select id="BinarySelection">
@@ -280,6 +283,82 @@ function polybius(str) {
 <button onclick="convertString()">CONVERT</button>
 <button onclick="liveConversion()" id="liveControl">ENABLE LIVE CONVERSION</button>
 <p id="selType">SELECTED TYPE: Reverse</p>
+
+<section id="CustomBaseCipherMenu">
+    <hr>
+    <p>Base Conversion Number:</p>
+    <select style="display:inline-block" id="CustomBaseCipherSelection">
+        <option value="1" selected="selected">2</option>
+        <option value="2">3</option>
+        <option value="3">4</option>
+        <option value="4">5</option>
+        <option value="5">6</option>
+        <option value="6">7</option>
+        <option value="7">8</option>
+        <option value="8">9</option>
+        <option value="9">10</option>
+        <option value="10">11</option>
+        <option value="11">12</option>
+        <option value="12">13</option>
+        <option value="13">14</option>
+        <option value="14">15</option>
+        <option value="15">16</option>
+        <option value="16">17</option>
+        <option value="17">18</option>
+        <option value="18">19</option>
+        <option value="19">20</option>
+        <option value="20">21</option>
+        <option value="21">22</option>
+        <option value="22">23</option>
+        <option value="23">24</option>
+        <option value="24">25</option>
+        <option value="25">26</option>
+        <option value="26">27</option>
+        <option value="27">28</option>
+        <option value="28">29</option>
+        <option value="29">30</option>
+        <option value="30">31</option>
+        <option value="31">32</option>
+        <option value="32">33</option>
+        <option value="33">34</option>
+        <option value="34">35</option>
+        <option value="35">36</option>
+    </select><br>
+</section>
+
+<section id="CustomRotationCipherMenu">
+    <hr>
+    <p>Cipher Rotation Number:</p>
+    <select style="display:inline-block" id="CustomRotationCipherSelection">
+        <option value="1" selected="selected">1-A</option>
+        <option value="2">2-B</option>
+        <option value="3">3-C</option>
+        <option value="4">4-D</option>
+        <option value="5">5-E</option>
+        <option value="6">6-F</option>
+        <option value="7">7-G</option>
+        <option value="8">8-H</option>
+        <option value="9">9-I</option>
+        <option value="10">10-J</option>
+        <option value="11">11-K</option>
+        <option value="12">12-L</option>
+        <option value="13">13-M</option>
+        <option value="14">14-N</option>
+        <option value="15">15-O</option>
+        <option value="16">16-P</option>
+        <option value="17">17-Q</option>
+        <option value="18">18-R</option>
+        <option value="19">19-S</option>
+        <option value="20">20-T</option>
+        <option value="21">21-U</option>
+        <option value="22">22-V</option>
+        <option value="23">23-W</option>
+        <option value="24">24-X</option>
+        <option value="25">25-Y</option>
+        <option value="26">26-Z</option>
+    </select><br>
+</section>
+
 <hr>
 <div id="converted"></div>
 <button onclick="copyText()">COPY</button>
@@ -313,7 +392,9 @@ function polybius(str) {
 <button onclick="toggleAside();switchType('Tetradecimal')">Tetradecimal</button>
 <button onclick="toggleAside();switchType('Trigesimal')">Trigesimal</button>
 <button onclick="toggleAside();switchType('Undecimal')">Undecimal</button>
-<button onclick="toggleAside();switchType('Vigesimal')">Vigesimal</button>
+<button onclick="toggleAside();switchType('Vigesimal')">Vigesimal</button><br><br>
+<button onclick="toggleAside();switchType('Custom Base Cipher')">Custom Base Cipher</button>
+<button onclick="toggleAside();switchType('Custom Rotation Cipher')">Custom Rotation Cipher</button>
 </aside>
 <script>
 function gID(id) {return document.getElementById(id);}
@@ -339,6 +420,16 @@ function switchType(s) {
         gID("MorseSelection").style.display = "inline-block";
     } else {
         gID("MorseSelection").style.display = "none";
+    }
+    if (TYPE === 'Custom Base Cipher') {
+        gID("CustomBaseCipherMenu").style.display = "inline-block";
+    } else {
+        gID("CustomBaseCipherMenu").style.display = "none";
+    }
+    if (TYPE === 'Custom Rotation Cipher') {
+        gID("CustomRotationCipherMenu").style.display = "inline-block";
+    } else {
+        gID("CustomRotationCipherMenu").style.display = "none";
     }
 }
 
@@ -465,6 +556,17 @@ function convertString() {
         conv.innerHTML = charCode(input, 11);
     } else if (TYPE === 'Vigesimal') {
         conv.innerHTML = charCode(input, 20);
+    } else if (TYPE === 'Custom Base Cipher') {
+        var slct = gID("CustomBaseCipherSelection");
+        var t = Number(String(slct.options[slct.selectedIndex].text));
+        conv.innerHTML = charCode(input, t);
+    } else if (TYPE === 'Custom Rotation Cipher') {
+        var cipherKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var slct = gID("CustomRotationCipherSelection");
+        var t = Number(String(slct.options[slct.selectedIndex].text).slice(0, -2));
+        cipherKey = cipherKey.slice(t - 1) + cipherKey.slice(0, t - 1);
+        input = charRotCipher(input, cipherKey + cipherKey.toLowerCase());
+        conv.innerHTML = input;
     } else {
         conv.innerHTML = input;
     }
