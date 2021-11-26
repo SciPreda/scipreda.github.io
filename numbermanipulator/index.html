@@ -69,6 +69,7 @@ h2 {
 <script>
 function gID(id) {return document.getElementById(id);}
 function gTag(tag) {return document.getElementsByTagName(tag);}
+var n = 1;
 </script>
 </head>
 <body>
@@ -87,50 +88,170 @@ function gTag(tag) {return document.getElementsByTagName(tag);}
 <hr>
 
 <div>
-<button onclick="IncrementNumber()">Increment</button>
-<button onclick="Increment10Number()">Increment By 10</button>
-<button onclick="Increment100Number()">Increment By 100</button>
-<button onclick="Increment1000Number()">Increment By 1000</button>
-<button onclick="Increment10000Number()">Increment By 10000</button>
+<button onclick="SetNumber(0)">Set to Zero</button>
+<button onclick="SetNumber(100)">Set to 100</button>
+<button onclick="SetNumber(1000)">Set to 1000</button>
+<button onclick="SetNumber(1000000)">Set to 1 Million</button>
+<button onclick="SetNumber(1000000000)">Set to 1 Billion</button>
+<button onclick="SetNumber(1000000000000)">Set to 1 Trillion</button>
 <br><br>
-<button onclick="DecrementNumber()">Decrement</button>
-<button onclick="Decrement10Number()">Decrement By 10</button>
-<button onclick="Decrement100Number()">Decrement By 100</button>
-<button onclick="Decrement1000Number()">Decrement By 1000</button>
-<button onclick="Decrement10000Number()">Decrement By 10000</button>
+<button onclick="SetNumber(Math.E)">Set to Euler's Number</button>
+<button onclick="SetNumber((1 + Math.sqrt(5))/2)">Set to Phi</button>
+<button onclick="SetNumber(Math.PI)">Set to Pi</button>
 </div>
 
 <div>
-<button onclick="DoubleNumber()">Double</button>
-<button onclick="TripleNumber()">Triple</button>
-<button onclick="QuadrupleNumber()">Quadruple</button>
-<button onclick="QuintupleNumber()">Quintuple</button>
-<button onclick="MultipliedBy10Number()">Multiplied By 10</button>
-<button onclick="ToPercentNumber()">To Percent</button>
+<button onclick="EvalNumber('ceil')">Ceiling</button>
+<button onclick="EvalNumber('floor')">Floor</button>
+<button onclick="EvalNumber('fround')">Fround</button>
+<button onclick="EvalNumber('round')">Round</button>
+<button onclick="EvalNumber('trunc')">Truncate</button>
 <br><br>
-<button onclick="HalfNumber()">Half</button>
-<button onclick="ThirdNumber()">Third</button>
-<button onclick="QuarterNumber()">Quarter</button>
-<button onclick="FifthNumber()">Fifth</button>
-<button onclick="DividedBy10Number()">Divided By 10</button>
-<button onclick="FromPercentNumber()">From Percent</button>
+<button onclick="RoundNumber(1)">Round to Nearest Tenths</button>
+<button onclick="RoundNumber(2)">Round to Nearest Hundreths</button>
+<button onclick="RoundNumber(3)">Round to Nearest Thousandths</button>
 <br><br>
-<button onclick="ReciprocalNumber()">Reciprocal</button>
-<button onclick="DividedByItselfNumber()">Divided By Itself</button>
+<button onclick="TruncNumber(1)">Truncate to Nearest Tenths</button>
+<button onclick="TruncNumber(2)">Truncate to Nearest Hundreths</button>
+<button onclick="TruncNumber(3)">Truncate to Nearest Thousandths</button>
 </div>
 
 <div>
-<button onclick="SquareNumber()">Square</button>
-<button onclick="CubeNumber()">Cube</button>
+<button onclick="IncrementNumber(1)">Increment</button>
+<button onclick="IncrementNumber(10)">Increment By 10</button>
+<button onclick="IncrementNumber(100)">Increment By 100</button>
+<button onclick="IncrementNumber(1000)">Increment By 1000</button>
+<button onclick="IncrementNumber(10000)">Increment By 10000</button>
+<button onclick="IncrementNumber(100000)">Increment By 100000</button>
 <br><br>
-<button onclick="SquareRootNumber()">Square Root</button>
-<button onclick="CubeRootNumber()">Cube Root</button>
+<button onclick="IncrementNumber(2)">Increment by 2</button>
+<button onclick="IncrementNumber(3)">Increment by 3</button>
+<button onclick="IncrementNumber(5)">Increment by 5</button>
+<button onclick="IncrementNumber(7)">Increment by 7</button>
+<button onclick="IncrementNumber(11)">Increment by 11</button>
+<button onclick="IncrementNumber(25)">Increment by 25</button>
+<button onclick="IncrementNumber(50)">Increment by 50</button>
+<br><br>
+<button onclick="IncrementNumber(-1)">Decrement</button>
+<button onclick="IncrementNumber(-10)">Decrement By 10</button>
+<button onclick="IncrementNumber(-100)">Decrement By 100</button>
+<button onclick="IncrementNumber(-1000)">Decrement By 1000</button>
+<button onclick="IncrementNumber(-10000)">Decrement By 10000</button>
+<button onclick="IncrementNumber(-100000)">Decrement By 100000</button>
+<br><br>
+<button onclick="IncrementNumber(-2)">Decrement by 2</button>
+<button onclick="IncrementNumber(-3)">Decrement by 3</button>
+<button onclick="IncrementNumber(-5)">Decrement by 5</button>
+<button onclick="IncrementNumber(-7)">Decrement by 7</button>
+<button onclick="IncrementNumber(-11)">Decrement by 11</button>
+<button onclick="IncrementNumber(-25)">Decrement by 25</button>
+<button onclick="IncrementNumber(-50)">Decrement by 50</button>
+</div>
+
+<div>
+<button onclick="MultiplyNumber(2)">Double</button>
+<button onclick="MultiplyNumber(3)">Triple</button>
+<button onclick="MultiplyNumber(4)">Quadruple</button>
+<button onclick="MultiplyNumber(5)">Quintuple</button>
+<button onclick="MultiplyNumber(10)">Multiplied By 10</button>
+<button onclick="MultiplyNumber(100)">To Percent</button>
+<br><br>
+<button onclick="MultiplyNumber(1 / 2)">Half</button>
+<button onclick="MultiplyNumber(1 / 3)">Third</button>
+<button onclick="MultiplyNumber(1 / 4)">Quarter</button>
+<button onclick="MultiplyNumber(1 / 5)">Fifth</button>
+<button onclick="MultiplyNumber(1 / 10)">Divided By 10</button>
+<button onclick="MultiplyNumber(1 / 100)">From Percent</button>
+<br><br>
+<button onclick="PowerNumber(-1)">Reciprocal</button>
+<button onclick="DivideNumber(n)">Divided By Itself</button>
+<br><br>
+<button onclick="EvalNumber('abs')">Absolute Value</button>
+<button onclick="EvalNumber('sign')">Sign</button>
+</div>
+
+<div>
+<button onclick="PowerNumber(2)">Square</button>
+<button onclick="PowerNumber(3)">Cube</button>
+<button onclick="PowerNumber(4)">To 4th Power</button>
+<button onclick="PowerNumber(5)">To 5th Power</button>
+<button onclick="PowerNumber(10)">To 10th Power</button>
+<button onclick="PowerNumber(n)">To Nth Power</button>
+<br><br>
+<button onclick="PowerNumber(1 / 2)">Square Root</button>
+<button onclick="PowerNumber(1 / 3)">Cube Root</button>
+<button onclick="PowerNumber(1 / 4)">To 4th Root</button>
+<button onclick="PowerNumber(1 / 5)">To 5th Root</button>
+<button onclick="PowerNumber(1 / 10)">To 10th Root</button>
+<button onclick="PowerNumber(1 / n)">To Nth Root</button>
+<br><br>
+<button onclick="EvalNumber('log2')">Logarithm Base-2</button>
+<button onclick="Log5Number()">Logarithm Base-5</button>
+<button onclick="EvalNumber('log10')">Logarithm Base-10</button>
+<button onclick="EvalNumber('log')">Natural Logarithm</button>
+<button onclick="EvalNumber('log1p')">Natural Logarithm of N+1</button>
+<br><br>
+<button onclick="LogNumber(2)">Logarithm Base-N of 2</button>
+<button onclick="LogNumber(10)">Logarithm Base-N of 10</button>
+<button onclick="LogNumber(Math.E)">Logarithm Base-N of E</button>
+</div>
+
+<div>
+<button onclick="TrigNumber('sin')">Sine as Degrees</button>
+<button onclick="EvalNumber('sin')">Sine as Radians</button>
+<button onclick="TrigNumber('cos')">Cosine as Degrees</button>
+<button onclick="EvalNumber('cos')">Cosine as Radians</button>
+<button onclick="TrigNumber('tan')">Tangent as Degrees</button>
+<button onclick="EvalNumber('tan')">Tangent as Radians</button>
+<br><br>
+<button onclick="TrigNumber('asin')">Arcsine as Degrees</button>
+<button onclick="EvalNumber('asin')">Arcsine as Radians</button>
+<button onclick="TrigNumber('acos')">Arccosine as Degrees</button>
+<button onclick="EvalNumber('acos')">Arccosine as Radians</button>
+<button onclick="TrigNumber('atan')">Arctangent as Degrees</button>
+<button onclick="EvalNumber('atan')">Arctangent as Radians</button>
+<br><br>
+<button onclick="TrigNumber('sinh')">Hyperbolic Sine</button>
+<button onclick="TrigNumber('cosh')">Hyperbolic Cosine</button>
+<button onclick="TrigNumber('tanh')">Hyperbolic Tangent</button>
+<br><br>
+<button onclick="EvalNumber('asinh')">Hyperbolic Arcsine</button>
+<button onclick="EvalNumber('acosh')">Hyperbolic Arccosine</button>
+<button onclick="EvalNumber('atanh')">Hyperbolic Arctangent</button>
+</div>
+
+<div>
+<button onclick="RemoveCharNumber('0')">Remove all Zeros</button>
+<button onclick="RemoveCharsNumber('123456789')">Remove all Nonzero Digits</button>
+<button onclick="RemoveCharNumber('1')">Remove all 1s</button>
+<button onclick="RemoveCharNumber('2')">Remove all 2s</button>
+<button onclick="RemoveCharNumber('3')">Remove all 3s</button>
+<button onclick="RemoveCharNumber('4')">Remove all 4s</button>
+<br><br>
+<button onclick="RemoveCharNumber('5')">Remove all 5s</button>
+<button onclick="RemoveCharNumber('6')">Remove all 6s</button>
+<button onclick="RemoveCharNumber('7')">Remove all 7s</button>
+<button onclick="RemoveCharNumber('8')">Remove all 8s</button>
+<button onclick="RemoveCharNumber('9')">Remove all 9s</button>
+<br><br>
+<button onclick="RemoveCharsNumber('13579')">Remove all Odd-Numbered Digits</button>
+<button onclick="RemoveCharsNumber('24680')">Remove all Even-Numbered Digits</button>
+<button onclick="RemoveCharsNumber('2357')">Remove all Prime Number Digits</button>
+<button onclick="RemoveCharsNumber('4689')">Remove all Composite Number Digits</button>
+<br><br>
+<button onclick="RemoveCharsNumber('12345')">Remove all Digits from 1 to 5</button>
+<button onclick="RemoveCharsNumber('67890')">Remove all Digits from 6 to 0</button>
+<br><br>
+<button onclick="RemoveCharsNumber('01234')">Remove all Digits from 0 to 4</button>
+<button onclick="RemoveCharsNumber('56789')">Remove all Digits from 5 to 9</button>
+<br><br>
+<button onclick="RemoveCharNumber('.')">Remove Decimal Point</button>
+<button onclick="RemoveCharsNumber('+-e.')">Remove all Symbols</button>
 </div>
 
 </aside>
 
 <script>
-var n = 1;
 function displayNumber() {
     gID("numberDisplay").innerHTML = n;
 }
@@ -163,118 +284,38 @@ function ResetNumber() {
 }
 displayPage();
 
-function CubeNumber() {
-    n = n ** 3;
+function getBaseLog(x, b) {
+    return Math.log(x) / Math.log(b);
+}
+
+function EvalNumber(type) {n = eval("Math." + type + "(" + n + ")");displayNumber();}
+function IncrementNumber(x) {n += x;displayNumber();}
+function LogNumber(x) {n = getBaseLog(x, n);displayNumber();}
+function Log5Number() {n = getBaseLog(n, 5);displayNumber();}
+function MultiplyNumber(x) {n *= x;displayNumber();}
+function PowerNumber(x) {n = n ** x;displayNumber();}
+function RemoveCharNumber(c) {
+    if (isNaN(n)) return;
+    var s = n.toString();
+    s = s.replaceAll(c, "");
+    n = Number(s);
+    if (isNaN(n)) {n = 0;}
     displayNumber();
 }
-function CubeRootNumber() {
-    n = Math.cbrt(n);
+function RemoveCharsNumber(c) {
+    if (isNaN(n)) return;
+    var s = n.toString();
+    for (var i = 0; i < c.length; i++) {
+        s = s.replaceAll(c[i], "");
+    }
+    n = Number(s);
+    if (isNaN(n)) {n = 0;}
     displayNumber();
 }
-function DecrementNumber() {
-    n -= 1;
-    displayNumber();
-}
-function Decrement10Number() {
-    n -= 10;
-    displayNumber();
-}
-function Decrement100Number() {
-    n -= 100;
-    displayNumber();
-}
-function Decrement1000Number() {
-    n -= 1000;
-    displayNumber();
-}
-function Decrement10000Number() {
-    n -= 10000;
-    displayNumber();
-}
-function DividedBy10Number() {
-    n /= 10;
-    displayNumber();
-}
-function DividedByItselfNumber() {
-    n /= n;
-    displayNumber();
-}
-function DoubleNumber() {
-    n *= 2;
-    displayNumber();
-}
-function FifthNumber() {
-    n /= 5;
-    displayNumber();
-}
-function FromPercentNumber() {
-    n /= 100;
-    displayNumber();
-}
-function HalfNumber() {
-    n /= 2;
-    displayNumber();
-}
-function IncrementNumber() {
-    n += 1;
-    displayNumber();
-}
-function Increment10Number() {
-    n += 10;
-    displayNumber();
-}
-function Increment100Number() {
-    n += 100;
-    displayNumber();
-}
-function Increment1000Number() {
-    n += 1000;
-    displayNumber();
-}
-function Increment10000Number() {
-    n += 10000;
-    displayNumber();
-}
-function MultipliedBy10Number() {
-    n *= 10;
-    displayNumber();
-}
-function SquareNumber() {
-    n = n ** 2;
-    displayNumber();
-}
-function SquareRootNumber() {
-    n = Math.sqrt(n);
-    displayNumber();
-}
-function ThirdNumber() {
-    n /= 3;
-    displayNumber();
-}
-function ToPercentNumber() {
-    n *= 100;
-    displayNumber();
-}
-function TripleNumber() {
-    n *= 3;
-    displayNumber();
-}
-function QuadrupleNumber() {
-    n *= 4;
-    displayNumber();
-}
-function QuarterNumber() {
-    n /= 4;
-    displayNumber();
-}
-function QuintupleNumber() {
-    n *= 5;
-    displayNumber();
-}
-function ReciprocalNumber() {
-    n = 1 / n;
-    displayNumber();
-}
+function RoundNumber(d) {n = Math.round(n * (10 ** d)) / (10 ** d);displayNumber();}
+function SetNumber(x) {n = x;displayNumber();}
+function TrigNumber(type) {n = eval("Math." + type + "(" + (n * Math.PI / 180) + ")");displayNumber();}
+function TruncNumber(d) {n = Math.trunc(n * (10 ** d)) / (10 ** d);displayNumber();}
 
 // the canvas and whatnot
 var canvas = gTag("canvas")[0];
