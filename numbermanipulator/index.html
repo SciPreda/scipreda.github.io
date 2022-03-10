@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+<head>
+<title>Number Manipulator</title>
+<meta charset="UTF-8">
+<meta name="description" content="Like a calculator, but useless.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body, canvas {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: black;
+    font-family: sans-serif;
+    color: white;
+}
+aside {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    bottom: 0;
+    transition: all 0.5s;
+    background: white;
+}
+aside h5 {
+    color: #444;
+    transition: all 0.5s;
+}
+aside:hover {
+    height: 60%;
+    background: #444;
+}
+aside:hover h5 {
+    height: 0;
+    width: 0;
+}
+button {
+    color: black;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    font-size: 17px;
+}
+canvas {
+    z-index: 0;
+}
+div {
+    display: none;
+}
+h2 {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+#numberDisplay {
+    font-size: 5em;
+    font-weight: bold;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+</style>
+<script>
+function gID(id) {return document.getElementById(id);}
+function gTag(tag) {return document.getElementsByTagName(tag);}
+var n = 1;
+</script>
+</head>
+<body>
+<canvas></canvas>
+<h2>Your current number is</h2>
+<p id="numberDisplay">1</p>
+
+<aside>
+<h5>Hover for tools</h5>
+<h3>TOOLS</h3>
+<button onclick="ResetNumber()">Reset</button>
+
+<hr>
+<button onclick="previousPage()">PREVIOUS PAGE</button>
+<button onclick="nextPage()">NEXT PAGE</button>
+<hr>
+
+<div>
+<button onclick="SetNumber(0)">Set to Zero</button>
+<button onclick="SetNumber(100)">Set to 100</button>
+<button onclick="SetNumber(1000)">Set to 1000</button>
+<button onclick="SetNumber(1000000)">Set to 1 Million</button>
+<button onclick="SetNumber(1000000000)">Set to 1 Billion</button>
+<button onclick="SetNumber(1000000000000)">Set to 1 Trillion</button>
+<br><br>
+<button onclick="SetNumber(Math.E)">Set to Euler's Number</button>
+<button onclick="SetNumber((1 + Math.sqrt(5))/2)">Set to Phi</button>
+<button onclick="SetNumber(Math.PI)">Set to Pi</button>
+</div>
+
+<div>
+<button onclick="EvalNumber('ceil')">Ceiling</button>
+<button onclick="EvalNumber('floor')">Floor</button>
+<button onclick="EvalNumber('fround')">Fround</button>
+<button onclick="EvalNumber('round')">Round</button>
+<button onclick="EvalNumber('trunc')">Truncate</button>
+<br><br>
+<button onclick="RoundNumber(1)">Round to Nearest Tenths</button>
+<button onclick="RoundNumber(2)">Round to Nearest Hundreths</button>
+<button onclick="RoundNumber(3)">Round to Nearest Thousandths</button>
+<br><br>
+<button onclick="TruncNumber(1)">Truncate to Nearest Tenths</button>
+<button onclick="TruncNumber(2)">Truncate to Nearest Hundreths</button>
+<button onclick="TruncNumber(3)">Truncate to Nearest Thousandths</button>
+</div>
+
+<div>
+<button onclick="IncrementNumber(1)">Increment</button>
+<button onclick="IncrementNumber(10)">Increment By 10</button>
+<button onclick="IncrementNumber(100)">Increment By 100</button>
+<button onclick="IncrementNumber(1000)">Increment By 1000</button>
+<button onclick="IncrementNumber(10000)">Increment By 10000</button>
+<button onclick="IncrementNumber(100000)">Increment By 100000</button>
+<br><br>
+<button onclick="IncrementNumber(2)">Increment by 2</button>
+<button onclick="IncrementNumber(3)">Increment by 3</button>
+<button onclick="IncrementNumber(5)">Increment by 5</button>
+<button onclick="IncrementNumber(7)">Increment by 7</button>
+<button onclick="IncrementNumber(11)">Increment by 11</button>
+<button onclick="IncrementNumber(25)">Increment by 25</button>
+<button onclick="IncrementNumber(50)">Increment by 50</button>
+<br><br>
+<button onclick="IncrementNumber(-1)">Decrement</button>
+<button onclick="IncrementNumber(-10)">Decrement By 10</button>
+<button onclick="IncrementNumber(-100)">Decrement By 100</button>
+<button onclick="IncrementNumber(-1000)">Decrement By 1000</button>
+<button onclick="IncrementNumber(-10000)">Decrement By 10000</button>
+<button onclick="IncrementNumber(-100000)">Decrement By 100000</button>
+<br><br>
+<button onclick="IncrementNumber(-2)">Decrement by 2</button>
+<button onclick="IncrementNumber(-3)">Decrement by 3</button>
+<button onclick="IncrementNumber(-5)">Decrement by 5</button>
+<button onclick="IncrementNumber(-7)">Decrement by 7</button>
+<button onclick="IncrementNumber(-11)">Decrement by 11</button>
+<button onclick="IncrementNumber(-25)">Decrement by 25</button>
+<button onclick="IncrementNumber(-50)">Decrement by 50</button>
+</div>
+
+<div>
+<button onclick="MultiplyNumber(2)">Double</button>
+<button onclick="MultiplyNumber(3)">Triple</button>
+<button onclick="MultiplyNumber(4)">Quadruple</button>
+<button onclick="MultiplyNumber(5)">Quintuple</button>
+<button onclick="MultiplyNumber(10)">Multiplied By 10</button>
+<button onclick="MultiplyNumber(100)">To Percent</button>
+<br><br>
+<button onclick="MultiplyNumber(1 / 2)">Half</button>
+<button onclick="MultiplyNumber(1 / 3)">Third</button>
+<button onclick="MultiplyNumber(1 / 4)">Quarter</button>
+<button onclick="MultiplyNumber(1 / 5)">Fifth</button>
+<button onclick="MultiplyNumber(1 / 10)">Divided By 10</button>
+<button onclick="MultiplyNumber(1 / 100)">From Percent</button>
+<br><br>
+<button onclick="PowerNumber(-1)">Reciprocal</button>
+<button onclick="DivideNumber(n)">Divided By Itself</button>
+<br><br>
+<button onclick="EvalNumber('abs')">Absolute Value</button>
+<button onclick="EvalNumber('sign')">Sign</button>
+</div>
+
+<div>
+<button onclick="PowerNumber(2)">Square</button>
+<button onclick="PowerNumber(3)">Cube</button>
+<button onclick="PowerNumber(4)">To 4th Power</button>
+<button onclick="PowerNumber(5)">To 5th Power</button>
+<button onclick="PowerNumber(10)">To 10th Power</button>
+<button onclick="PowerNumber(n)">To Nth Power</button>
+<br><br>
+<button onclick="PowerNumber(1 / 2)">Square Root</button>
+<button onclick="PowerNumber(1 / 3)">Cube Root</button>
+<button onclick="PowerNumber(1 / 4)">To 4th Root</button>
+<button onclick="PowerNumber(1 / 5)">To 5th Root</button>
+<button onclick="PowerNumber(1 / 10)">To 10th Root</button>
+<button onclick="PowerNumber(1 / n)">To Nth Root</button>
+<br><br>
+<button onclick="EvalNumber('log2')">Logarithm Base-2</button>
+<button onclick="Log5Number()">Logarithm Base-5</button>
+<button onclick="EvalNumber('log10')">Logarithm Base-10</button>
+<button onclick="EvalNumber('log')">Natural Logarithm</button>
+<button onclick="EvalNumber('log1p')">Natural Logarithm of N+1</button>
+<br><br>
+<button onclick="LogNumber(2)">Logarithm Base-N of 2</button>
+<button onclick="LogNumber(10)">Logarithm Base-N of 10</button>
+<button onclick="LogNumber(Math.E)">Logarithm Base-N of E</button>
+</div>
+
+<div>
+<button onclick="TrigNumber('sin')">Sine as Degrees</button>
+<button onclick="EvalNumber('sin')">Sine as Radians</button>
+<button onclick="TrigNumber('cos')">Cosine as Degrees</button>
+<button onclick="EvalNumber('cos')">Cosine as Radians</button>
+<button onclick="TrigNumber('tan')">Tangent as Degrees</button>
+<button onclick="EvalNumber('tan')">Tangent as Radians</button>
+<br><br>
+<button onclick="TrigNumber('asin')">Arcsine as Degrees</button>
+<button onclick="EvalNumber('asin')">Arcsine as Radians</button>
+<button onclick="TrigNumber('acos')">Arccosine as Degrees</button>
+<button onclick="EvalNumber('acos')">Arccosine as Radians</button>
+<button onclick="TrigNumber('atan')">Arctangent as Degrees</button>
+<button onclick="EvalNumber('atan')">Arctangent as Radians</button>
+<br><br>
+<button onclick="TrigNumber('sinh')">Hyperbolic Sine</button>
+<button onclick="TrigNumber('cosh')">Hyperbolic Cosine</button>
+<button onclick="TrigNumber('tanh')">Hyperbolic Tangent</button>
+<br><br>
+<button onclick="EvalNumber('asinh')">Hyperbolic Arcsine</button>
+<button onclick="EvalNumber('acosh')">Hyperbolic Arccosine</button>
+<button onclick="EvalNumber('atanh')">Hyperbolic Arctangent</button>
+</div>
+
+<div>
+<button onclick="RemoveCharNumber('0')">Remove all Zeros</button>
+<button onclick="RemoveCharsNumber('123456789')">Remove all Nonzero Digits</button>
+<button onclick="RemoveCharNumber('1')">Remove all 1s</button>
+<button onclick="RemoveCharNumber('2')">Remove all 2s</button>
+<button onclick="RemoveCharNumber('3')">Remove all 3s</button>
+<button onclick="RemoveCharNumber('4')">Remove all 4s</button>
+<br><br>
+<button onclick="RemoveCharNumber('5')">Remove all 5s</button>
+<button onclick="RemoveCharNumber('6')">Remove all 6s</button>
+<button onclick="RemoveCharNumber('7')">Remove all 7s</button>
+<button onclick="RemoveCharNumber('8')">Remove all 8s</button>
+<button onclick="RemoveCharNumber('9')">Remove all 9s</button>
+<br><br>
+<button onclick="RemoveCharsNumber('13579')">Remove all Odd-Numbered Digits</button>
+<button onclick="RemoveCharsNumber('24680')">Remove all Even-Numbered Digits</button>
+<button onclick="RemoveCharsNumber('2357')">Remove all Prime Number Digits</button>
+<button onclick="RemoveCharsNumber('4689')">Remove all Composite Number Digits</button>
+<br><br>
+<button onclick="RemoveCharsNumber('12345')">Remove all Digits from 1 to 5</button>
+<button onclick="RemoveCharsNumber('67890')">Remove all Digits from 6 to 0</button>
+<br><br>
+<button onclick="RemoveCharsNumber('01234')">Remove all Digits from 0 to 4</button>
+<button onclick="RemoveCharsNumber('56789')">Remove all Digits from 5 to 9</button>
+<br><br>
+<button onclick="RemoveCharNumber('.')">Remove Decimal Point</button>
+<button onclick="RemoveCharsNumber('+-e.')">Remove all Symbols</button>
+</div>
+
+</aside>
+
+<script>
+function displayNumber() {
+    gID("numberDisplay").innerHTML = n;
+}
+
+var divNum = 0;
+var divs = gTag("div");
+function displayPage() {
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].style.display = "none";
+    }
+    divs[divNum].style.display = "block";
+}
+function nextPage() {
+    divNum++;
+    if (divNum > divs.length - 1) {
+        divNum = divs.length - 1;
+    }
+    displayPage();
+}
+function previousPage() {
+    divNum--;
+    if (divNum < 0) {
+        divNum = 0;
+    }
+    displayPage();
+}
+function ResetNumber() {
+    n = 1;
+    displayNumber();
+}
+displayPage();
+
+function getBaseLog(x, b) {
+    return Math.log(x) / Math.log(b);
+}
+
+function EvalNumber(type) {n = eval("Math." + type + "(" + n + ")");displayNumber();}
+function IncrementNumber(x) {n += x;displayNumber();}
+function LogNumber(x) {n = getBaseLog(x, n);displayNumber();}
+function Log5Number() {n = getBaseLog(n, 5);displayNumber();}
+function MultiplyNumber(x) {n *= x;displayNumber();}
+function PowerNumber(x) {n = n ** x;displayNumber();}
+function RemoveCharNumber(c) {
+    if (isNaN(n)) return;
+    var s = n.toString();
+    s = s.replaceAll(c, "");
+    n = Number(s);
+    if (isNaN(n)) {n = 0;}
+    displayNumber();
+}
+function RemoveCharsNumber(c) {
+    if (isNaN(n)) return;
+    var s = n.toString();
+    for (var i = 0; i < c.length; i++) {
+        s = s.replaceAll(c[i], "");
+    }
+    n = Number(s);
+    if (isNaN(n)) {n = 0;}
+    displayNumber();
+}
+function RoundNumber(d) {n = Math.round(n * (10 ** d)) / (10 ** d);displayNumber();}
+function SetNumber(x) {n = x;displayNumber();}
+function TrigNumber(type) {n = eval("Math." + type + "(" + (n * Math.PI / 180) + ")");displayNumber();}
+function TruncNumber(d) {n = Math.trunc(n * (10 ** d)) / (10 ** d);displayNumber();}
+
+// the canvas and whatnot
+var canvas = gTag("canvas")[0];
+var ctx = canvas.getContext("2d");
+var hw = canvas.width / 2, hh = canvas.height / 2;
+function convertX(x, y) {return x + hw;}
+function convertY(y) {return -y + hh;}
+function drawStationaryLines() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(hw), convertY(hh));
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(hw), convertY(-hh));
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(-hw), convertY(-hh));
+    ctx.moveTo(convertX(0), convertY(0)); ctx.lineTo(convertX(-hw), convertY(hh));
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = "#bbb";
+    ctx.stroke();
+    ctx.closePath();
+}
+var q11 = {x: 0, y: 0}, q12 = {x: 0, y: 0}, q13 = {x: 0, y: 0}, q14 = {x: 0, y: 0};
+function drawMovingLines1() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q11.x), convertY(q11.y));
+    ctx.lineTo(convertX(q12.x), convertY(q12.y));
+    ctx.lineTo(convertX(q13.x), convertY(q13.y));
+    ctx.lineTo(convertX(q14.x), convertY(q14.y));
+    ctx.lineTo(convertX(q11.x), convertY(q11.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q11.x += 0.4; q11.y += 0.2;
+    q12.x += 0.4; q12.y -= 0.2;
+    q13.x -= 0.4; q13.y -= 0.2;
+    q14.x -= 0.4; q14.y += 0.2;
+    if (q11.x >= 240) {q11 = {x: 0, y: 0}; q12 = {x: 0, y: 0}; q13 = {x: 0, y: 0}; q14 = {x: 0, y: 0};}
+}
+var q21 = {x: 0, y: 0}, q22 = {x: 0, y: 0}, q23 = {x: 0, y: 0}, q24 = {x: 0, y: 0};
+function drawMovingLines2() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q21.x), convertY(q21.y));
+    ctx.lineTo(convertX(q22.x), convertY(q22.y));
+    ctx.lineTo(convertX(q23.x), convertY(q23.y));
+    ctx.lineTo(convertX(q24.x), convertY(q24.y));
+    ctx.lineTo(convertX(q21.x), convertY(q21.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q21.x += 0.4; q21.y += 0.2;
+    q22.x += 0.4; q22.y -= 0.2;
+    q23.x -= 0.4; q23.y -= 0.2;
+    q24.x -= 0.4; q24.y += 0.2;
+    if (q21.x >= 240) {q21 = {x: 0, y: 0}; q22 = {x: 0, y: 0}; q23 = {x: 0, y: 0}; q24 = {x: 0, y: 0};}
+}
+var q31 = {x: 0, y: 0}, q32 = {x: 0, y: 0}, q33 = {x: 0, y: 0}, q34 = {x: 0, y: 0};
+function drawMovingLines3() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q31.x), convertY(q31.y));
+    ctx.lineTo(convertX(q32.x), convertY(q32.y));
+    ctx.lineTo(convertX(q33.x), convertY(q33.y));
+    ctx.lineTo(convertX(q34.x), convertY(q34.y));
+    ctx.lineTo(convertX(q31.x), convertY(q31.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q31.x += 0.4; q31.y += 0.2;
+    q32.x += 0.4; q32.y -= 0.2;
+    q33.x -= 0.4; q33.y -= 0.2;
+    q34.x -= 0.4; q34.y += 0.2;
+    if (q31.x >= 240) {q31 = {x: 0, y: 0}; q32 = {x: 0, y: 0}; q33 = {x: 0, y: 0}; q34 = {x: 0, y: 0};}
+}
+var q41 = {x: 0, y: 0}, q42 = {x: 0, y: 0}, q43 = {x: 0, y: 0}, q44 = {x: 0, y: 0};
+function drawMovingLines4() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q41.x), convertY(q41.y));
+    ctx.lineTo(convertX(q42.x), convertY(q42.y));
+    ctx.lineTo(convertX(q43.x), convertY(q43.y));
+    ctx.lineTo(convertX(q44.x), convertY(q44.y));
+    ctx.lineTo(convertX(q41.x), convertY(q41.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q41.x += 0.4; q41.y += 0.2;
+    q42.x += 0.4; q42.y -= 0.2;
+    q43.x -= 0.4; q43.y -= 0.2;
+    q44.x -= 0.4; q44.y += 0.2;
+    if (q41.x >= 240) {q41 = {x: 0, y: 0}; q42 = {x: 0, y: 0}; q43 = {x: 0, y: 0}; q44 = {x: 0, y: 0};}
+}
+var q51 = {x: 0, y: 0}, q52 = {x: 0, y: 0}, q53 = {x: 0, y: 0}, q54 = {x: 0, y: 0};
+function drawMovingLines5() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q51.x), convertY(q51.y));
+    ctx.lineTo(convertX(q52.x), convertY(q52.y));
+    ctx.lineTo(convertX(q53.x), convertY(q53.y));
+    ctx.lineTo(convertX(q54.x), convertY(q54.y));
+    ctx.lineTo(convertX(q51.x), convertY(q51.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q51.x += 0.4; q51.y += 0.2;
+    q52.x += 0.4; q52.y -= 0.2;
+    q53.x -= 0.4; q53.y -= 0.2;
+    q54.x -= 0.4; q54.y += 0.2;
+    if (q51.x >= 240) {q51 = {x: 0, y: 0}; q52 = {x: 0, y: 0}; q53 = {x: 0, y: 0}; q54 = {x: 0, y: 0};}
+}
+var q61 = {x: 0, y: 0}, q62 = {x: 0, y: 0}, q63 = {x: 0, y: 0}, q64 = {x: 0, y: 0};
+function drawMovingLines6() {
+    ctx.beginPath();
+    ctx.moveTo(convertX(q61.x), convertY(q61.y));
+    ctx.lineTo(convertX(q62.x), convertY(q62.y));
+    ctx.lineTo(convertX(q63.x), convertY(q63.y));
+    ctx.lineTo(convertX(q64.x), convertY(q64.y));
+    ctx.lineTo(convertX(q61.x), convertY(q61.y));
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+    ctx.closePath();
+    q61.x += 0.4; q61.y += 0.2;
+    q62.x += 0.4; q62.y -= 0.2;
+    q63.x -= 0.4; q63.y -= 0.2;
+    q64.x -= 0.4; q64.y += 0.2;
+    if (q61.x >= 240) {q61 = {x: 0, y: 0}; q62 = {x: 0, y: 0}; q63 = {x: 0, y: 0}; q64 = {x: 0, y: 0};}
+}
+var keyLines = 0;
+function mainRender() {
+    if (keyLines < 600) {keyLines += 1;}
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawStationaryLines();
+    drawMovingLines1();
+    if (keyLines > 99) {drawMovingLines2();}
+    if (keyLines > 199) {drawMovingLines3();}
+    if (keyLines > 299) {drawMovingLines4();}
+    if (keyLines > 399) {drawMovingLines5();}
+    if (keyLines > 499) {drawMovingLines6();}
+    requestAnimationFrame(mainRender);
+}
+mainRender();
+</script>
+</body>
+</html>

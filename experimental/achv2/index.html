@@ -1,0 +1,782 @@
+<!doctype html>
+<html>
+<head>
+<!-- OK, WHAT DO YOU THINK YOU'RE DOING?! -->
+<title>ACHIEVO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+	margin: 0;
+	width: 100%;
+	text-align: center;
+	font-family: sans-serif;
+	background: #eee;
+}
+i {
+	color: #aaa;
+}
+i::before, i::after {
+	content: "\"";
+}
+h1, h2, h3, p, i, section, #uneditableNU {
+	cursor: pointer;
+	user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+h1:hover, h2:hover, h3:hover, p:hover {
+	color: gray;
+}
+#contentooooo {
+	display: inline-block;
+	width: 100%;
+}
+#alertooooo {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	width: 30%;
+	z-index: 100;
+	background: #ddd;
+	border: 2px dashed black;
+	display: none;
+	padding: 5px;
+}
+div div {
+	display: none;
+}
+section:hover {
+	color: gray;
+}
+section:active {
+	color: red;
+}
+aside {
+	background: black;
+	color: white;
+	width: 30%;
+	position: fixed;
+	top: 0;
+	right: 0;
+}
+button {
+	border: 2px dashed gray;
+	border-radius: 5px;
+	padding: 2px;
+	background: white;
+	color: black;
+}
+</style>
+</head>
+<body>
+<div id="alertooooo">
+</div>
+<div id="contentooooo">
+
+<h1 onclick="ahd(25445)">THE ACHIEVOFILE</h1>
+<p>You sit down, strap in and do absolutely NOTHING at all.</p>
+<p style="color:red">Or, as they say, find all the secrets.</p>
+<p style="color:blue" onclick="uspc(999)">NOTE: This game is meant to be completed in ONE session only.</p>
+<hr>
+
+<section id="nwaitOneMinute">
+NOT UNLOCKED
+</section>
+<div id="waitOneMinute">
+<h2>WAIT A MINUTE...</h2>
+<p>Stay for 1 minute.</p>
+</div>
+<hr>
+
+<section id="nwaitOneHour">
+NOT UNLOCKED
+</section>
+<div id="waitOneHour">
+<h2>PATIENCE, MY CHILD</h2>
+<p>Stay for 1 hour.</p>
+<i>Or is it 60 minutes?</i>
+</div>
+<hr>
+
+<section id="nwaitOneDay">
+NOT UNLOCKED
+</section>
+<div id="waitOneDay">
+<h2>SLEEP MODE ENGAGED</h2>
+<p>Stay for 1 day.</p>
+<i>*yawns* Good morning.</i>
+</div>
+<hr>
+
+<section id="nclickThis" onclick="ac(25665)">
+NOT UNLOCKED
+</section>
+<div id="clickThis">
+<h2>HERE YOU GO</h2>
+<p>Click this achievement.</p>
+<i>All you had to do was ask.</i><br>
+</div>
+<hr onclick="ahr(25665)">
+
+<section id="nclickThisHR">
+NOT UNLOCKED
+</section>
+<div id="clickThisHR">
+<h2>I THINK YOU FOUND SOMETHING</h2>
+<p>Click the horizontal break.</p>
+<i>Touchy touchy.</i><br>
+</div>
+<hr>
+
+<section id="nclickHeader">
+NOT UNLOCKED
+</section>
+<div id="clickHeader">
+<h2 onclick="amhd(25345)">THE MAIN IDEA</h2>
+<p>Click the header.</p>
+<i>I thought that wasn't a thing. Oh, well...</i><br>
+</div>
+<hr>
+
+<section id="nclickMiniHeader">
+NOT UNLOCKED
+</section>
+<div id="clickMiniHeader">
+<h2 onclick="alert('That will not work a third time. Sorry.')">THE MINOR IDEA</h2>
+<p>Click the header of the previous achievement.</p>
+<i>Woah now, what are you thinking?</i><br>
+</div>
+<hr>
+
+<section id="nclickCtrl">
+NOT UNLOCKED
+</section>
+<div id="clickCtrl">
+<h2>CONTROLLED CLICKING</h2>
+<p>Click this whilst pressing down the CTRL key.</p>
+<i>I have power over my clicks!</i><br>
+</div>
+<hr>
+
+<section id="nunlockThis">
+NOT UNLOCKED
+</section>
+<div id="unlockThis">
+<h2>YOU FOUND ME!</h2>
+<p>Unlock this achievement.</p>
+<i>Was your solution legal? I suspect foul play...</i>
+</div>
+<hr>
+
+<section id="ncharge">
+NOT UNLOCKED
+</section>
+<div id="charge">
+<h2>ELECTRIC RELOAD</h2>
+<p>Charge your device.</p>
+<i>Careful not to leave it too long...</i>
+</div>
+<hr>
+
+<section id="nchargeToFullBat">
+NOT UNLOCKED
+</section>
+<div id="chargeToFullBat">
+<h2>ELECTRIC OVERLOAD</h2>
+<p>Charge your device to 100 percent.</p>
+<i>Okay, you can stop now...</i>
+</div>
+<hr>
+
+<section id="nfullscreen">
+NOT UNLOCKED
+</section>
+<div id="fullscreen">
+<h2>VISION EXTENSION</h2>
+<p>Enter fullscreen mode.</p>
+</div>
+<hr>
+
+<section id="nconsole">
+NOT UNLOCKED
+</section>
+<div id="console">
+<h2>THE HACKING BEGINS</h2>
+<p>Open Google Console.</p>
+<i>What are you doing?</i><br>
+<i style="color:gray">(Note: in some cases this may not work...)</i>
+</div>
+<hr>
+
+<section id="nconsoleh">
+NOT UNLOCKED
+</section>
+<div id="consoleh">
+<h2>FLAT HACKS</h2>
+<p>Orientate the console to horizontal.</p>
+</div>
+<hr>
+
+<section id="nconsolev">
+NOT UNLOCKED
+</section>
+<div id="consolev">
+<h2>STAND HACKS</h2>
+<p>Orientate the console to vertical.</p>
+</div>
+<hr>
+
+<section id="noffline">
+NOT UNLOCKED
+</section>
+<div id="offline">
+<h2>SEARCHING IS IN STANDSTILL</h2>
+<p>Go offline.</p>
+</div>
+<hr>
+
+<section id="nonline">
+NOT UNLOCKED
+</section>
+<div id="online">
+<h2>SEARCHING IS AVAILABLE</h2>
+<p>Go online.</p>
+</div>
+<hr>
+
+<section id="nlangEnUS">
+NOT UNLOCKED
+</section>
+<div id="langEnUS">
+<h2>LO AND BEHOLD!</h2>
+<p>Change language to US English.</p>
+</div>
+<hr>
+
+<section id="nnote" style="color: blue; cursor: no-drop; display: none">
+NOTE: NOT UNLOCKED
+</section>
+<div id="note">
+<h2 style="color:blue">ADVICE TAKEN</h2>
+<p>Unlock the note achievement.</p>
+<i>To-do list: NOTHING</i>
+</div>
+<hr id="nnotehr" style="display:none">
+
+<section id="nnote2" style="color: blue; cursor: no-drop; display: none">
+NOTE: NOT UNLOCKED
+</section>
+<div id="note2">
+<h2 style="color:blue">ADVICE IS NOT ENOUGH</h2>
+<p>Unlock the second note achievement.</p>
+<i>To-do list: STILL NOTHING</i>
+</div>
+<hr id="nnotehr2" style="display:none">
+
+<section id="ncontentEditable" style="color: #00D600; cursor: no-drop">
+BONUS: NOT UNLOCKED
+</section>
+<div id="contentEditable">
+<h2 style="color:#00CD00">I SWEAR, IF YOU DO SOMETHING...</h2>
+<p>Make the body content editable.</p>
+<i>My powers... they're depleting...</i>
+</div>
+<hr>
+
+<section id="nlockThis" style="color: #00D600; cursor: no-drop" onclick="console.log('Hint: gID(\'nlockThis\')')">
+BONUS: NOT UNLOCKED
+</section>
+<div id="lockThis">
+<h2 style="color:#00CD00">THE OPPOSITE OF WHAT WAS BEING ASKED</h2>
+<p>Try to hide this achievement.</p>
+<i>The light! The light!</i>
+</div>
+<hr>
+
+<section id="nrenameThis" style="color: #00D600; cursor: no-drop">
+BONUS: NOT UNLOCKED
+</section>
+<div id="renameThis">
+<h2 style="color:#00CD00">VISIBILITY MAGIC</h2>
+<p>Rename this achievement to unlock it.</p>
+<i>So that's my nickname?</i>
+</div>
+<hr>
+
+<section class="uneditableNU" id="ndevFunc" style="color: red; cursor: no-drop">
+DEVELOPER: NOT UNLOCKED
+</section>
+<div id="devFunc">
+<h2 style="color:red">SCIPRED SAYS OPEN SESAME</h2>
+<p>Use the developer function correctly.</p>
+<i>My powers are being abused...</i>
+</div>
+<hr>
+
+<section class="uneditableNU" id="ndevPrompt" style="color: red; cursor: no-drop">
+DEVELOPER: NOT UNLOCKED
+</section>
+<div id="devPrompt">
+<h2 style="color:red">SCIPRED SAYS HOCUS POCUS</h2>
+<p>Use the developer tools to unlock this achievement.</p>
+<i>You are of great skill. I could use you.</i>
+</div>
+<hr>
+
+</div>
+
+<script>
+function gID(id) {return document.getElementById(id);}
+function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+function chooseMsg() {
+	var arr = [
+		"Going to hack something?",
+		"So, how\'s your battery?",
+		"Are you planning something?",
+		"Clickity click",
+		"What would you like to do today?",
+		"Patience is a virtue.",
+		"This game is sponsored by Google Console (and includes the console itself).",
+		"Those horizontal breaks look like cables. I wonder what they do...",
+		"Abracadabra!"
+	];
+	if (navigator.onLine) {arr.push("Nice connection you got there.")}
+	if (navigator.language !== "en-US") {arr.push("Habla Ingles?")}
+	var consolemsg = "[[== " + choose(arr) + " ==]]";
+	console.log(consolemsg);
+}
+chooseMsg();
+
+var Collected = {
+	ChargeDevice: 0,
+	ChargeDeviceFull: 0,
+	ClickCTRL: 0,
+	ClickHeader: 0,
+	ClickMiniHeader: 0,
+	ClickThis: 0,
+	ClickThisHR: 0,
+	ContentEditable: 0,
+	DevFunction: 0,
+	DevPrompt: 0,
+	Fullscreen: 0,
+	GoogleConsole: 0,
+	GoogleConsoleH: 0,
+	GoogleConsoleV: 0,
+	Language: 0,
+	LockThis: 0,
+	Note: 0,
+	Note2: 0,
+	Offline: 0,
+	Online: 0,
+	RenameThis: 0,
+	UnlockThis: 0,
+	WaitOneDay: 0,
+	WaitOneHour: 0,
+	WaitOneMinute: 0
+};
+var notifTimeout;
+function showNotif(achname) {
+	gID("alertooooo").innerHTML = `
+		<h2>NEW ACHIEVEMENT!</h2>
+		<h4>` + achname + `</h4>
+	`;
+	gID("alertooooo").style.display = "block";
+	if (notifTimeout !== undefined && notifTimeout !== null) {clearTimeout(notifTimeout);}
+	notifTimeout = setTimeout(function(){gID("alertooooo").style.display = "none";}, 5000);
+}
+
+function devFunction(s) {
+	console.warn(choose([
+		"What do you think you\'re doing?!",
+		"That\'s illegal!",
+		"You better not use this for anything mischievous...",
+		"You want the achievements so bad?"
+	]));
+	if (document.getElementById(s) && document.getElementById(s).tagName === "DIV" && Collected.DevFunction === 0) {
+		Collected.DevFunction = 1;
+		showNotif("Use the developer function correctly.");
+		gID('ndevFunc').style.display = 'none';
+		gID('devFunc').style.display = 'block';
+		gID("n" + s).style.display = "none";
+		gID(s).style.display = "block";
+	}
+}
+
+setInterval(function(){
+	var uns = document.getElementsByClassName("uneditableNU");
+	for (var i=0; i<uns.length; i++) {
+		uns[i].innerHTML = "DEVELOPER: NOT UNLOCKED";
+	}
+}, 50);
+
+function SciPred(command) {
+	if (command === "says Open Sesame") {
+		gID("DeveloperTools").style.display = "block";
+	} else if (command === "says Close Sesame") {
+		gID("DeveloperTools").style.display = "none";
+	} else {
+		console.error("Whoops! Try again. (Or not.)");
+	}
+}
+
+setInterval(function(){
+	if (gID("nrenameThis").innerText === "UNLOCKED" || gID("nrenameThis").innerText === "BONUS: UNLOCKED") {if (Collected.RenameThis === 0) {
+		ren(12543);
+	}}
+}, 500);
+
+setInterval(function(){
+	navigator.getBattery().then(function(battery){
+		if (battery.charging) {
+			chargeBat(2565);
+		}
+		if (battery.level === 0.99 || battery.level === 1.00) {
+			chargeBatFull(25663);
+		}
+	});
+}, 250);
+// https://github.com/sindresorhus/devtools-detect
+(function () {
+	'use strict';
+	const devtools = {
+		isOpen: false,
+		orientation: undefined
+	};
+	const threshold = 160;
+	const emitEvent = (isOpen, orientation) => {
+		window.dispatchEvent(new CustomEvent('devtoolschange', {
+			detail: {
+				isOpen,
+				orientation
+			}
+		}));
+	};
+	setInterval(() => {
+		const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+		const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+		const orientation = widthThreshold ? 'vertical' : 'horizontal';
+		if (
+			!(heightThreshold && widthThreshold) &&
+			((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)
+		) {
+			if (!devtools.isOpen || devtools.orientation !== orientation) {
+				emitEvent(true, orientation);
+			}
+			devtools.isOpen = true;
+			devtools.orientation = orientation;
+		} else {
+			if (devtools.isOpen) {
+				emitEvent(false, undefined);
+			}
+			devtools.isOpen = false;
+			devtools.orientation = undefined;
+		}
+	}, 500);
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = devtools;
+	} else {
+		window.devtools = devtools;
+	}
+})();
+var renhint = 0;
+gID("nrenameThis").addEventListener('click', function(e){
+	if (e.ctrlKey === true) {
+		gID("nrenameThis").contentEditable = true;
+	} else {if (renhint === 0) {
+		console.log("Hint: CTRL");
+		renhint = 1;
+	}}
+});
+
+//ALPH ORDER
+
+//Charge Device
+function chargeBat(n) {if(n===2565 && Collected.ChargeDevice === 0){
+	Collected.ChargeDevice = 1;
+	showNotif("Charge your device.");
+	gID('ncharge').style.display = 'none';
+	gID('charge').style.display = 'block';
+}}
+
+//Charge Device To 100
+function chargeBatFull(n) {if(n===25663 && Collected.ChargeDeviceFull === 0){
+	Collected.ChargeDeviceFull = 1;
+	showNotif("Charge your device to more than 90 percent.");
+	gID('nchargeToFullBat').style.display = 'none';
+	gID('chargeToFullBat').style.display = 'block';
+}}
+
+//Click CTRL
+gID('nclickCtrl').addEventListener('click', function(e){
+	if (e.ctrlKey === true && Collected.ClickCTRL === 0) {
+		Collected.ClickCTRL = 1;
+		showNotif("Click whilst pressing the Control key.");
+		gID('nclickCtrl').style.display = 'none';
+		gID('clickCtrl').style.display = 'block';
+	}
+});
+
+//Click Header
+function ahd(n) {if(n===25445 && Collected.ClickHeader === 0){
+	Collected.ClickHeader = 1;
+	showNotif("Click the header.");
+	gID('nclickHeader').style.display = 'none';
+	gID('clickHeader').style.display = 'block';
+}}
+
+//Click Header
+function amhd(n) {if(n===25345 && Collected.ClickMiniHeader === 0){
+	Collected.ClickMiniHeader = 1;
+	showNotif("Click the achievement header.");
+	gID('nclickMiniHeader').style.display = 'none';
+	gID('clickMiniHeader').style.display = 'block';
+}}
+
+//Click This
+function ac(n) {if(n===25665 && Collected.ClickThis === 0){
+	Collected.ClickThis = 1;
+	showNotif("Click the achievement.");
+	gID('nclickThis').style.display = 'none';
+	gID('clickThis').style.display = 'block';
+}}
+
+//Click This HR
+function ahr(n) {if(n===25665 && Collected.ClickThisHR === 0){
+	Collected.ClickThisHR = 1;
+	showNotif("Click the horizontal break.");
+	gID('nclickThisHR').style.display = 'none';
+	gID('clickThisHR').style.display = 'block';
+}}
+
+//Content Editable (Body)
+setInterval(function(){
+	if (document.body.contentEditable === "true" || document.body.contentEditable === true) {if (Collected.ContentEditable === 0) {
+		Collected.ContentEditable = 1;
+		showNotif("Make the content editable.");
+		gID('ncontentEditable').style.display = 'none';
+		gID('contentEditable').style.display = 'block';
+	}}
+}, 500);
+
+//Fullscreen
+setInterval(function(){
+	if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {if (Collected.Fullscreen === 0) {
+		Collected.Fullscreen = 1;
+		showNotif("Go into fullscreen mode.");
+		gID('nfullscreen').style.display = 'none';
+		gID('fullscreen').style.display = 'block';
+	}}
+}, 500);
+
+//Google Console
+setInterval(function(){
+	if (window.devtools.isOpen && Collected.GoogleConsole === 0) {
+		Collected.GoogleConsole = 1;
+		showNotif("Open Google Console.");
+		gID('nconsole').style.display = 'none';
+		gID('console').style.display = 'block';
+	}
+	if (window.devtools.orientation === "horizontal" && Collected.GoogleConsoleH === 0) {
+		Collected.GoogleConsoleH = 1;
+		showNotif("Orientate Google Console horizontally.");
+		gID('nconsoleh').style.display = 'none';
+		gID('consoleh').style.display = 'block';
+	}
+	if (window.devtools.orientation === "vertical" && Collected.GoogleConsoleV === 0) {
+		Collected.GoogleConsoleV = 1;
+		showNotif("Orientate Google Console vertically.");
+		gID('nconsolev').style.display = 'none';
+		gID('consolev').style.display = 'block';
+	}
+}, 500);
+
+//Language
+setInterval(function(){
+	if (navigator.language === "en-US" && Collected.Language === 0) {
+		Collected.Language = 1;
+		showNotif("Set your language to US English.");
+		gID('nlangEnUS').style.display = 'none';
+		gID('langEnUS').style.display = 'block';
+	}
+}, 500);
+
+//Lock This
+setInterval(function(){
+	if (gID('nlockThis').style.display == "none" && Collected.LockThis === 0) {
+		Collected.LockThis = 1;
+		showNotif("Try to lock the achievement.");
+		gID('lockThis').style.display = 'block';
+	}
+}, 500);
+
+//Note
+var usppc = 0;
+function uspc(n) {if(n===999 && usppc === 0){
+	usppc = 1;
+	gID("nnote").style.display = "block";
+	gID("nnotehr").style.display = "block";
+	alert("I think you found something.");
+} else if (n===999 && usppc === 1 && Collected.Note === 0){
+	usppc = 2;
+	Collected.Note = 1;
+	showNotif("Unlock the note achievement.");
+	gID("nnote").style.display = "none";
+	gID("note").style.display = "block";
+} else if (n===999 && usppc === 2){
+	alert("You already found the achievement. What more can I give?");
+	usppc = 3;
+} else if (n===999 && usppc === 3){
+	usppc = 4;
+	alert("Seriously, just go do something else.");
+} else if (n===999 && usppc === 4){
+	usppc = 5;
+	gID("nnote2").style.display = "block";
+	gID("nnotehr2").style.display = "block";
+	alert("Fine, here you go.");
+} else if (n===999 && usppc === 5){
+	var x = prompt("Satisfied?");
+	if (x === "Noted" || x === "noted") {if (Collected.Note2 === 0) {
+		Collected.Note2 = 1;
+		showNotif("Unlock the second note achievement.");
+		gID("nnote2").style.display = "none";
+		gID("note2").style.display = "block";
+		usppc = 6;
+	}}
+}}
+
+//Rename This
+function ren(n) {
+	if (n === 12543) {
+		Collected.RenameThis = 1;
+		showNotif("Rename the achievement.");
+		gID("nrenameThis").style.display = "none";
+		gID("renameThis").style.display = "block";
+	}
+}
+
+//Unlock This
+function unlockAchievement() {if (Collected.UnlockThis === 0) {
+	Collected.UnlockThis = 1;
+	showNotif("Unlock the achievement.");
+	gID("nunlockThis").style.display = "none";
+	gID("unlockThis").style.display = "block";
+}}
+
+//Wait one minute
+setTimeout(function(){
+	Collected.WaitOneMinute = 1;
+	showNotif("Wait one minute.");
+	gID("nwaitOneMinute").style.display = "none";
+	gID("waitOneMinute").style.display = "block";
+}, 60 * 1000);
+
+//Wait one hour
+setTimeout(function(){
+	Collected.WaitOneHour = 1;
+	showNotif("Wait one hour.");
+	gID("nwaitOneHour").style.display = "none";
+	gID("waitOneHour").style.display = "block";
+}, 60 * 60 * 1000);
+
+//Wait one day
+setTimeout(function(){
+	Collected.WaitOneDay = 1;
+	showNotif("Wait one day.");
+	gID("nwaitOneDay").style.display = "none";
+	gID("waitOneDay").style.display = "block";
+}, 24 * 60 * 60 * 1000);
+
+//Wifi
+setInterval(function(){
+	if (navigator.onLine && Collected.Online === 0) {	
+		Collected.Online = 1;
+		showNotif("Go online.");
+		gID('nonline').style.display = 'none';
+		gID('online').style.display = 'block';
+	}
+	if (navigator.onLine === false && Collected.Offline === 0) {
+		Collected.Offline = 1;
+		showNotif("Go offline.");
+		gID('noffline').style.display = 'none';
+		gID('offline').style.display = 'block';
+	}
+}, 500);
+
+var dt = {
+	bLA: function() {
+		var s = document.getElementsByTagName('section');
+		var d = document.getElementById('contentooooo').getElementsByTagName('div');
+		for (var i=0; i<s.length; i++) {if (s[i].className !== "uneditableNU") {
+			d[i].style.display = 'none';
+			s[i].style.display = 'block';
+		}}
+		gID("nnotehr").style.display = "none";
+		gID("nnote").style.display = "none";
+		gID("nnotehr2").style.display = "none";
+		gID("nnote2").style.display = "none";
+	},
+	bUA: function() {
+		var s = document.getElementsByTagName('section');
+		var d = document.getElementById('contentooooo').getElementsByTagName('div');
+		for (var i=0; i<s.length; i++) {if (s[i].className !== "uneditableNU") {
+			s[i].style.display = 'none';
+			d[i].style.display = 'block';
+		}}
+		gID("nnotehr").style.display = "block";
+		gID("nnotehr2").style.display = "block";
+	},
+	fls: function() {
+		setInterval(function(){
+			document.body.style.background = "black";
+			setTimeout(function(){document.body.style.background = "white"}, 250);
+		}, 500);
+	},
+	not: function() {
+		usppc = 0;
+	},
+	res: function() {
+		var p = Object.getOwnPropertyNames(Collected);
+		for (var i=0; i<p.length; i++) {
+			Collected[p[i]] = 0;
+		}
+	},
+	sec: function() {
+		var input = window.prompt("Please enter your desired command:");
+		if (input === "UnlockAchievement" && Collected.DevPrompt === 0) {
+			Collected.DevPrompt = 1;
+			showNotif("Unlock the achievement using the developer tools.");
+			gID("ndevPrompt").style.display = "none";
+			gID("devPrompt").style.display = "block";
+		} else {
+			window.alert("Sorry, incorrect.");
+		}
+	}
+};
+</script>
+
+<aside id="DeveloperTools" style="display:none;float:right;padding-bottom:15px;">
+<h3>DEVELOPER TOOLS</h3>
+<h5>Copyright SciPred 2020</h5>
+<h6>PROCEED WITH CAUTION!</h6>
+
+<button onclick="chooseMsg()">Log Random Message</button>
+<button onclick="console.clear()">Clear Messages</button><br><br>
+<button onclick="dt.bUA()">Unlock All</button>
+<button onclick="dt.bLA()">Lock All</button><br><br>
+<button onclick="dt.sec()">Master Prompt</button><br><br>
+<button onclick="dt.res()">Reset Notif Count</button>
+<button onclick="dt.not()">Reset Note Count</button><br><br>
+<button onclick="dt.fls()">Flashy Flashy</button>
+
+<hr>
+
+<h4>Achievement Ratings</h4>
+<p style="color: white">Normal: Easily openable. Can be opened using simple operations.</p>
+<p style="color: blue">Note: Hidden from plain sight unless found. Requires repetition.</p>
+<p style="color: #00D600">Bonus: Requires some skill and knowledge to unlock. Some are very tricky.</p>
+<p style="color:red">Developer: Takes a lot of knowledge and skill. Even though body content is made editable, you cannot edit the text until unlocked. The developer tools also don't work on them unless used correctly.</p>
+
+</aside>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+<title>The Progress Page v1.1</title>
+<meta charset="UTF-8">
+<meta name="description" content="The Progress Page: a place where you can monitor progress.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="prog-favicon.ico">
+<style>
+html, body {width: 100%; margin: 0; font-family: sans-serif; text-align: center;}
+p {font-weight: bold;}
+.progressBar {width: 95%; background-color: #ddd; border: 2px solid black; margin: auto; border-radius: 5px;}
+a {text-decoration: none;}
+a:visited {color: blue;}
+.progressBar div {width: 0; height: 30px; background-color: #4CBA50;}
+</style>
+</head>
+<body>
+<h1>THE PROGRESS PAGE</h1>
+<h2>A somewhat experimental document by SciPred</h2>
+<h2 style="color:green">Monitors progress as time goes on. Includes some of the slowest progress bars ever.</h2>
+<h3 style="color:blue">Inspired by <a href="https://neal.fun/progress">neal.fun</a></h3>
+<h4 style="color:gray">Version: 1.1</h4>
+<br><br>
+
+<p id="next-deciminute">Seconds until next deciminute: 6</p>
+<div class="progressBar">
+	<div id="next-deciminute-bar"></div>
+</div>
+
+<p id="next-half-minute">Seconds until next half-minute: 30</p>
+<div class="progressBar">
+	<div id="next-half-minute-bar"></div>
+</div>
+
+<p id="next-minute">Seconds until next minute: 60</p>
+<div class="progressBar">
+	<div id="next-minute-bar"></div>
+</div>
+
+<p id="next-dekaminute">Minutes until next dekaminute: 10</p>
+<div class="progressBar">
+	<div id="next-dekaminute-bar"></div>
+</div>
+
+<p id="next-hour">Minutes until next hour: 60</p>
+<div class="progressBar">
+	<div id="next-hour-bar"></div>
+</div>
+
+<p id="next-half-day">Hours until next half-day: 12</p>
+<div class="progressBar">
+	<div id="next-half-day-bar"></div>
+</div>
+
+<p id="next-day">Hours until next day: 24</p>
+<div class="progressBar">
+	<div id="next-day-bar"></div>
+</div>
+
+<p id="next-week">Days until next week: 7</p>
+<div class="progressBar">
+	<div id="next-week-bar"></div>
+</div>
+
+<p id="next-month">Days until next month (Full): 31</p>
+<div class="progressBar">
+	<div id="next-month-bar"></div>
+</div>
+
+<p id="next-year--day">Days until next year: 366</p>
+<div class="progressBar">
+	<div id="next-year--day-bar"></div>
+</div>
+
+<p id="next-year">Months until next year: 12</p>
+<div class="progressBar">
+	<div id="next-year-bar"></div>
+</div>
+
+<p id="next-biennium">Years until next biennium: 2</p>
+<div class="progressBar">
+	<div id="next-biennium-bar"></div>
+</div>
+
+<p id="next-triennium">Years until next triennium: 3</p>
+<div class="progressBar">
+	<div id="next-triennium-bar"></div>
+</div>
+
+<p id="next-quadrennium">Years until next quadrennium: 4</p>
+<div class="progressBar">
+	<div id="next-quadrennium-bar"></div>
+</div>
+
+<p id="next-lustrum">Years until next lustrum: 5</p>
+<div class="progressBar">
+	<div id="next-lustrum-bar"></div>
+</div>
+
+<p id="next-sexennium">Years until next sexennium: 6</p>
+<div class="progressBar">
+	<div id="next-sexennium-bar"></div>
+</div>
+
+<p id="next-septennium">Years until next septennium: 7</p>
+<div class="progressBar">
+	<div id="next-septennium-bar"></div>
+</div>
+
+<p id="next-octennium">Years until next octennium: 8</p>
+<div class="progressBar">
+	<div id="next-octennium-bar"></div>
+</div>
+
+<p id="next-novennium">Years until next novennium: 9</p>
+<div class="progressBar">
+	<div id="next-novennium-bar"></div>
+</div>
+
+<p id="next-decade">Years until next decade: 10</p>
+<div class="progressBar">
+	<div id="next-decade-bar"></div>
+</div>
+
+<p id="next-indiction">Years until next indiction: 15</p>
+<div class="progressBar">
+	<div id="next-indiction-bar"></div>
+</div>
+
+<p id="next-score">Years until next score: 20</p>
+<div class="progressBar">
+	<div id="next-score-bar"></div>
+</div>
+
+<p id="next-jubilee">Years until next jubilee: 50</p>
+<div class="progressBar">
+	<div id="next-jubilee-bar"></div>
+</div>
+
+<p id="next-century">Years until next century: 100</p>
+<div class="progressBar">
+	<div id="next-century-bar"></div>
+</div>
+
+<p id="next-millennium">Years until next millennium: 1000</p>
+<div class="progressBar">
+	<div id="next-millennium-bar"></div>
+</div>
+
+<p id="next-megannum">Years until next megannum: 1000000</p>
+<div class="progressBar">
+	<div id="next-megannum-bar"></div>
+</div>
+
+<p id="next-gigaannum">Years until next gigaannum: 1000000000</p>
+<div class="progressBar">
+	<div id="next-gigaannum-bar"></div>
+</div>
+
+<p id="next-teraannum">Years until next teraannum: 1000000000000</p>
+<div class="progressBar">
+	<div id="next-teraannum-bar"></div>
+</div>
+
+<p id="next-petaannum">Years until next petaannum: 1000000000000000</p>
+<div class="progressBar">
+	<div id="next-petaannum-bar"></div>
+</div>
+
+
+
+<p id="cycle-HalleysComet">Years until Halley's Comet returns: 75</p>
+<div class="progressBar">
+	<div id="cycle-HalleysComet-bar"></div>
+</div>
+
+
+
+<p id="until-Chernobyl">Years until Chernobyl is fully safe again: 214</p>
+<div class="progressBar">
+	<div id="until-Chernobyl-bar"></div>
+</div>
+
+<p id="until-sundeath">Years until the Sun dies: 9 billion</p>
+<div class="progressBar">
+	<div id="until-sundeath-bar"></div>
+</div>
+
+<br><br><br><br>
+<p style="color:blue;">Made by SciPred, 2020. (To be honest this was fun to make)</p>
+<p style="color:red;">However, I might not be able to update this in the far future, so some progress bars may be deprecated. (For that, I apologize.)</p>
+<br><br>
+<script>
+function displayThing(id, txt, num1, num2, num3) {
+	document.getElementById(id).innerHTML = txt + num1;
+	document.getElementById(id + "-bar").style.width = (num2/num3 * 100) + "%";
+}
+function calcDay() {
+	var now = new Date();
+	var start = new Date(now.getFullYear(), 0, 0);
+	var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+	var oneDay = 1000 * 60 * 60 * 24;
+	var day = Math.floor(diff / oneDay);
+	return day;
+}
+
+setInterval(function(){
+	var d = new Date();
+	var days = new Date().getFullYear() % 4 == 0 ? 366 : 365;
+	displayThing("next-deciminute", "Seconds until next deciminute: ", 6 - (d.getSeconds() % 6), d.getSeconds() % 6, 6);
+	displayThing("next-half-minute", "Seconds until next half-minute: ", 30 - (d.getSeconds() % 30), d.getSeconds() % 30, 30);
+	displayThing("next-minute", "Seconds until next minute: ", 60 - d.getSeconds(), d.getSeconds(), 60);
+	displayThing("next-dekaminute", "Minutes until next dekaminute: ", 10 - (d.getMinutes() % 10), d.getMinutes() % 10, 10);
+	displayThing("next-hour", "Minutes until next hour: ", 60 - d.getMinutes(), d.getMinutes(), 60);
+	displayThing("next-half-day", "Hours until next half-day: ", 12 - (d.getHours() % 12), d.getHours() % 12, 12);
+	displayThing("next-day", "Hours until next day: ", 24 - d.getHours(), d.getHours(), 24);
+	displayThing("next-week", "Days until next week: ", 7 - d.getDay(), d.getDay(), 7);
+	displayThing("next-month", "Days until next month (Full): ", 31 - d.getDate(), d.getDate(), 31);
+	displayThing("next-year--day", "Days until next year: ", days - calcDay(), calcDay(), days);
+	displayThing("next-year", "Months until next year: ", 12 - d.getMonth(), d.getMonth(), 12);
+	displayThing("next-biennium", "Years until next biennium: ", 2 - (d.getFullYear() % 2), d.getFullYear() % 2, 2);
+	displayThing("next-triennium", "Years until next triennium: ", 3 - (d.getFullYear() % 3), d.getFullYear() % 3, 3);
+	displayThing("next-quadrennium", "Years until next quadrennium: ", 4 - (d.getFullYear() % 4), d.getFullYear() % 4, 4);
+	displayThing("next-lustrum", "Years until next lustrum: ", 5 - (d.getFullYear() % 5), d.getFullYear() % 5, 5);
+	displayThing("next-sexennium", "Years until next sexennium: ", 6 - (d.getFullYear() % 6), d.getFullYear() % 6, 6);
+	displayThing("next-septennium", "Years until next septennium: ", 7 - (d.getFullYear() % 7), d.getFullYear() % 7, 7);
+	displayThing("next-octennium", "Years until next octennium: ", 8 - (d.getFullYear() % 8), d.getFullYear() % 8, 8);
+	displayThing("next-novennium", "Years until next novennium: ", 9 - (d.getFullYear() % 9), d.getFullYear() % 9, 9);
+	displayThing("next-decade", "Years until next decade: ", 10 - (d.getFullYear() % 10), d.getFullYear() % 10, 10);
+	displayThing("next-indiction", "Years until next indiction: ", 15 - (d.getFullYear() % 15), d.getFullYear() % 15, 15);
+	displayThing("next-score", "Years until next score: ", 20 - (d.getFullYear() % 20), d.getFullYear() % 20, 20);
+	displayThing("next-jubilee", "Years until next jubilee: ", 50 - (d.getFullYear() % 50), d.getFullYear() % 50, 50);
+	displayThing("next-century", "Years until next century: ", 100 - (d.getFullYear() % 100), d.getFullYear() % 100, 100);
+	displayThing("next-millennium", "Years until next millennium: ", 1000 - (d.getFullYear() % 1000), d.getFullYear() % 1000, 1000);
+	displayThing("next-megannum", "Years until next megannum: ", 1000000 - (d.getFullYear() % 1000000), d.getFullYear() % 1000000, 1000000);
+	displayThing("next-gigaannum", "Years until next gigaannum: ", 1000000000 - (d.getFullYear() % 1000000000), d.getFullYear() % 1000000000, 1000000000);
+	displayThing("next-teraannum", "Years until next teraannum: ", 1000000000000 - (d.getFullYear() % 1000000000000), d.getFullYear() % 1000000000000, 1000000000000);
+	displayThing("next-petaannum", "Years until next petaannum: ", 1000000000000000 - (d.getFullYear() % 1000000000000000), d.getFullYear() % 1000000000000000, 1000000000000000);
+
+	displayThing("cycle-HalleysComet", "Years until Halley's Comet returns: ", 75 - ((d.getFullYear() % 75) - 36), (d.getFullYear() % 75) - 36, 75);
+
+	var Chernobyl_timeLeft = d.getFullYear() > 2200 ? 0 : 214 - (d.getFullYear() - 1986);
+	var Chernobyl_width = d.getFullYear() > 2200 ? 214 : d.getFullYear() - 1986;
+	displayThing("until-Chernobyl", "Years until Chernobyl is fully safe again: ", Chernobyl_timeLeft, Chernobyl_width, 214);
+	var sundeath_timeLeft = d.getFullYear() > 10000000000 ? 0 : Math.trunc((10000000000 - (d.getFullYear() + 4603000000)) / 1000000000) + " billion";
+	var sundeath_width = d.getFullYear() > 10000000000 ? 10000000000 : d.getFullYear() + 4603000000;
+	displayThing("until-sundeath", "Years until the Sun dies: ", sundeath_timeLeft, sundeath_width, 10000000000);
+}, 1000);
+</script>
+</body>
+</html>
