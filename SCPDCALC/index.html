@@ -134,6 +134,9 @@ details ul li {
 #inputEverything input {
 	display: none;
 }
+.sqClass {
+	list-style-type: square;
+}
 ::-webkit-scrollbar {width:10px;}
 ::-webkit-scrollbar-track {background:black}
 ::-webkit-scrollbar-thumb {background:#00E600;}
@@ -263,7 +266,7 @@ function animdispN(id) {
 <h3>Input Guide</h3>
 <p>Input values here from left to right belong to their respective inputs from top to bottom. Make sure that the resulting inputs for geometric calculators do not lead to impossible geometrical formations.</p>
 <h4>For calculations that require 1 input:</h4>
-<ul style="list-style-type:square;">
+<ul class="sqClass">
 	<li>Circle: radius</li>
 	<li>Cube: side</li>
 	<li>Decimals: decimal</li>
@@ -280,7 +283,7 @@ function animdispN(id) {
 	<li>Tetrahedron: side</li>
 </ul>
 <h4>For calculations that require 2 inputs:</h4>
-<ul style="list-style-type:square;">
+<ul class="sqClass">
 	<li>Basic Arithmetic: number, number</li>
 	<li>Cone: height, radius (circular base)</li>
 	<li>Cylinder: height, radius (circular base)</li>
@@ -296,7 +299,7 @@ function animdispN(id) {
 	<li>Triangle: height, base</li>
 </ul>
 <h4>For calculations that require 3 inputs:</h4>
-<ul style="list-style-type:square;">
+<ul class="sqClass">
 	<li>Circle: radius, x, y</li>
 	<li>Cuboid: length, width, height</li>
 	<li>Parallelogram: altitude, base, angle</li>
@@ -307,12 +310,19 @@ function animdispN(id) {
 	<li>Triangle: side, side, side</li>
 </ul>
 <h4>For calculations that require 4 inputs:</h4>
-<ul style="list-style-type:square;">
+<ul class="sqClass">
 	<li>Cyclic Quadrilateral: side, side, side, side</li>
 	<li>Trapezium: larger base, left leg, smaller base, right leg</li>
 </ul>
 <h3>Update History</h3>
 <p>A list of updates that came and went from time to time.</p>
+
+<details>
+	<summary>Update v1.2</summary>
+	<ul>
+		<li>Added some more outputs for the 1-input Addition, Decimal and Multiplication Calculator, and the 3-input Quadratic Equation Calculator.</li>
+	</ul>
+</details>
 
 <details>
 <summary>Update v1.1</summary>
@@ -353,7 +363,7 @@ function animdispN(id) {
 </section>
 
 <strong onclick="showGuide()" unselectable="on">How To Use The Calculator</strong>
-<footer>This calculator is no longer in development. For suggestions, reviews, and bug reports, you can contact me via <a href="https://discord.gg/2DDqrUbkYX" target="_blank">Discord</a>.</footer>
+<footer>I have a <a href="https://discord.gg/2DDqrUbkYX" target="_blank">Discord</a>! (But it's not for bug reports, unfortunately.)</footer>
 
 <script>
 function startProcess() {
@@ -481,7 +491,6 @@ function processEverything() {
 		},
 		TrapeziumArea: function(a, b, c, d) {
 			//Currently using the formula by Hu Yi Jie, unsure if using ½(a+c)*b*sin{cos-1[(d2-(a-c)2-b2)/(-2(a-c)b)]} or (a+c)(½bd(sin(cos-1(b2+d2-(a-c)2))))/4(a-c) is more efficient
-			//Place in note: a = larger base, b = left leg, c = smaller base, d = right leg
 			console.log((a + b - c + d) * (a - b - c + d) * (a + b - c - d) * (-a + b + c + d));
 			var e = (a + c) / (4 * (a - c));
 			var f = Math.sqrt((a + b - c + d) * (a - b - c + d) * (a + b - c - d) * (-a + b + c + d));
@@ -536,6 +545,11 @@ function processEverything() {
 					"Fround: ", Math.fround(a), "<br>",
 					"Round to Nearest Integer: ", Math.round(a), "<br>",
 					"Truncation: ", Math.trunc(a), "<br>",
+					"Ceil of Centuple: ", Math.ceil(a * 100), "<br>",
+					"Floor of Centuple: ", Math.floor(a * 100), "<br>",
+					"Fround of Centuple: ", Math.fround(a * 100), "<br>",
+					"Round of Centuple: ", Math.round(a * 100), "<br>",
+					"Truncation of Centuple: ", Math.trunc(a * 100), "<br>",
 					"Ceil to Nearest Hundredths: ", NewMath.DecimalCeil(a, 2), "<br>",
 					"Floor to Nearest Hundredths: ", NewMath.DecimalFloor(a, 2), "<br>",
 					"Round to Nearest Hundredths: ", NewMath.DecimalRound(a, 2), "<br>",
@@ -620,6 +634,8 @@ function processEverything() {
 					"Decrement by 10000: ", a - 10000, "<br>",
 					"Decrement by 100000: ", a - 100000, "<br>",
 					"Decrement by 1000000: ", a - 1000000, "<br>",
+					"Decrement by 10000000: ", a - 10000000, "<br>",
+					"Decrement by 100000000: ", a - 100000000, "<br>",
 					"Increment by 1: ", a + 1, "<br>",
 					"Increment by 10: ", a + 10, "<br>",
 					"Increment by 100: ", a + 100, "<br>",
@@ -627,6 +643,8 @@ function processEverything() {
 					"Increment by 10000: ", a + 10000, "<br>",
 					"Increment by 100000: ", a + 100000, "<br>",
 					"Increment by 1000000: ", a + 1000000, "<br>",
+					"Increment by 10000000: ", a + 10000000, "<br>",
+					"Increment by 100000000: ", a + 100000000, "<br>",
 					""
 				].join("");
 				break;
@@ -642,6 +660,13 @@ function processEverything() {
 					"Octuple: ", a * 8, "<br>",
 					"Nonuple: ", a * 9, "<br>",
 					"Decuple: ", a * 10, "<br>",
+					"Undecuple: ", a * 11, "<br>",
+					"Duodecuple: ", a * 12, "<br>",
+					"Tredecuple: ", a * 13, "<br>",
+					"Quattuordecuple: ", a * 14, "<br>",
+					"Quindecuple: ", a * 15, "<br>",
+					"Vigintuple: ", a * 20, "<br>",
+					"Quinquagintuple: ", a * 50, "<br>",
 					"Centuple: ", a * 100, "<br>",
 					"Milluple: ", a * 1000, "<br>",
 					"Half: ", a / 2, "<br>",
@@ -653,6 +678,13 @@ function processEverything() {
 					"Eighth: ", a / 8, "<br>",
 					"Ninth: ", a / 9, "<br>",
 					"Tenth: ", a / 10, "<br>",
+					"Eleventh: ", a / 11, "<br>",
+					"Twelfth: ", a / 12, "<br>",
+					"Thirteenth: ", a / 13, "<br>",
+					"Fourteenth: ", a / 14, "<br>",
+					"Fifteenth: ", a / 15, "<br>",
+					"Twentieth: ", a / 20, "<br>",
+					"Fiftieth: ", a / 50, "<br>",
 					"Hundredth: ", a / 100, "<br>",
 					"Thousandth: ", a / 1000, "<br>",
 					"Reciprocal: ", 1 / a, "<br>",
@@ -966,6 +998,7 @@ function processEverything() {
 					"X: ", "{" + x1 + ", " + x2 + "}", "<br>",
 					"X1: ", x1, "<br>",
 					"X2: ", x2, "<br>",
+					"Difference: ", Math.abs(x1 - x2), "<br>",
 					""
 				].join("");
 				break;
