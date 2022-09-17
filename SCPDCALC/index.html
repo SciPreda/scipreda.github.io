@@ -15,7 +15,8 @@ html, body {
 	background: #eee;
 	font-family: sans-serif;
 	text-align: center;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 h1, h2, h3, h4, h5, h6, p, i, b, q, strong, span, footer {
 	cursor: default;
@@ -60,6 +61,7 @@ input:focus {
 div {
 	transition: opacity 0.5s;
 	opacity: 0;
+	overflow: auto;
 }
 footer {
 	position: fixed;
@@ -248,6 +250,7 @@ function animdispN(id) {
 	<h3>Here are your results.</h3>
 	<p id="result"></p>
 	<button onclick="resetEverything()">TRY AGAIN?</button>
+	<br><br><br>
 </div>
 
 <section>
@@ -316,6 +319,13 @@ function animdispN(id) {
 </ul>
 <h3>Update History</h3>
 <p>A list of updates that came and went from time to time.</p>
+
+<details>
+	<summary>Update v1.21</summary>
+	<ul>
+		<li>Fixed a hidden overflow output problem.</li>
+	</ul>
+</details>
 
 <details>
 	<summary>Update v1.2</summary>
@@ -1086,7 +1096,7 @@ function showGuide() {
 	if (hidingGuide) {
 		guide.style.height = "100%";
 		guidebtn.style.background = "#eee";
-		guidebtn.style.color = "green";
+		guidebtn.style.color = "#00ab00";
 		hidingGuide = false;
 	} else {
 		guide.style.height = "0";
