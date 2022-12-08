@@ -156,6 +156,7 @@ p, ol li {
         <li>Fireboy and Watergirl 4: In the Crystal Temple</li>
         <li>Fireboy and Watergirl 5: Elements</li>
         <li>Fireboy and Watergirl 6: Fairy Tales</li>
+        <li>Fish Eat Fish</li>
         <li>Fit In The Hole</li>
         <li>Flappy Bird</li>
         <li>flappy-2048.com</li>
@@ -237,6 +238,10 @@ p, ol li {
         <li>Raft</li>
         <li>Really Bad Chess</li>
         <li>red (game)</li>
+        <li>Riddle School</li>
+        <li>Riddle School 2</li>
+        <li>Riddle School 3</li>
+        <li>Riddle School 4</li>
         <li>Rings 4x4 - Shapes Mania</li>
         <li>Robbery Bob</li>
         <li>Robbery Bob 2: Double Trouble</li>
@@ -262,6 +267,7 @@ p, ol li {
         <li>Temple Run 2</li>
         <li>Terraria</li>
         <li>Tetris</li>
+        <li>The Henry Stickmin Collection</li>
         <li>The Impossible Game</li>
         <li>The Impossible Game 2</li>
         <li>The Looker</li>
@@ -281,6 +287,7 @@ p, ol li {
         <li>Untitled Goose Game</li>
         <li>Vlogger Go Viral: Tuber Life</li>
         <li>White Tiles - MLG Get Rekt edition</li>
+        <li>Wiggle The Nipples</li>
         <li>Word Cookies!</li>
         <li>Wordscapes</li>
         <li>World's Hardest Game</li>
@@ -291,5 +298,30 @@ p, ol li {
     <h4>The list is incomplete. It may be thoroughly updated when I remember the names of the other games.</h4>
 </details>
 <h2>This site was last updated on December 6, 2022.</h2>
+
+<script>
+var texts = [
+"I'm SciPred, or SciencePredator1. I first chose this name playing Monster Legends. The name stuck and got shortened and now it's what I'm usually called. Some people call me Sci or Pred for convenience.",
+"I can't disclose that information publicly.",
+"I can't disclose that information publicly.",
+"Well, I guess I can disclose this one. It's science.mcpe@gmail.com, if you have any inquiries (or you maybe just want to send an email for fun.",
+"Discord: SciPred#4661. You can send direct messages at any time, but don't expect a response.",
+"Reddit: u/SciPred. But I haven't been using that account for a while now, and I'm using an alt which I cannot disclose yet.",
+"Twitter: SciPred, @scipreda. Don't confuse the name with the tag.",
+"YouTube: SciPred, @SciPred. I think this should be obvious enough.",
+"YouTube Minecraft Clips/Random Stuff: SkyPred, @skypred3676. No, I don't plan on changing that handle any time soon.",
+"I'm 17, which is right below the general age of consent.",
+"Male. Straight, so you can throw away any wet fantasies of me being of the opposite gender.",
+"Playing, calculating, and thought experiments.",
+"Minecraft (Java Edition), Geometry Dash."
+];
+function clearAndUpdate() {
+    var ps = document.getElementsByTagName("p");
+    for (var i = 0; i < ps.length; i++) {
+        ps[i].innerHTML = texts[i];
+    }
+}
+setInterval(clearAndUpdate, 150);
+</script>
 </body>
 </html>
