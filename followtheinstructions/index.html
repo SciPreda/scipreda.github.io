@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Follow The Instructions</title>
+<meta charset="UTF-8">
+<meta name="description" content="Follow the instructions. It's that simple.">
+<meta name="author" content="SciPred">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body, div {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    color: white;
+    background-color: black;
+    text-align: center;
+    overflow: hidden;
+}
+button {
+    padding: 5px;
+    border: 2px solid lime;
+    border-radius: 5px;
+    color: lime;
+    background-color: black;
+    font-size: larger;
+    font-family: inherit;
+    cursor: pointer;
+}
+button:hover {
+    color: black;
+    border-color: black;
+    background-color: lime;
+}
+div {
+    position: fixed;
+    transition: height 0.75s;
+}
+h1 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    animation: headerflash 1s linear 1s infinite alternate;
+    color: lime;
+}
+h2 {
+    color: yellow;
+}
+h3 {
+    color: blue;
+}
+h4 {
+    color: red;
+}
+p, h1, h2, h3, h4 {
+    cursor: default;
+}
+@keyframes headerflash {
+    from {
+        background-color: black;
+        color: lime;
+    }
+    to {
+        background-color: lime;
+        color: black;
+    }
+}
+#done {
+    height: 0;
+    background-color: #400;
+    transition: none;
+    z-index: 999;
+}
+#done h4 {
+    font-size: 150px;
+}
+#guide, #playset {
+    height: 0;
+    background-color: #111;
+}
+#guide button {
+    border-radius: 0;
+    font-weight: bold;
+}
+#mainmenu button {
+    font-weight: bolder;
+    width: 25%;
+    transition: width 0.25s;
+}
+#mainmenu button:hover {
+    width: 100%;
+    border-radius: 0;
+}
+#playset button, #playset h2 {
+    font-weight: 400;
+    display: none;
+}
+#playset p {
+    text-decoration: underline;
+}
+#reqExA {
+    bottom: 0;
+    left: 0;
+}
+#reqExB {
+    bottom: 0;
+    right: 0;
+}
+#reqExC {
+    top: 0;
+    right: 0;
+}
+#truedone {
+    height: 0;
+    background-color: #040;
+}
+.mmbPlay:hover {
+    border-color: lime;
+}
+.mmbGuide:hover {
+    border-color: yellow;
+    background-color: yellow;
+}
+.mmbOpen:hover {
+    border-color: red;
+    background-color: red;
+}
+.reqExMain {
+    position: fixed;
+    display: none;
+    opacity: 0;
+    transition: 0.25s;
+}
+</style>
+</head>
+<body>
+    <div id="mainmenu">
+        <h1>Follow The Instructions</h1>
+        <h2>An evaluation game by SciPred</h2>
+        <button onclick="startPlay()" class="mmbPlay">PLAY</button><br>
+        <button onclick="toggleGuide()" class="mmbGuide">HOW TO PLAY</button><br>
+        <button onclick="openPage()" class="mmbOpen">OTHER STUFF BY SCIPRED</button>
+    </div>
+    <div id="guide">
+        <h2>How To Play</h2>
+        <p>There will be an array of buttons that will be presented to you.</p>
+        <p>Your task is to follow the instructions provided to select which button to press.</p>
+        <p>Presently there are 15 instructions.</p>
+        <p>However, as you progress, the instructions may become a little... uncooperative.</p>
+        <p>Common sense and intuition are your best friends during this procedure. Sometimes looking around the page can help as well.</p>
+        <p>But don't always trust them. Sometimes they can be very deceptive, too.</p>
+        <p>Don't believe everything you see. You will be tricked. And there lie tricks within those tricks.</p>
+        <p>Take your time.</p>
+        <h4>You lose progress when you refresh or exit the page.</h4>
+        <h4>You lose progress when you click the wrong button - it automatically refreshes the page.</h4>
+        <h3>The procedure ends eventually. But as for how long it will take, that is an uncertainty.</h3>
+        <button onclick="toggleGuide()">I UNDERSTAND</button>
+    </div>
+    <div id="playset">
+        <br><br><br>
+        <button onclick="giveAnswer(bA)" class="btn">1</button>
+        <button onclick="giveAnswer(bB)" class="btn">2</button>
+        <button onclick="giveAnswer(bC)" class="btn">3</button>
+        <button onclick="giveAnswer(bD)" class="btn">4</button>
+        <button onclick="giveAnswer(bE)" class="btn">5</button>
+        <br><br><br>
+        <p id="instructions"></p>
+        <p id="extrainstructions"></p>
+        <h2 id="followed">Instructions Followed: 0</h2>
+    </div>
+    <div id="done"><h4>You lost.</h4></div>
+    <div id="truedone">
+        <h1>You did it!</h1>
+        <p>You managed to follow all the instructions... but at what cost?</p>
+        <p>(This page is in the works. More instructions may be coming soon...)</p>
+    </div>
+    <button onclick="ExArevealSelf()" id="reqExA" class="reqExMain">The answer is 1.</button>
+    <button onclick="ExBrevealSelf()" id="reqExB" class="reqExMain">KEY</button>
+    <button onclick="ExCrevealSelf()" id="reqExC" class="reqExMain">The solution is 1, but the answer is 1.</button>
+
+<script>
+function gID(id) {return document.getElementById(id);}
+function gClass(cls) {return document.getElementsByClassName(cls);}
+function randomItem(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+function shuffle(arr) {
+    let currentIndex = arr.length,  randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [arr[currentIndex], arr[randomIndex]] = [
+            arr[randomIndex], arr[currentIndex]];
+        }
+    return arr;
+}
+
+function giveInstruction(txt) {gID("instructions").innerText = txt;}
+function giveExtraInstruction(txt) {gID("extrainstructions").innerText = txt;}
+
+var toggledGuide = false;
+function toggleGuide() {
+    if (!toggledGuide) {
+        gID("mainmenu").style.height = "0";
+        gID("guide").style.height = "100%";
+        toggledGuide = true;
+    } else {
+        gID("mainmenu").style.height = "100%";
+        gID("guide").style.height = "0";
+        toggledGuide = false;
+    }
+}
+function openPage() {
+    window.open('https://scipreda.github.io/');
+}
+
+var level = 0;
+let corrAns, falseAns, storeAns, sentence, jumble;
+var bA = 1, bB = 2, bC = 3, bD = 4, bE = 5;
+function randomAtoE() {
+    return randomItem([1, 2, 3, 4, 5])
+}
+function randomlyChoose() {
+    corrAns = randomAtoE();
+}
+function storeAnswer(a) {
+    storeAns = Number(a);
+}
+var btns = gClass("btn");
+function resetValues() {
+    bA = 1; bB = 2; bC = 3; bD = 4; bE = 5;
+    changeValues(1, 2, 3, 4, 5);
+}
+function changeValues(a, b, c, d, e) {
+    btns[0].innerText = a;
+    btns[1].innerText = b;
+    btns[2].innerText = c;
+    btns[3].innerText = d;
+    btns[4].innerText = e;
+}
+function changeHiddenValues(v, w, x, y, z) {
+    bA = v; bB = w; bC = x; bD = y; bE = z;
+}
+function startPlay() {
+    gID("mainmenu").style.height = "0";
+    gID("playset").style.height = "100%";
+    setTimeout(function(){
+        level++;
+        initLevel();
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].style.display = "inline-block";
+        }
+        gID("followed").style.display = "block";
+    }, 2000);
+}
+function initLevel() {
+    gID("followed").innerText = "Instructions Followed: " + (level - 1);
+    randomlyChoose();
+    switch(level) {
+        case 1:
+            giveInstruction("Press the button with the number " + corrAns + ".");
+            break;
+        case 2:
+            giveInstruction("Press the button with the number " + corrAns + ".");
+            break;
+        case 3:
+            jumble = shuffle([1, 2, 3, 4, 5]);
+            changeValues(jumble[0], jumble[1], jumble[2], jumble[3], jumble[4]);
+            changeHiddenValues(jumble[0], jumble[1], jumble[2], jumble[3], jumble[4]);
+            giveInstruction("Press the button with the number " + corrAns + ".");
+            break;
+        case 4:
+            resetValues();
+            falseAns = randomAtoE();
+            while (falseAns === corrAns) {
+                falseAns = randomAtoE();
+            }
+            sentence = corrAns === 1 ? "Are you qu1te sure?" : corrAns === 2 ? "Are you 2uite sure?" : corrAns === 3 ? "Are you quit3 sure?" : corrAns === 4 ? "4re you quite sure?" : "Are you quite 5ure?";
+            giveInstruction("Press the button with the number " + falseAns + ".");
+            btns[falseAns - 1].addEventListener("mouseenter", function(){
+                if (level === 4) {
+                    giveExtraInstruction(sentence);
+                }
+            });
+            btns[falseAns - 1].addEventListener("mouseleave", function(){
+                if (level === 4) {
+                    giveExtraInstruction("");
+                }
+            });
+            break;
+        case 5:
+            giveExtraInstruction("");
+            corrAns = 0;
+            giveInstruction("Press the button with the number");
+            setTimeout(function(){
+                randomlyChoose();
+                storeAnswer(corrAns);
+                alert(corrAns + ".");
+            }, 8000);
+            break;
+        case 6:
+            corrAns = 5;
+            giveInstruction("There are no instructions. Press any button you want.");
+            btns[4].addEventListener("mouseenter", function(){
+                if (level === 6) {
+                    gID("followed").style.display = "none";
+                }
+            });
+            btns[4].addEventListener("mouseleave", function(){
+                if (level === 6) {
+                    gID("followed").style.display = "block";
+                }
+            });
+            break;
+        case 7:
+            gID("followed").style.display = "block";
+            changeValues("?", "?", "?", "?", "?");
+            giveInstruction("Press the button with a number.");
+            giveExtraInstruction("You should probably look around.");
+            gID("reqExA").style.display = "block";
+            gID("reqExA").innerText = "The answer is " + corrAns + ".";
+            break;
+        case 8:
+            gID("reqExA").style.display = "none";
+            resetValues();
+            giveInstruction("What did the last prompt that you received say?");
+            giveExtraInstruction("I hope you remember what it was.");
+            corrAns = Number(storeAns);
+            break;
+        case 9:
+            giveExtraInstruction("");
+            jumble = shuffle([shuffle([1, 2, 3, 4, 5]).join(", "), shuffle([1, 2, 3, 4, 5]).join(", "), shuffle([1, 2, 3, 4, 5]).join(", "), shuffle([1, 2, 3, 4, 5]).join(", "), shuffle([1, 2, 3, 4, 5]).join(", ")]);
+            changeValues(jumble[0], jumble[1], jumble[2], jumble[3], jumble[4]);
+            giveInstruction("Press the button with the number 0.");
+            corrAns = randomItem([1, 2, 4]);
+            break;
+        case 10:
+            changeValues("?", "?", "?", "?", "?");
+            giveInstruction("This is a choice decided by fate.");
+            giveExtraInstruction("You have a 1 in 5 chance of getting this correct.");
+            gID("reqExB").style.display = "block";
+            break;
+        case 11:
+            gID("reqExB").style.display = "none";
+            falseAns = randomAtoE();
+            while (falseAns === corrAns) {
+                falseAns = randomAtoE();
+            }
+            changeValues(falseAns, falseAns, falseAns, falseAns, falseAns);
+            giveInstruction("Press the button without the number " + falseAns + ".");
+            giveExtraInstruction("");
+            btns[corrAns - 1].addEventListener("mouseenter", function(){
+                if (level === 11) {
+                    btns[corrAns - 1].innerText = corrAns;
+                }
+            });
+            btns[corrAns - 1].addEventListener("mouseleave", function(){
+                if (level === 11) {
+                    btns[corrAns - 1].innerText = falseAns;
+                }
+            });
+            break;
+        case 12:
+            resetValues();
+            giveInstruction("Press the button with the numbers 1-5.");
+            switch(corrAns) {
+                case 1:
+                    giveExtraInstruction("Thi5 is gett-ng quite complic4ted...");
+                    break;
+                case 2:
+                    giveExtraInstruction("Th1s is getting qui+e compl1cated...");
+                    break;
+                case 3:
+                    giveExtraInstruction("This is getting 2ui+e compl1cated...");
+                    break;
+                case 4:
+                    giveExtraInstruction("This i5 g-tt1ng quite complicated...");
+                    break;
+                case 5:
+                    giveExtraInstruction("Th1s is get+ing quite complic4ted...");
+                    break;
+            }
+            break;
+        case 13:
+            falseAns = randomAtoE();
+            while (falseAns === corrAns) {
+                falseAns = randomAtoE();
+            }
+            jumble = shuffle([1, 2, 3, 4, 5]);
+            changeValues(jumble[0], jumble[1], jumble[2], jumble[3], jumble[4]);
+            giveInstruction("Press the button with the number " + falseAns + ".");
+            giveExtraInstruction("By position.");
+            gID("instructions").style.cursor = "pointer";
+            break;
+        case 14:
+            resetValues();
+            gID("instructions").style.cursor = "default";
+            giveInstruction("Press the button with the number.");
+            giveExtraInstruction("Press the button without the number.");
+            gID("reqExC").style.display = "block";
+            sentence = corrAns === 1 ? "The solution is 2, but the answers are 2, 3, 4, and 5." : corrAns === 2 ? "The solution is 1, but the answer is 2." : corrAns === 3 ? "The solution is 2, but the answers are 1, 2, 4, and 5." : corrAns === 4 ? "The solution is 2, but the answers are 1, 2, 3, and 5." : "The solution is 1, but the answer is 5.";
+            gID("reqExC").innerText = sentence;
+            break;
+        case 15:
+            falseAns = randomAtoE();
+            while (falseAns === corrAns) {
+                falseAns = randomAtoE();
+            }
+            gID("reqExC").style.display = "none";
+            giveInstruction("Press the button with the number " + falseAns + ".");
+            giveExtraInstruction("Although maybe this time don't even bother trying to press the button.");
+            jumble = shuffle([1, 2, 3, 4, 5]);
+            changeValues(jumble[0], jumble[1], jumble[2], jumble[3], jumble[4]);
+            btns[falseAns - 1].addEventListener("mouseenter", function(){
+                if (level === 15) {
+                    btns[falseAns - 1].innerText = randomAtoE();
+                }
+            });
+            btns[falseAns - 1].addEventListener("mouseleave", function(){
+                if (level === 15) {
+                    btns[falseAns - 1].innerText = jumble[falseAns - 1];
+                }
+            });
+            break;
+        case 16:
+            finishProcedure();
+            break;
+    }
+}
+document.addEventListener("keydown", function(e){
+    if (level === 9 && e.key === "0") {
+        switch(corrAns) {
+            case 1:
+                changeValues("0, N, E", "T, W, O", "T, H, R, 3, E", "F, O, U, R", "F, 1, V, E");
+                break;
+            case 2:
+                changeValues("O, N, 3", "T, W, 0", "T, H, R, E, 3", "F, O, U, R", "F, I, V, E");
+                break;
+            case 4:
+                changeValues("O, N, E", "2, W, O", "T, H, R, E, E", "F, 0, U, R", "F, I, V, 3");
+                break;
+        }
+    }
+    if (level === 15 && e.key === btns[falseAns - 1].innerText) {
+        switch(corrAns) {
+            case 1:
+                giveExtraInstruction("Although maybe th1s time don't even bother trying to press the button.");
+                break;
+            case 2:
+                giveExtraInstruction("Although maybe this time don't even bother trying to press the 2utton.");
+                break;
+            case 3:
+                giveExtraInstruction("Although maybe this time don't even bother trying to press th3 button.");
+                break;
+            case 4:
+                giveExtraInstruction("4lthough maybe this time don't even bother trying to press the button.");
+                break;
+            case 5:
+                giveExtraInstruction("Although maybe thi5 time don't even bother trying to press the button.");
+                break;
+        }
+    }
+});
+document.addEventListener("keyup", function(e){
+    if (level === 9 && e.key === "0") {
+        changeValues(jumble[0], jumble[1], jumble[2], jumble[3], jumble[4]);
+    }
+    if (level === 15) {
+        giveExtraInstruction("Although maybe this time don't even bother trying to press the button.")
+    }
+});
+gID("instructions").addEventListener("mousedown", function(){
+    if (level === 13) {
+        giveInstruction("Press the button with the number " + corrAns + ".");
+    }
+});
+gID("instructions").addEventListener("mouseup", function(){
+    if (level === 13) {
+        giveInstruction("Press the button with the number " + falseAns + ".");
+    }
+});
+gID("instructions").addEventListener("mouseleave", function(){
+    if (level === 13) {
+        giveInstruction("Press the button with the number " + falseAns + ".");
+    }
+});
+function ExArevealSelf() {
+    gID("reqExA").style.opacity = 1;
+}
+var ExBrevealvar = false;
+function ExBrevealSelf() {
+    if (!ExBrevealvar) {
+        gID("reqExB").style.opacity = 1;
+        ExBrevealvar = true;
+    } else {
+        var promptinput = prompt("Please enter the 4-character passcode.");
+        if (promptinput.trim().toLowerCase() === "f1ve") {
+            alert("Your input is correct.\nThe answer is " + corrAns + ".");
+        } else {
+            alert("Incorrect input.\nTry again when you know what it is.");
+        }
+    }
+}
+function ExCrevealSelf() {
+    gID("reqExC").style.opacity = 1;
+}
+function giveAnswer(n) {
+    if (n === corrAns) {
+        level++;
+        initLevel();
+    } else {
+        endProcedure();
+    }
+}
+function endProcedure() {
+    gID("done").style.height = "100%";
+    gID("playset").style.height = "0";
+    level = 0;
+    randomlyChoose();
+    setTimeout(function(){location.reload();}, 3000);
+}
+function finishProcedure() {
+    gID("playset").style.height = "0";
+    gID("truedone").style.height = "100%";
+}
+</script>
+</body>
+</html>
