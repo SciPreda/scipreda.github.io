@@ -144,7 +144,7 @@ p, h1, h2, h3, h4 {
         <h2>How To Play</h2>
         <p>There will be an array of buttons that will be presented to you.</p>
         <p>Your task is to follow the instructions provided to select which button to press.</p>
-        <p>Presently there are 15 instructions.</p>
+        <p>Presently there are 16 instructions.</p>
         <p>However, as you progress, the instructions may become a little... uncooperative.</p>
         <p>Common sense and intuition are your best friends during this procedure. Sometimes looking around the page can help as well.</p>
         <p>But don't always trust them. Sometimes they can be very deceptive, too.</p>
@@ -171,7 +171,7 @@ p, h1, h2, h3, h4 {
     <div id="truedone">
         <h1>You did it!</h1>
         <p>You managed to follow all the instructions... but at what cost?</p>
-        <p>(This page is in the works. More instructions may be coming soon...)</p>
+        <p>(More instructions may be coming soon...)</p>
     </div>
     <button onclick="ExArevealSelf()" id="reqExA" class="reqExMain">The answer is 1.</button>
     <button onclick="ExBrevealSelf()" id="reqExB" class="reqExMain">KEY</button>
@@ -227,6 +227,13 @@ var btns = gClass("btn");
 function resetValues() {
     bA = 1; bB = 2; bC = 3; bD = 4; bE = 5;
     changeValues(1, 2, 3, 4, 5);
+}
+function resetFunctions() {
+    btns[0].onclick = function() {giveAnswer(bA);}
+    btns[1].onclick = function() {giveAnswer(bB);}
+    btns[2].onclick = function() {giveAnswer(bC);}
+    btns[3].onclick = function() {giveAnswer(bD);}
+    btns[4].onclick = function() {giveAnswer(bE);}
 }
 function changeValues(a, b, c, d, e) {
     btns[0].innerText = a;
@@ -420,6 +427,17 @@ function initLevel() {
             });
             break;
         case 16:
+            resetValues();
+            falseAns = randomAtoE();
+            while (falseAns === corrAns) {
+                falseAns = randomAtoE();
+            }
+            giveInstruction("Press the button with the number " + falseAns + ".");
+            giveExtraInstruction("Go on. Do it.");
+            btns[falseAns - 1].onclick = function() {alert("The answer is " + corrAns + ". See? Nothing to worry about.");}
+            break;
+        case 17:
+            resetFunctions();
             finishProcedure();
             break;
     }
