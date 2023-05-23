@@ -18,11 +18,29 @@ html, body, section {
     text-align: center;
     background: black;
 }
+/* Firefox because some people, you know, still use it */
+body {
+    scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
 h1 {
 	color: #00e600;
 	text-decoration: underline;
 	font-weight: bolder;
 	font-size: 35px;
+    animation: borderlol 12s infinite linear;
+    background: linear-gradient(90deg, #00e600 50%, transparent 50%), linear-gradient(90deg, #00e600 50%, transparent 50%), linear-gradient(0deg, #00e600 50%, transparent 50%), linear-gradient(0deg, #00e600 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 15px 4px, 15px 4px, 4px 15px, 4px 15px;
+    background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0px;
+    padding: 10px;
+    transition: all 0.4s;
+}
+h1:hover {
+    background-color: white;
+    color: black;
 }
 h2 {
 	color: #e6e600;
@@ -42,12 +60,16 @@ summary {
 }
 p {
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
 }
 p, ol li {
-    text-align: left;
     margin-left: 30px;
     margin-right: 30px;
+    list-style-position: inside;
+}
+@keyframes borderlol {
+    to {
+        background-position: 100% 0%, 0% 100%, 0% 0%, 100% 100%;
+    }
 }
 </style>
 </head>
@@ -251,6 +273,8 @@ p, ol li {
         <li>Gum Drop Hop 3</li>
         <li>Gum Drop Hop 4</li>
         <li>GunCrafter</li>
+        <li>Half-Life</li>
+        <li>Half-Life 2</li>
         <li>Hand Simulator</li>
         <li>Happy Street</li>
         <li>Happy Wheels</li>
@@ -275,6 +299,7 @@ p, ol li {
         <li>Little Alchemy 2</li>
         <li>Looney Tunes Dash!</li>
         <li>Lords Mobile: Kingdom Wars</li>
+        <li>Lost In Vivo</li>
         <li>LSD: Dream Emulator</li>
         <li>MADiSON</li>
         <li>Make Them Fall</li>
@@ -325,6 +350,8 @@ p, ol li {
         <li>Please, Don't Touch Anything</li>
         <li>Pocket Chess</li>
         <li>Pokémon Go</li>
+        <li>Portal</li>
+        <li>Portal 2</li>
         <li>Presentable Liberty</li>
         <li>PUBG Mobile</li>
         <li>Pyro Jump</li>
@@ -435,14 +462,14 @@ p, ol li {
     </ol>
     <h4>The list is incomplete. It may be thoroughly updated when I remember the names of the other games I used to play as a child or from my short free time periods.</h4>
 </details>
-<h2>This site was last updated on May 17, 2023.</h2>
+<h2>This site was last updated on May 23, 2023.</h2>
 
 <script>
 var texts = [
 "I'm SciPred, or SciencePredator1. I first chose this name playing Monster Legends. The name stuck and got shortened and now it's what I'm usually called. Some people call me Sci or Pred for convenience.",
 "I can't disclose that information publicly.",
 "I can't disclose that information publicly.",
-"Well, I guess I can disclose this one. It's science.mcpe@gmail.com, if you have any inquiries (or you maybe just want to send an email for fun.",
+"Well, I guess I can disclose this one. It's science.mcpe@gmail.com, if you have any inquiries (or you maybe just want to send an email for fun).",
 "Discord: SciPred#4661. You can send direct messages at any time, but don't expect a response.",
 "Reddit: u/SciPred. But I haven't been using that account for a while now, and I'm using an alt which I cannot disclose yet.",
 "Twitter: SciPred, @scipreda. Don't confuse the name with the tag.",
