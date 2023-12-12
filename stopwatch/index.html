@@ -85,9 +85,9 @@ button:hover {
 </div>
 <div id="controls">
 	<h3>Controls</h3>
-	<button onclick="startCounter()" id="btnStart">START</button>
-	<button onclick="stopCounter()" id="btnStop">STOP</button>
-	<button onclick="lapCounter()" id="btnLap">LAP</button>
+	<button onclick="startCounter()" id="btnStart">START TIMER</button>
+	<button onclick="stopCounter()" id="btnStop">STOP TIMER</button>
+	<button onclick="lapCounter()" id="btnLap">RECORD LAP</button>
 	<button onclick="resetCounter()" id="btnReset">RESET TIMER</button>
 	<button onclick="resetCounter();lapdisplay.innerHTML='<h1>LAPS</h1>'" id="btnResetAll">RESET ALL</button>
 </div>
@@ -155,7 +155,7 @@ function startCounter() {
 		}
 		displayCount();
 	}, 10);
-	gID("btnStart").innerText = "RESUME";
+	gID("btnStart").innerText = "RESUME TIMER";
 	gID("btnStart").style.display = "none";
 	gID("btnStop").style.display = "block";
 	gID("btnLap").style.display = "block";
@@ -200,7 +200,7 @@ function resetCounter() {
 		m: 0,
 		h: 0
 	};
-	gID("btnStart").innerText = "START";
+	gID("btnStart").innerText = "START TIMER";
 	displayCount();
 }
 </script>
