@@ -11,35 +11,28 @@
 <!--
 	By SciPred 2020 onwards
 	You can edit this to your extent, but do not re-host it nor present it as your own.
-	(Co-author claims may be an exception, but are you even one)
-
-	<li><a href="./numbermanipulator/" class="specs">Number Manipulator</a></li>
-
-	To note: the class is useless, find a use
+	(Co-author claims may be an exception, but are you even one? Didn't think so.)
 -->
 <style>
-html, body, section {
+html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
 	font-family: 'Courier New', Courier, monospace;
 	overflow: auto;
-	transition: 0.5s;
 	cursor: default;
 	color: white;
-}
-body {
-	background: #ddd;
+	text-align: center;
+	background-color: black;
 }
 section {
-	text-align: center;
-	opacity: 0;
+	width: 80%;
+	margin: auto;
 }
 h1 {
-	color: #00e600;
 	text-decoration: underline;
 	font-weight: bolder;
-	font-size: 35px;
+	color: #00e600;
 }
 h3 {
 	color: yellow;
@@ -47,23 +40,48 @@ h3 {
 h4 {
 	color: blue;
 	text-decoration: underline;
-}
-h4, ul {
 	text-align: left;
-	margin-left: 15px;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+ul li {
+	width: 100%;
+	overflow: hidden;
+	line-height: 1.5;
 }
 ul li a {
-	transition: all 0.3s;
-	cursor: pointer;
-	max-width: 500px;
-	text-decoration: underline;
+	float: left;
+	width: 25%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 	color: white;
+	transition: all 0.4s;
+	text-align: left;
+	text-indent: 2.5%;
 }
-ul li a:hover {
-	color: #00F600;
-	background: gray;
-	padding: 2px;
-	border-radius: 4px;
+ul li aside {
+	background-color: #444;
+	float: right;
+	width: 75%;
+	height: 100%;
+	overflow: hidden;
+	opacity: 0;
+	transition: all 0.4s;
+}
+ul li:hover a {
+	background-color: #222;
+	color: #0f0;
+	text-indent: 10%;
+}
+ul li:hover aside {
+	opacity: 1;
+}
+ul li aside:hover {
+	color: yellow;
 }
 ::-webkit-scrollbar {width:10px;}
 ::-webkit-scrollbar-track {background:black}
@@ -71,76 +89,103 @@ ul li a:hover {
 </style>
 </head>
 <body>
-
 <section>
-	<h1>Welcome to SciPred's Website</h1>
-	<h2>Here you can see a list of projects SciPred made during his spare time or from boredom.</h2>
+	<h1>SciPred's Website</h1>
+	<h2>A Collection of Random and Pointless Projects</h2>
 	<h3></h3>
 
 	<h4>Special Pages</h4>
 	<ul>
-	<li><a href="./aboutme.html" class="specs">About Me</a></li>
-	<li><a href="./discordrules.html" class="specs">Discord Server Rules</a></li>
+	<li>
+		<a href="./aboutme.html">About Me</a>
+		<aside>A page containing general information about SciPred.</aside>
+	</li>
+	<li>
+		<a href="./discordrules.html">Discord Server Rules</a>
+		<aside>Detailed rules that were made for SciPred's Discord Server.</aside>
+	</li>
 	</ul>
 	<h4>Normal Projects</h4>
 	<ul>
-	<li><a href="./followtheinstructions/" class="specs">Follow The Instructions</a></li>
-	<li><a href="./numbermanipulator/" class="specs">Number Manipulator</a></li>
-	<li><a href="./SCPDCALC/" class="specs">SciPred's Calculator</a></li>
-	<li><a href="./ScrollDown/" class="specs">Scroll Down</a></li>
-	<li><a href="./stopwatch/" class="specs">Stopwatch</a></li>
-	<li><a href="./stringtool/" class="specs">Stringtool</a></li>
-	<li><a href="./textconverter/" class="specs">Text Converter</a></li>
-	<li><a href="./theProgressPage/" class="specs">The Progress Page</a></li>
+	<li>
+		<a href="./followtheinstructions/">Follow The Instructions</a>
+		<aside>A short game about following instructions... or not doing that at all.</aside>
+	</li>
+	<li>
+		<a href="./numbermanipulator/">Number Manipulator</a>
+		<aside>A page to edit a number with a random assortment of functions.</aside>
+	</li>
+	<li>
+		<a href="./SCPDCALC/">SciPred's Calculator</a>
+		<aside>A versatile calculator that calculates a variety of things.</aside>
+	</li>
+	<li>
+		<a href="./ScrollDown/">Scroll Down</a>
+		<aside>You scroll down the page, and that's it. Really.</aside>
+	</li>
+	<li>
+		<a href="./stopwatch/">Stopwatch</a>
+		<aside>A simple stopwatch.</aside>
+	</li>
+	<li>
+		<a href="./stringtool/">Stringtool</a>
+		<aside>A string editor page with limited functionality.</aside>
+	</li>
+	<li>
+		<a href="./textconverter/">Text Converter</a>
+		<aside>A text converter. Binary? Morse Code? Polybius? You name it!</aside>
+	</li>
+	<li>
+		<a href="./theProgressPage/">The Progress Page</a>
+		<aside>A page that shows the progress of certain things.</aside>
+	</li>
 	</ul>
 	<h4>Experimental Projects</h4>
 	<ul>
-	<li><a href="./experimental/achv2/" class="specs">Achievofile</a></li>
-	<li><a href="./experimental/hovertochangecolor/" class="specs">Hover To Change Color</a></li>
-	<li><a href="./experimental/RandomBinGen/" class="specs">Random Binary Generator</a></li>
-	<li><a href="./experimental/Sway/" class="specs">Sway</a></li>
+	<li>
+		<a href="./experimental/achv2/">Achievofile</a>
+		<aside>A small achievement game.</aside>
+	</li>
+	<li>
+		<a href="./experimental/hovertochangecolor/">Hover To Change Color</a>
+		<aside>A page filled with nothing but a colorable table as its canvas.</aside>
+	</li>
+	<li>
+		<a href="./experimental/RandomBinGen/">Random Binary Generator</a>
+		<aside>A completely incoherent random binary generator.</aside>
+	</li>
+	<li>
+		<a href="./experimental/Sway/">Sway</a>
+		<aside>A short game about avoiding the circles whilst staying in the small grid.</aside>
+	</li>
 	</ul>
-
-	<h5>SciPred is not an expert. He is, however, prone to making things that other people have probably already made - except with a little less effort and even more pointlessness.</h5>
 </section>
-
 <script>
-function gTag(tag) {return document.getElementsByTagName(tag);}
+var h3 = document.getElementsByTagName("h3")[0];
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
-
-function openNav() {
-	document.body.style.background = "black";
-	gTag("h3")[0].innerHTML = choose([
-		"...I think you've been here before. Maybe I'm just misremembering things though.",
-		"...say, haven't I seen you before?",
-		"...that's pretty much all there is to it.",
-		"And then you can leave. Quick as that.",
-		"Be warned, this may be a waste of your time.",
-		"Can't really guarantee you'd find anything here interesting, though.",
-		"Except the Discord Server Rules. That one was made out of pure necessity.",
-		"I don't know what you'd be doing here though.",
-		"In my opinion however, they lack the ability to be interesting.",
-		"Little is to be done in this place.",
-		"Not sure what you can do here though.",
-		"Oh, a person. What was I to expect.",
-		"Or they were made for fun. That's more reasonable.",
-		"Or they were made out of pure curiosity.",
-		"Please be mindful of your stay. I cannot be held responsible for the time you will have wasted here.",
-		"Some of them aren't exactly the most interesting of projects though.",
-		"Though I doubt you'd find any of them interesting.",
-		"Though there are many other websites you can visit.",
-		"Very mundane, I know.",
-		"Well, that's it for now.",
-		"Why'd you come here in the first place?",
-		"You can view them, or you can leave. It's up to you.",
-		"You definitely seem familiar. But then again, I'm just speculating."
-	]);
-	setTimeout(function(){
-		gTag("section")[0].style.opacity = "1";
-	}, 500);
-}
-setTimeout(openNav, 250);
+var h3str = choose([
+	"...I think you've been here before. Maybe I'm just misremembering things though.",
+	"...say, haven't I seen you before?",
+	"...that's pretty much all there is to it.",
+	"Be warned, this may be a waste of your time.",
+	"Brief scan here, and then you can leave. Quick as that.",
+	"Can't really guarantee you'd find anything here engaging, though.",
+	"I don't know what you'd be doing here though.",
+	"In my opinion however, they lack the ability to be interesting.",
+	"Little is to be done in this place.",
+	"Not sure what you can do here though.",
+	"Oh, a person. What was I to expect.",
+	"Please be mindful of your stay. I cannot be held responsible for the time you will have wasted here.",
+	"Some of them aren't exactly the most interesting of projects though.",
+	"Though I doubt you'd find any of them interesting.",
+	"Though there are many other websites you can visit.",
+	"Very mundane, I know.",
+	"Well, that's it for now.",
+	"Why'd you come here in the first place though?",
+	"You can view them, or you can leave. It's up to you.",
+	"You seem familiar. Have you been here before?"
+]);
+h3.innerText = h3str;
 </script>
-
 </body>
 </html>
