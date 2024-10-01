@@ -26,8 +26,12 @@ html, body {
 	background-color: black;
 }
 section {
-	width: 80%;
+	width: 92.5%;
+	height: 0;
 	margin: auto;
+	overflow: hidden;
+	transition: all 0.35s;
+	background-color: #aaa;
 }
 h1 {
 	text-decoration: underline;
@@ -161,31 +165,70 @@ ul li aside:hover {
 	</ul>
 </section>
 <script>
-var h3 = document.getElementsByTagName("h3")[0];
+function gTag(tag) {return document.getElementsByTagName(tag);}
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
-var h3str = choose([
-	"...I think you've been here before. Maybe I'm just misremembering things though.",
-	"...say, haven't I seen you before?",
-	"...that's pretty much all there is to it.",
-	"Be warned, this may be a waste of your time.",
-	"Brief scan here, and then you can leave. Quick as that.",
-	"Can't really guarantee you'd find anything here engaging, though.",
-	"I don't know what you'd be doing here though.",
-	"In my opinion however, they lack the ability to be interesting.",
-	"Little is to be done in this place.",
-	"Not sure what you can do here though.",
-	"Oh, a person. What was I to expect.",
-	"Please be mindful of your stay. I cannot be held responsible for the time you will have wasted here.",
-	"Some of them aren't exactly the most interesting of projects though.",
-	"Though I doubt you'd find any of them interesting.",
-	"Though there are many other websites you can visit.",
-	"Very mundane, I know.",
-	"Well, that's it for now.",
-	"Why'd you come here in the first place though?",
-	"You can view them, or you can leave. It's up to you.",
-	"You seem familiar. Have you been here before?"
-]);
-h3.innerText = h3str;
+function chooseRandomHex() {return "#" + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef");}
+var keyPressDelay = true;
+
+setTimeout(function(){
+	gTag("section")[0].style.height = "100%";
+	gTag("section")[0].style.backgroundColor = "black";
+	setTimeout(function(){keyPressDelay = false;}, 350);
+}, 100);
+
+function setRandomMotd() {
+	var h3str = choose([
+		"...I think you've been here before. Maybe I'm just misremembering things though.",
+		"...say, haven't I seen you before?",
+		"...that's pretty much all there is to it.",
+		"Be warned, this may be a waste of your time.",
+		"Brief scan here, and then you can leave. Quick as that.",
+		"But if you think about it, this webpage is a project itself.",
+		"Can't really guarantee you'd find anything here engaging, though.",
+		"Click, do things, click away.",
+		"I don't know what you'd be doing here though.",
+		"In my opinion however, they lack the ability to be interesting.",
+		"Little is to be done in this place.",
+		"Many others before you have come here. And by many, I mean few.",
+		"Not sure what you can do here though.",
+		"Oh, a person. What was I to expect.",
+		"Please be mindful of your stay. I cannot be held responsible for the time you will have wasted here.",
+		"Some of them aren't exactly the most interesting of projects though.",
+		"Though I doubt you'd find any of them interesting.",
+		"Though there are many other websites you can visit.",
+		"Very mundane, I know.",
+		"Well, that's it for now.",
+		"What, did you expect more out of this?",
+		"Why'd you come here in the first place though?",
+		"You can view them, or you can leave. It's up to you.",
+		"You seem familiar. Have you been here before?"
+	]);
+	gTag("h3")[0].innerText = h3str;
+}
+setRandomMotd();
+
+function setRandomBG() {
+	document.body.style.backgroundColor = chooseRandomHex();
+	gTag("section")[0].style.backgroundColor = chooseRandomHex();
+}
+
+document.addEventListener("keypress", function(e){
+	if (!keyPressDelay) {
+		switch(e.key) {
+		case "b":
+		case "B":
+			setRandomBG();
+			break;
+		case "r":
+		case "R":
+			setRandomMotd();
+			break;
+		}
+
+		keyPressDelay = true;
+		setTimeout(function(){keyPressDelay = false;}, 500);
+	}
+});
 </script>
 </body>
 </html>
