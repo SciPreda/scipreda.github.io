@@ -3,7 +3,7 @@
 <head>
 <title>Stringtool</title>
 <meta charset="UTF-8">
-<meta name="description" content="Stringtool 1.0, an experimental but helpful tool... maybe?">
+<meta name="description" content="Stringtool Revamped: a mostly experimental tool for handling Strings.">
 <meta name="author" content="SciPred">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -13,551 +13,299 @@ html, body {
 	margin: 0;
 	background: #eee;
 	font-family: sans-serif;
-	transition: 0.5s;
 	text-align: center;
 }
 header {
-	position: fixed;
-	transition: 0.5s;
-	background: #ccc;
-	height: 7px;
-	overflow-x: hidden;
-	overflow-y: auto;
+	top: 0;
+	left: 0;
 	width: 100%;
-	color: #ccc;
-	padding: 1px;
-	z-index: 50;
+	height: 10%;
+	background: #bbb;
+	padding-top: 3px;
 }
-header:hover {
-	height: 65px;
-	background: gray;
-	padding: 7px;
-	color: white;
+section {
+	height: 100%;
 }
-header span, header h3 {
-	display: inline-block;
+textarea {
+	resize: none;
+	width: 97.5%;
+	height: 97.5%;
+	border-radius: 0;
 }
-header span {
-	font-size: 30px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	padding: 6px;
-}
-span, i {
-	cursor: pointer;
-	font-weight: bold;
-	transition: color 0.4s;
-}
-span:hover, i:hover {
-	color: #aaa;
-}
-i {
-	font-size: 25px;
-}
-#tooltiplabel {
-	width: 30%;
-	height: 13px;
-	padding: 4px;
-	padding-bottom: 6px;
-	background: #aaa;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	text-align: left;
-}
-#stringHolder {
-	margin: auto;
-	font-size: 6em;
-}
-#sliceBar {
-	background: #555;
-	position: fixed;
-	width: 170px;
-	left: 0;
-	top: 9px;
-	border: 1px dashed black;
-	transition: 0.5s;
-	display: none;
-	color: white;
-	padding: 10px;
-}
-#replaceCharBar {
-	background: #555;
-	position: fixed;
-	width: 170px;
-	left: 191px;
-	top: 9px;
-	border: 1px dashed black;
-	transition: 0.5s;
-	display: none;
-	color: white;
-	padding: 10px;
-}
-div p {
-	text-align: left;
-}
+textarea::-webkit-scrollbar {width: 7px;}
+textarea::-webkit-scrollbar-track {background: black;}
+textarea::-webkit-scrollbar-thumb {background: #aaa;}
 button {
-	border: 2px solid black;
-	color: black;
-	padding: 5px;
-	border-radius: 5px;
 	background: white;
-	cursor: pointer;
+	border-radius: 4px;
+	border: 2px solid black;
+	margin-bottom: 4px;
 }
-#errorFound {
-	display: none;
+button:hover {
+	background: #cec;
 }
-#abtST p, #keyb p {
-	text-align: center;
+button:active {
+	background: black;
+	color: white;
 }
-#abtST::-webkit-scrollbar, #keyb::-webkit-scrollbar {
-	display: none;
+input {
+	width: 21%;
+	margin-bottom: 3px;
 }
-/* in case above code doesn't work */
-#abtST, #keyb {
-	overflow-y: auto;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
+.main-container {
+	height: 90%;
+	width: 100%;
+	display: flex;
 }
-
-#charCounter {
-	color: gray;
+.left-info, .right-info {
+	width: 25%;
+	margin: 0;
+	background: #ddd;
 }
+.middle-txtarea {
+	width: 50%;
+	margin: 0;
+	background: #aaa;
+}
+::-webkit-scrollbar {width: 0;}
 </style>
 </head>
 <body>
 <header>
-	<h3 style="padding:3px;border-radius:5px;background:#eee;color:black;cursor:default;">STRINGTOOL</h3>
-	<span id="clearString" onclick="clearString()">&times;</span>
-	<span id="resetString" onclick="resetString()">&#8635;</span>
-	<span id="duplicateString" onclick="duplicateString()">&#128462;</span>
-	<span id="remUppercaseString" onclick="remUppercaseString()">X</span>
-	<span id="remLowercaseString" onclick="remLowercaseString()">x</span>
-	<span id="sliceMenu" onclick="sliceMenu()">&#9986;</span>
-	<span id="replaceCharMenu" onclick="replaceCharMenu()">&#9998;</span>
-	<span id="uppercaseString" onclick="uppercaseString()">A</span>
-	<span id="lowercaseString" onclick="lowercaseString()">a</span>
-	<span id="moveFirstCharString" onclick="moveFirstCharString()">&#8592;</span>
-	<span id="moveLastCharString" onclick="moveLastCharString()">&#8594;</span>
-	<span id="trimString" onclick="trimString()">&#9988;</span>
-	<span id="reverseString" onclick="reverseString()">&#128472;</span>
-	<span id="downloadTxt" onclick="downloadTxt()">&#11015;</span>
-	<span id="aboutStringtool" onclick="aboutStringtool()">?</span>
-	<span id="keyboardShortcuts" onclick="keyboardShortcuts()">&#9000;</span>
-	<span id="openNewTab" onclick="window.open('https://scipreda.github.io/stringtool/')">&#10010;</span>
-	<span id="reloadPage" onclick="window.location.reload()">&#8634;</span>
-	<span id="functionMode" onclick="functionMode()">&#9881;</span>
+<h1>STRINGTOOL</h1>
 </header>
 
-<div id="sliceBar">
-	<i style="position:absolute;top:10px;left:10px;" onclick="sliceMenu()">&times;</i>
-	<h2>Slice Menu</h2>
-	<p>Start:</p>
-	<input type="text" id="sliceA" value="0"></input>
-	<p>End:</p>
-	<input type="text" id="sliceB" value="1"></input><br><br>
-	<button onclick="sliceString()">Slice</button>
-</div>
-
-<div id="replaceCharBar">
-	<i style="position:absolute;top:10px;left:10px;" onclick="replaceCharMenu()">&times;</i>
-	<h2>Replace Menu</h2>
-	<p>Text to be Replaced:</p>
-	<input type="text" id="replaceCharA" value="A"></input>
-	<p>Text to Replace:</p>
-	<input type="text" id="replaceCharB" value="a"></input><br><br>
-	<p style="display:inline-block;">Occurence:</p>
-	<select id="replaceCharType">
-		<option value="first">First</option>
-		<option value="all">All</option>
-	</select><br>
-	<button onclick="replaceCharString()">Replace</button>
-</div>
-
-<br><br><br><br><br><br><hr>
-<div id="stringHolder">Hello World!</div>
+<div class="main-container">
+<section class="left-info">
+<h3>CONTROLS</h3>
 <hr>
-<p id="charCounter">Characters: 12</p>
+<button onclick="StrControls.clear()">Clear</button>
+<button onclick="StrControls.reverse()">Reverse</button><br>
+<hr>
+<button onclick="StrControls.repeat(2)">Duplicate</button>
+<button onclick="StrControls.repeatMirror()">Mirror-Duplicate</button><br>
+<input type="number" class="str-repeat" placeholder="Multiplier">
+<button onclick="StrControls.repeat('r')">Repeat</button><br>
+<hr>
+<button onclick="StrControls.trim('a')">Trim</button>
+<button onclick="StrControls.trim('s')">Trim Start</button>
+<button onclick="StrControls.trim('e')">Trim End</button><br>
+<hr>
+<button onclick="StrControls.case('l')">lowercase</button>
+<button onclick="StrControls.case('u')">UPPERCASE</button>
+<button onclick="StrControls.case('t')">tOGGLE cASE</button>
+<button onclick="StrControls.case('s')">SwItCh cAsE</button>
+<button onclick="StrControls.case('r')">RaNDOm caSE</button><br>
+<hr>
+<input type="number" class="str-slice" placeholder="Start">
+<input type="number" class="str-slice" placeholder="End">
+<button onclick="StrControls.slice()">Slice</button><br>
+<input type="number" class="str-substring" placeholder="Start">
+<input type="number" class="str-substring" placeholder="End">
+<button onclick="StrControls.substring()">Substring</button><br>
+<input type="number" class="str-substr" placeholder="Start">
+<input type="number" class="str-substr" placeholder="Length">
+<button onclick="StrControls.substr()">Substr</button><br>
+<hr>
+<input type="number" class="str-moveChar" placeholder="Multiplier">
+<button onclick="StrControls.moveChar()">Shift First to Last</button>
+<button onclick="StrControls.moveChar('l')">Shift Last to First</button><br>
+<hr>
+<input type="text" class="str-replace" placeholder="Replaced">
+<input type="text" class="str-replace" placeholder="Replacer">
+<button onclick="StrControls.replace()">Replace</button>
+<button onclick="StrControls.replace('a')">Replace All</button><br>
+<input type="text" class="str-remove" placeholder="Removed">
+<button onclick="StrControls.remove()">Remove</button>
+<button onclick="StrControls.remove('a')">Remove All</button><br>
+<button onclick="StrControls.remove('l')">Remove Lowercase</button>
+<button onclick="StrControls.remove('u')">Remove Uppercase</button><br>
+<button onclick="StrControls.remove('p')">Remove Letters</button>
+<button onclick="StrControls.remove('d')">Remove Numbers</button><br>
+<button onclick="StrControls.remove('s')">Remove Whitespaces</button>
+<button onclick="StrControls.remove('n')">Remove Newlines</button><br>
+</section>
 
-<div id="tooltiplabel"></div>
-<span id="errorFound" style="padding:10px;font-size:30px;background:#aaa;position:fixed;bottom:0;right:0;z-index:123" onclick="displayError()">&#9940;</span>
+<section class="middle-txtarea">
+<textarea id="strval" placeholder="Input String here..." oninput="updateInfo()">
+</textarea>
+</section>
 
-<div id="abtST" style="width:100%;height:100%;position:fixed;background:rgba(0,0,0,0.85);z-index:100;color:white;top:0;left:0;display:none;">
-	<i style="position:fixed;top:10px;left:10px" onclick="aboutStringtool()">&times;</i>
-	<h1>STRINGTOOL</h1>
-	<h2 style="color:#00E600">A project in progress by SciPred</h2>
-	<h3>Version 1.21</h3>
-	<p>Stringtool is an experimental tool simply used to edit a piece of string.</p>
-	<p>The string is displayed in the middle of the page, in a big font size (6em). Click on it to edit it.</p>
-	<p>You can edit the string as many times as you want.</p>
-	<p>Use the tools provided to edit the string in multiple ways.</p>
-	<p>You can slice part of the string, duplicate it, remove uppercase letters, reset it, reverse it, convert all letters to lowercase, and so on.</p>
-	<p>To check the tools, simply hover your mouse somewhere at the top of this page, in an area surrounded by the slightly darker shade. You will see the title of this page followed by multiple icons. Each icon represents a tool.</p>
-	<p>Note that you do not have to click on the toolbar for it to extend. When your cursor leaves the toolbar, it will retract normally - just as I want it to do.</p>
-	<p style="color:blue">If you do not know the functions of a specific tool, hover over its icon and refer to the tooltip located at the bottom left. Some tools are not for editing the string, but for certain things such as "About Stringtool" and refreshing this page.</p>
-	<p style="color:green">Function Mode is a custom implementation of keyboard shortcuts. To toggle Function Mode, click on the gear at the right of the toolbar.</p>
-	<p style="color:red">When an error occurs, you will see an icon at the bottom right of the page. Click on the icon to see what the error was. Custom errors happen when any of these things happen: variables are edited, functions cannot be executed, or inputs are wrong. Other errors - general ones - will be displayed in the console (if your browser has one, such as Google).</p>
-	<p style="color:red">However, if your browser does not support the function window.alert, try opening this page in another browser. If you don't know which browsers have support, search for "js window alert browser support". (Only if you ever bother with looking at the error messages.)</p>
-	<p style="color:#ccc">It's a bit pointless - but it works.</p>
-	<p style="color:blue;font-weight:bold;">If you have any suggestions for me, contact me if you don't ever bother.</p>
-	<h3 style="color:#ddd">NEW ON THIS VERSION:</h3>
-	<p>- Added occurence selection in Replace Menu.</p>
-	<p>- Added character counter below the string input.</p>
-	<p>- Added a list of keyboard shortcuts.</p>
-	<p>- Added <bold style="color:#1f1">Function Mode</bold>! Allows more keyboard shortcuts into use. See the Keyboard Shortcuts menu for more information.</p>
-</div>
-
-<div id="keyb" style="width:100%;height:100%;position:fixed;background:rgba(0,0,0,0.85);z-index:100;color:white;top:0;left:0;display:none;">
-	<i style="position:fixed;top:10px;left:10px" onclick="keyboardShortcuts()">&times;</i>
-	<h1 style="color:#eee">Keyboard Shortcuts</h1>
-	<h2 style="color:red">Please note that some of these shortcuts may not be supported in your browser or have a different function.</h2>
-	<h3 style="color:#aaf">General:</h3>
-	<p>Ctrl + A: Selects all the text on the focused element.</p>
-	<p>Ctrl + C: Copies selected text.</p>
-	<p>Ctrl + F: Finds text on the current page.</p>
-	<p>Ctrl + P: Prints the current page.</p>
-	<p>Ctrl + V: Pastes cut or copied text.</p>
-	<p>Ctrl + X: Cuts selected text.</p>
-	<h3 style="color:#aaf">Function Mode:</h3>
-	<p>A: Move the first character to end.</p>
-	<p>C: Clears the string.</p>
-	<p>D: Move the last character to start.</p>
-	<p>R: Resets the string.</p>
-	<p>S: Saves the string in a text file.</p>
-	<p>T: Trims whitespaces on the sides of the string.</p>
-	<p>V: Duplicates the string.</p>
-	<p>X: Clears all lowercase letters.</p>
-	<p>Shift + C: Capitalizes the first letter of the string.</p>
-	<p>Shift + X: Clears all uppercase letters.</p>
+<section class="right-info">
+<h3>INFORMATION</h3>
+<hr>
+<p>Length: 0</p>
+<p>Letters: 0</p>
+<p>Numbers: 0</p>
+<p>Miscellaneous: 0</p>
+<hr>
+<p>Uppercase Letters: 0</p>
+<p>Lowercase Letters: 0</p>
+<hr>
+<p>Spaces: 0</p>
+<p>Newlines: 0</p>
+</section>
 </div>
 <script>
-function gID(id) {return document.getElementById(id)}
-function gTags(tag, num) {return document.getElementsByTagName(tag)[num]}
-function lblset(elm, tltp) {
-	elm.onmouseover = function() {gID("tooltiplabel").innerHTML = tltp;}
-	elm.onmouseleave = function() {gID("tooltiplabel").innerHTML = "";}
-}
+function gID(id) {return document.getElementById(id);}
+function gClass(cls) {return document.getElementsByClassName(cls);}
+function gTag(tag) {return document.getElementsByTagName(tag);}
 
-var functionMode_on = "OFF";
-function functionMode() {
-	functionMode_on = functionMode_on === "OFF" ? "ON" : "OFF";
-	lblset(gID("functionMode"), "Function Mode: " + functionMode_on);
-	gID("tooltiplabel").innerHTML = "Function Mode: " + functionMode_on;
-}
+var ta = gID("strval");
 
-gTags("header", 0).onmouseover = function() {
-	gID("sliceBar").style.top = "79px";
-	gID("replaceCharBar").style.top = "79px";
-}
-gTags("header", 0).onmouseleave = function() {
-	gID("sliceBar").style.top = "9px";
-	gID("replaceCharBar").style.top = "9px";
-}
-
-document.addEventListener("keypress", function(e){
-	if (functionMode_on === "ON") {
-		switch (e.keyCode) {
-			case 97:
-				//a
-				moveFirstCharString();
-				break;
-			case 67:
-				//C
-				capitalizeString();
-				break;
-			case 99:
-				//c
-				clearString();
-				break;
-			case 100:
-				//d
-				moveLastCharString();
-				break;
-			case 114:
-				//r
-				resetString();
-				break;
-			case 115:
-				//s
-				downloadTxt();
-				break;
-			case 116:
-				//t
-				trimString();
-				break;
-			case 118:
-				//v
-				duplicateString();
-				break;
-			case 88:
-				//X
-				remUppercaseString();
-				break;
-			case 120:
-				//x
-				remLowercaseString();
+function updateInfo() {
+	var rip = gClass("right-info")[0].getElementsByTagName("p");
+	rip[0].innerText = "Length: " + ta.value.length;
+	var strvala = 0, strvaln = 0, strvalm = 0, strvalendl = 0;
+	for (var char of ta.value) {
+		if (/[a-z]/i.test(char)) {
+			strvala++;
+		} else if (/[0-9]/.test(char)) {
+			strvaln++;
+		} else {
+			strvalm++;
 		}
 	}
-});
+	rip[1].innerText = "Letters: " + strvala;
+	rip[2].innerText = "Numbers: " + strvaln;
+	rip[3].innerText = "Miscellaneous: " + strvalm;
 
-function capitalizeString() {
-	var s = gID("stringHolder").innerText;
-	if (s === "") {
-		showErrorIcon("Function Error: Nothing to capitalize");
-		return 0;
+	var uc = 0, lc = 0;
+	for (var char of ta.value) {
+		if (/[A-Z]/.test(char)) {
+			uc++;
+		} else if (/[a-z]/.test(char)) {
+			lc++;
+		}
 	}
-	var l = s[0];
-	if (l === l.toUpperCase()) {
-		showErrorIcon("Function Error: Nothing to capitalize");
-		return 0;
-	}
-	gID("stringHolder").innerText = l.toUpperCase() + s.slice(1, s.length);
-}
+	rip[4].innerText = "Uppercase Letters: " + uc;
+	rip[5].innerText = "Lowercase Letters: " + lc;
 
-gID("stringHolder").contentEditable = true;
-lblset(gID("clearString"), "Clear String");
-lblset(gID("resetString"), "Reset String");
-lblset(gID("duplicateString"), "Duplicate String");
-lblset(gID("remUppercaseString"), "Remove Uppercase Letters");
-lblset(gID("remLowercaseString"), "Remove Lowercase Letters");
-lblset(gID("sliceMenu"), "Slice String");
-lblset(gID("replaceCharMenu"), "Replace Text");
-lblset(gID("uppercaseString"), "Uppercase Letters");
-lblset(gID("lowercaseString"), "Lowercase Letters");
-lblset(gID("moveFirstCharString"), "Push First Character to End");
-lblset(gID("moveLastCharString"), "Push Last Character to Start");
-lblset(gID("trimString"), "Remove Whitespaces on the Sides");
-lblset(gID("reverseString"), "Reverse String");
-lblset(gID("downloadTxt"), "Download Text File");
-lblset(gID("aboutStringtool"), "About Stringtool");
-lblset(gID("keyboardShortcuts"), "Keyboard Shortcuts");
-lblset(gID("openNewTab"), "Open In New Page");
-lblset(gID("reloadPage"), "Reload Page");
-lblset(gID("functionMode"), "Function Mode: " + functionMode_on);
-
-function clearString() {
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to clear");
-		return 0;
-	}
-	gID("stringHolder").innerText = "";
-}
-function resetString() {
-	if (gID("stringHolder").innerText === "Hello World!") {
-		showErrorIcon("Function Error: Nothing to reset");
-		return 0;
-	}
-	gID("stringHolder").innerText = "Hello World!";
-}
-function duplicateString() {
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to duplicate");
-		return 0;
-	}
-	var s = gID("stringHolder").innerText;
-	gID("stringHolder").innerText = s + s; //.repeat() is not supported in IE11 and earlier
-}
-function remUppercaseString() {
-	var s = gID("stringHolder").innerText.replace(/[A-Z]/g, '');
-	if (gID("stringHolder").innerText === s) {
-		showErrorIcon("Function Error: No uppercase letters were detected");
-		return 0;
-	}
-	gID("stringHolder").innerText = s;
-}
-function remLowercaseString() {
-	var s = gID("stringHolder").innerText.replace(/[a-z]/g, '');
-	if (gID("stringHolder").innerText === s) {
-		showErrorIcon("Function Error: No lowercase letters were detected");
-		return 0;
-	}
-	gID("stringHolder").innerText = s;
+	rip[6].innerText = "Spaces: " + (ta.value.match(/\s/g) || []).length;
+	rip[7].innerText = "Newlines: " + (ta.value.match(/\n/g) || []).length;
 }
 
-function moveFirstCharString() {
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to move");
-		return 0;
+var StrControls = {
+	case: function(access) {
+		switch (access) {
+		case 'l':
+			ta.value = ta.value.toLowerCase();
+			break;
+		case 'u':
+			ta.value = ta.value.toUpperCase();
+			break;
+		case 't':
+			ta.value = ta.value.split('').map(char => char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()).join('');
+			break;
+		case 's':
+			ta.value = ta.value.split('').map((char, index) => index % 2 === 0 ? char.toUpperCase() : char.toLowerCase()).join('');
+			break;
+		case 'r':
+			ta.value = ta.value.split('').map((char, index) => Math.random() < 0.5 ? char.toUpperCase() : char.toLowerCase()).join('');
+			break;
+		}
+		updateInfo();
+	},
+	clear: function() {
+		ta.value = "";
+		updateInfo();
+	},
+	moveChar: function(access) {
+		var mult = gClass("str-moveChar")[0].value || 1;
+		if (!(ta.value.length <= 1) && !(mult <= 0)) {
+			ta.value = access === 'l' ? ta.value.slice(-mult) + ta.value.slice(0, -mult) : ta.value.slice(mult) + ta.value.slice(0, mult);
+			updateInfo();
+		}
+	},
+	remove: function(access) {
+		switch (access) {
+		case 'a':
+			ta.value = ta.value.replaceAll(gClass("str-remove")[0].value, '');
+			break;
+		case 'l':
+			ta.value = ta.value.replace(/[a-z]/g, '');
+			break;
+		case 'u':
+			ta.value = ta.value.replace(/[A-Z]/g, '');
+			break;
+		case 'p':
+			ta.value = ta.value.replace(/[a-zA-Z]/g, '');
+			break;
+		case 'd':
+			ta.value = ta.value.replace(/[0-9]/g, '');
+			break;
+		case 's':
+			ta.value = ta.value.replace(/\s/g, '');
+		case 'n':
+			ta.value = ta.value.replace(/\n/g, '');
+			break;
+		default:
+			ta.value = ta.value.replace(gClass("str-remove")[0].value, '');
+			break;
+		}
+		updateInfo();
+	},
+	repeat: function(c) {
+		ta.value = c !== 'r' ? ta.value.repeat(c) : ta.value.repeat(Math.abs(Math.trunc(Number(gClass("str-repeat")[0].value))));
+		updateInfo();
+	},
+	repeatMirror: function() {
+		ta.value += ta.value.split('').reverse().join('');
+		updateInfo();
+	},
+	replace: function(access) {
+		ta.value = access === 'a' ? ta.value.replaceAll(gClass("str-replace")[0].value, gClass("str-replace")[1].value) : ta.value.replace(gClass("str-replace")[0].value, gClass("str-replace")[1].value);
+		updateInfo();
+	},
+	reverse: function() {
+		ta.value = ta.value.split('').reverse().join('');
+		updateInfo();
+	},
+	slice: function() {
+		var v1 = Number(gClass("str-slice")[0].value), v2 = gClass("str-slice")[1].value;
+		v1 = Number.isInteger(v1) ? v1 : isNaN(v1) ? 0 : Math.trunc(v1);
+		if (v2 === "" || v2 === '') {
+			ta.value = ta.value.slice(v1);
+		} else {
+			ta.value = ta.value.slice(v1, Number(v2));
+		}
+		updateInfo();
+	},
+	substr: function() {
+		var v1 = Number(gClass("str-substr")[0].value), v2 = gClass("str-substr")[1].value;
+		v1 = Number.isInteger(v1) ? v1 : isNaN(v1) ? 0 : Math.trunc(v1);
+		if (v2 === "" || v2 === '') {
+			ta.value = ta.value.substr(v1);
+		} else {
+			ta.value = ta.value.substr(v1, Number(v2));
+		}
+		updateInfo();
+	},
+	substring: function() {
+		var v1 = Number(gClass("str-substring")[0].value), v2 = gClass("str-substring")[1].value;
+		v1 = Number.isInteger(v1) ? v1 : isNaN(v1) ? 0 : Math.trunc(v1);
+		if (v2 === "" || v2 === '') {
+			ta.value = ta.value.substring(v1);
+		} else {
+			ta.value = ta.value.substring(v1, Number(v2));
+		}
+		updateInfo();
+	},
+	trim: function(access) {
+		switch (access) {
+		case 'a':
+			ta.value = ta.value.trim();
+			break;
+		case 's':
+			ta.value = ta.value.trimStart();
+			break;
+		case 'e':
+			ta.value = ta.value.trimEnd();
+			break;
+		}
+		updateInfo();
 	}
-	var s = new String(gID("stringHolder").innerText);
-	gID("stringHolder").innerText = s.substr(1) + s.substr(0, 1);
-}
-function moveLastCharString() {
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to move");
-		return 0;
-	}
-	var s = new String(gID("stringHolder").innerText);
-	gID("stringHolder").innerText = s.substr(s.length-1, 1) + s.substr(0, s.length-1);
-}
-function uppercaseString() {
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to convert to uppercase");
-		return 0;
-	}
-	var s = new String(gID("stringHolder").innerText);
-	if (gID("stringHolder").innerText === s.toUpperCase()) {
-		showErrorIcon("Function Error: Nothing to convert to uppercase");
-		return 0;
-	}
-	gID("stringHolder").innerText = s.toUpperCase();
-}
-function lowercaseString() {
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to convert to lowercase");
-		return 0;
-	}
-	var s = new String(gID("stringHolder").innerText);
-	if (gID("stringHolder").innerText === s.toLowerCase()) {
-		showErrorIcon("Function Error: Nothing to convert to lowercase");
-		return 0;
-	}
-	gID("stringHolder").innerText = s.toLowerCase();
-}
-function trimString() {
-	var s = new String(gID("stringHolder").innerText);
-	if (gID("stringHolder").innerText === "") {
-		showErrorIcon("Function Error: Nothing to trim");
-		return 0;
-	}
-	if (gID("stringHolder").innerText === s.trim()) {
-		showErrorIcon("Function Error: Nothing to trim");
-		return 0;
-	}
-	gID("stringHolder").innerHTML = s.trim();
-}
-function reverseString() {
-	var s = new String(gID("stringHolder").innerText);
-	var rs = s.split("").reverse().join("");
-	if (gID("stringHolder").innerText === "" || gID("stringHolder").innerText === rs) {
-		showErrorIcon("Function Error: Nothing to reverse");
-		return 0;
-	}
-	gID("stringHolder").innerHTML = rs;
-}
-
-var sliceMenu_open = 0;
-function sliceMenu() {
-	if (sliceMenu_open === 0) {
-		gID("sliceBar").style.display = "block";
-		sliceMenu_open = 1;
-	} else if (sliceMenu_open === 1) {
-		gID("sliceBar").style.display = "none";
-		sliceMenu_open = 0;
-	} else {
-		showErrorIcon("Variable Error: Slice Menu has been tampered with");
-		sliceMenu_open = 0;
-		gID("sliceBar").style.display = "none";
-	}
-}
-function sliceString() {
-	var a = gID("sliceA").value, b = gID("sliceB").value;
-	var s = String(gID("stringHolder").innerText);
-	if (window.isNaN(Number(a)) || window.isNaN(Number(b))) {
-		showErrorIcon("Input Error: Value is not a number");
-		return 0;
-	}
-	if (a < 0) {
-		showErrorIcon("Input Error: Value A is too small");
-		return 0;
-	}
-	if (b > s.length) {
-		showErrorIcon("Input Error: Value B is too big");
-		return 0;
-	}
-	gID("stringHolder").innerText = s.slice(a, b);
-}
-var replaceCharMenu_open = 0;
-function replaceCharMenu() {
-	if (replaceCharMenu_open === 0) {
-		gID("replaceCharBar").style.display = "block";
-		replaceCharMenu_open = 1;
-	} else if (replaceCharMenu_open === 1) {
-		gID("replaceCharBar").style.display = "none";
-		replaceCharMenu_open = 0;
-	} else {
-		showErrorIcon("Variable Error: Replace Menu has been tampered with");
-		replaceCharMenu_open = 0;
-		gID("replaceCharBar").style.display = "none";
-	}
-}
-function replaceCharString() {
-	var a = gID("replaceCharA").value, b = gID("replaceCharB").value;
-	var t = gID("replaceCharType").value;
-	var s = String(gID("stringHolder").innerText);
-	if (s.match(a) === null) {
-		showErrorIcon("Input Error: Character does not exist in string");
-		return 0;
-	}
-	gID("stringHolder").innerText = t === "first" ? s.replace(a, b) : s.split(a).join(b);
-}
-function downloadTxt() {
-	function download(filename, text) {
-		var element = document.createElement('a');
-		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-		element.setAttribute('download', filename);
-		element.style.display = 'none';
-		document.body.appendChild(element);
-		element.click();
-		document.body.removeChild(element);
-	}
-	download("stringtoolstring.txt", gID("stringHolder").innerText);
-}
-
-var errint = null;
-var errmsg = "";
-function showErrorIcon(msg) {
-	gID("errorFound").style.display = "block";
-	errmsg = msg;
-	clearInterval(errint);
-	errint = setTimeout(function(){
-		gID("errorFound").style.display = "none";
-	}, 5000);
-}
-function displayError() {
-	alert(errmsg);
-}
-var aboutMenu_open = 0;
-var keyboardShortcuts_open = 0;
-function aboutStringtool() {
-	if (aboutMenu_open === 0) {
-		gID("abtST").style.display = "block";
-		aboutMenu_open = 1;
-	} else if (aboutMenu_open === 1) {
-		gID("abtST").style.display = "none";
-		aboutMenu_open = 0;
-	} else {
-		showErrorIcon("Variable Error: About Menu has been tampered with");
-		aboutMenu_open = 0;
-		gID("abtST").style.display = "none";
-	}
-}
-function keyboardShortcuts() {
-	if (keyboardShortcuts_open === 0) {
-		gID("keyb").style.display = "block";
-		keyboardShortcuts_open = 1;
-	} else if (keyboardShortcuts_open === 1) {
-		gID("keyb").style.display = "none";
-		keyboardShortcuts_open = 0;
-	} else {
-		showErrorIcon("Variable Error: Keyboard Shortcuts Menu has been tampered with");
-		keyboardShortcuts_open = 0;
-		gID("keyb").style.display = "none";
-	}
-}
-
-function timeStating() {
-	var str = gID("stringHolder").innerText;
-	gID("charCounter").innerText = "Characters: " + str.length;
-	if (functionMode_on === "ON") {
-		gID("functionMode").style.color = "#00C600";
-	} else {
-		gID("functionMode").style.color = "#fff";
-	}
-}
-setInterval(timeStating, 150);
+};
 </script>
 </body>
 </html>

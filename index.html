@@ -133,7 +133,7 @@ ul li aside:hover {
 	</li>
 	<li>
 		<a href="./stringtool/">Stringtool</a>
-		<aside>A string editor page with limited functionality.</aside>
+		<aside>A string editor page with limited functionality. Completely revamped.</aside>
 	</li>
 	<li>
 		<a href="./textconverter/">Text Converter</a>
@@ -181,6 +181,7 @@ function setRandomMotd() {
 		"...I think you've been here before. Maybe I'm just misremembering things though.",
 		"...say, haven't I seen you before?",
 		"...that's pretty much all there is to it.",
+		"At the cost of some simple animation, reloading the page is slow.",
 		"Be warned, this may be a waste of your time.",
 		"Brief scan here, and then you can leave. Quick as that.",
 		"But if you think about it, this webpage is a project itself.",
@@ -192,6 +193,7 @@ function setRandomMotd() {
 		"Many others before you have come here. And by many, I mean few.",
 		"Not sure what you can do here though.",
 		"Oh, a person. What was I to expect.",
+		"Pay attention to the darkness of the background. It says it can be changed... but how, exactly?",
 		"Please be mindful of your stay. I cannot be held responsible for the time you will have wasted here.",
 		"Some of them aren't exactly the most interesting of projects though.",
 		"Though I doubt you'd find any of them interesting.",
@@ -212,12 +214,21 @@ function setRandomBG() {
 	gTag("section")[0].style.backgroundColor = chooseRandomHex();
 }
 
+function toggleCursor() {
+	document.body.style.cursor = document.body.style.cursor === "none" ? "auto" : "none";
+	gTag("section")[0].style.cursor = gTag("section")[0].style.cursor === "none" ? "auto" : "none";
+}
+
 document.addEventListener("keypress", function(e){
 	if (!keyPressDelay) {
 		switch(e.key) {
 		case "b":
 		case "B":
 			setRandomBG();
+			break;
+		case "c":
+		case "C":
+			toggleCursor();
 			break;
 		case "r":
 		case "R":
