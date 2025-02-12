@@ -22,6 +22,18 @@ header {
 	height: 10%;
 	background: #bbb;
 	padding-top: 3px;
+	overflow-y: hidden;
+	transition: all 0.2s;
+}
+header p {
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	text-align: justify;
+	color: black;
+}
+header:hover {
+	background: #ccc;
+	color: darkgreen;
 }
 section {
 	height: 100%;
@@ -73,6 +85,11 @@ input {
 <body>
 <header>
 <h1>STRINGTOOL</h1>
+<br>
+<p>Stringtool is a pointless website that was made by SciPred for the sake of - well, for the sake of editing a single input string.</p>
+<p>The first few versions were weirdly designed and was almost entirely unusable on mobile. In 2025 I decided to rewrite the entire thing from scratch and make it more responsive and straight to the point. This also includes removing the header height expansion on hover, which made controls difficult.</p>
+<p>Some features, such as <i>Function Mode</i>, were removed entirely due to inconsistency and inefficiency in operation despite having a built-in guide on how to use it. Buttons for controls were added to the sides, and operations that involved extra inputs such as <i>slice</i> and <i>substr</i> had their menus removed entirely. All input fields are now beside their corresponding operation buttons to make the layout more user-friendly.</p>
+<p>Many more operations and features were added for convenience, such as more information on the string rather than just length. More features may be added in the future.</p>
 </header>
 
 <div class="main-container">
@@ -86,6 +103,7 @@ input {
 <button onclick="StrControls.repeatMirror()">Mirror-Duplicate</button><br>
 <input type="number" class="str-repeat" placeholder="Multiplier">
 <button onclick="StrControls.repeat('r')">Repeat</button><br>
+<button onclick="StrControls.repeat('c')">Char Repeat</button><br>
 <hr>
 <button onclick="StrControls.trim('a')">Trim</button>
 <button onclick="StrControls.trim('s')">Trim Start</button>
@@ -132,7 +150,7 @@ input {
 </section>
 
 <section class="right-info">
-<h3>INFORMATION</h3>
+<h3>STRING INFORMATION</h3>
 <hr>
 <p>Length: 0</p>
 <p>Letters: 0</p>
@@ -143,6 +161,7 @@ input {
 <p>Lowercase Letters: 0</p>
 <hr>
 <p>Spaces: 0</p>
+<p>Tab Characters: 0</p>
 <p>Newlines: 0</p>
 </section>
 </div>
@@ -152,6 +171,16 @@ function gClass(cls) {return document.getElementsByClassName(cls);}
 function gTag(tag) {return document.getElementsByTagName(tag);}
 
 var ta = gID("strval");
+
+var ElmControls = {
+	aboutHeight: '10%'
+};
+
+function toggleAbout() {
+	gTag("header")[0].style.height = ElmControls.aboutHeight === '10%' ? '50%' : '10%';
+	ElmControls.aboutHeight = gTag("header")[0].style.height;
+}
+gTag("header")[0].addEventListener("click", toggleAbout);
 
 function updateInfo() {
 	var rip = gClass("right-info")[0].getElementsByTagName("p");
@@ -182,7 +211,8 @@ function updateInfo() {
 	rip[5].innerText = "Lowercase Letters: " + lc;
 
 	rip[6].innerText = "Spaces: " + (ta.value.match(/\s/g) || []).length;
-	rip[7].innerText = "Newlines: " + (ta.value.match(/\n/g) || []).length;
+	rip[7].innerText = "Tab Characters: " + (ta.value.match(/\t/g) || []).length;
+	rip[8].innerText = "Newlines: " + (ta.value.match(/\n/g) || []).length;
 }
 
 var StrControls = {
@@ -245,8 +275,18 @@ var StrControls = {
 		}
 		updateInfo();
 	},
-	repeat: function(c) {
-		ta.value = c !== 'r' ? ta.value.repeat(c) : ta.value.repeat(Math.abs(Math.trunc(Number(gClass("str-repeat")[0].value))));
+	repeat: function(access) {
+		switch (access) {
+		case 'r':
+			ta.value = ta.value.repeat(Math.abs(Math.trunc(Number(gClass("str-repeat")[0].value))));
+			break;
+		case 'c':
+			ta.value = ta.value.split('').map(char => char.repeat(Math.abs(Math.trunc(Number(gClass("str-repeat")[0].value))))).join('');
+			break;
+		default:
+			ta.value = ta.value.repeat(access);
+			break;
+		}
 		updateInfo();
 	},
 	repeatMirror: function() {
