@@ -25,6 +25,25 @@ header {
 	overflow-y: hidden;
 	transition: all 0.2s;
 }
+header h1 {
+	transition: all 0.2s;
+}
+header h4 {
+	position: relative;
+}
+header h4::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -3px;
+	width: 0;
+	height: 2px;
+	background: black;
+	transition: all 0.5s ease;
+}
+header h4:hover::after {
+	animation: underlineExpansion 0.5s forwards;
+}
 header p, header ul {
 	margin-left: 2.5%;
 	margin-right: 2.5%;
@@ -33,7 +52,9 @@ header p, header ul {
 }
 header:hover {
 	background: #ccc;
-	color: darkgreen;
+}
+header:hover h1 {
+	color: green;
 }
 section {
 	height: 100%;
@@ -109,20 +130,61 @@ span:hover {
 	margin: 0;
 	background: #aaa;
 }
+.list-hd {
+	list-style-type: none;
+	font-weight: bolder;
+	text-decoration: underline;
+	margin-left: -1%;
+	margin-top: 10px;
+}
 ::-webkit-scrollbar {width: 0;}
+@keyframes underlineExpansion {
+	0% {
+		width: 0;
+		left: 50%;
+	}
+	50% {
+		width: 0;
+		left: 50%;
+	}
+	100% {
+		width: 100%;
+		left: 0;
+	}
+}
 </style>
 </head>
 <body>
 <header>
 <h1>STRINGTOOL</h1>
 <br>
-<p>Stringtool is a pointless website that was made by SciPred for the sake of - well, for the sake of editing a single input string.</p>
+<p>Stringtool is a pointless website that was made by SciPred around 2020-2021 for the sake of - well, for the sake of editing a single input string.</p>
 <p>The first few versions were weirdly designed and was almost entirely unusable on mobile. In 2025 I decided to rewrite the entire thing from scratch and make it more responsive and straight to the point. This also includes removing the header height expansion on hover, which made controls difficult.</p>
-<p>Some features, such as <i>Function Mode</i>, were removed entirely due to inconsistency and inefficiency in operation despite having a built-in guide on how to use it. Buttons for controls were added to the sides, and operations that involved extra inputs such as <i>slice</i> and <i>substr</i> had their menus removed entirely. All input fields are now beside their corresponding operation buttons to make the layout more user-friendly. Some operations may share the same input fields.</p>
-<p>Many more operations and features were added for convenience, such as more information on the string rather than just length. More features may be added in the future - however, take note that as of now not all methods from <i>String.prototype</i> are Stringtool operations, and vice versa.</p>
-<h4>Newest Changes:</h4>
+<p>Some legacy features, such as <i>Function Mode</i>, were removed entirely due to inconsistency and inefficiency in operation despite having a built-in guide on how to use. Buttons for controls were added to the left side, string information was expanded on instead of kept as a mere string length counter under the string area, and operations that involved extra inputs such as <i>slice</i> and <i>substr</i> had their menus removed entirely. All input fields are now beside their corresponding operation buttons to make the layout more user-friendly. Some operations may share the same input fields.</p>
+<p>Many more operations and features were added for convenience. More features may be added in the future - however, take note that as of now not all methods from <i>String.prototype</i> are Stringtool operations, and vice versa.</p>
+<h4>Update History</h4>
 <ul>
+	<li class="list-hd">v1.08r</li>
+	<li>Added a minor header hover animation. Pretty useless feature.</li>
+	<li>Added a feature to save the String into a text file.</li>
+	<li>Replaced <i>Newest Changes</i> with <i>Update History</i>. The version names are not reflected in GitHub commit versions.</li>
+	<li>Fixed a problem where scrolling down the header and then reducing its height made it stuck on the overflow text rather than the actual h1 element.</li>
+	<li class="list-hd">v1.06re</li>
 	<li>Added a responsive functionality that automatically reduces the width of the right section when the window's height is greater than its width (i.e. portrait). (This is experimental and is subject to change.)</li>
+	<li class="list-hd">v1.05r</li>
+	<li>Removed the <i>substr</i> operation, as it is deprecated.</li>
+	<li>Added the <i>pad</i> operations.</li>
+	<li>Added <i>EXTERNAL CONTROLS</i>. These include clipboard functions such as <i>Copy</i> and <i>Paste</i>.</li>
+	<li>Added a new section in <i>GENERAL STRING INFO</i> that returns the first, last, and most repeated characters in the String.</li>
+	<li>Slightly improved header overflow.</li>
+	<li>Adjusted the widths of the left and right sections.</li>
+	<li>Added readability in <i>GENERAL STRING INFO</i> for some characters that may appear as blank.</li>
+	<li class="list-hd">v1.02r</li>
+	<li>Added description to header.</li>
+	<li>Added <i>Element Controls</i> for certain features.</li>
+	<li>Added <i>Char Repeat</i> operation and <i>Tab Characters</i> information.</li>
+	<li class="list-hd">v1.00rw</li>
+	<li>Completely revamped Stringtool.</li>
 </ul>
 </header>
 
@@ -183,6 +245,7 @@ span:hover {
 <button onclick="ExtControls.copy('d')">Cut</button>
 <button onclick="ExtControls.paste()">Paste</button>
 <button onclick="ExtControls.paste('a')">Append Paste</button><br>
+<button onclick="ExtControls.saveToFile()">Save to Text File</button><br>
 <br><br><br>
 </section>
 
@@ -259,9 +322,9 @@ window.onload = ElmControls.portraitResize;
 
 
 function toggleAbout() {
-	// NOTE: Always edit the height true value depending on the Newest Changes list height.
-	gTag("header")[0].style.height = ElmControls.aboutHeight === '10%' ? '60%' : '10%';
+	gTag("header")[0].style.height = ElmControls.aboutHeight === '10%' ? '78%' : '10%';
 	ElmControls.aboutHeight = gTag("header")[0].style.height;
+	if (ElmControls.aboutOverflowY === 'auto') gTag("header")[0].scrollTop = 0;
 	gTag("header")[0].style.overflowY = ElmControls.aboutOverflowY === 'hidden' ? 'auto' : 'hidden';
 	ElmControls.aboutOverflowY = gTag("header")[0].style.overflowY;
 }
@@ -470,9 +533,7 @@ var ExtControls = {
 	// NOTE: document.execCommand is deprecated, and using 'paste' is disabled on modern browsers. Using navigator.clipboard is a better approach
 	copy: function(access) {
 		navigator.clipboard.writeText(ta.value).then(text => {
-			if (access === 'd') {
-				StrControls.clear();
-			}
+			if (access === 'd') StrControls.clear();
 		}).catch(err => {
 			console.error("ExtControls returned the following error:", err);
 			alert(`Failed to ${access === 'd' ? 'cut': 'copy'} text. Please paste manually or check permissions.`);
@@ -490,6 +551,16 @@ var ExtControls = {
 			console.error("ExtControls returned the following error:", err);
 			alert("Failed to paste text. Please paste manually or check permissions.");
 		});
+	},
+	saveToFile: function() {
+		const tb = new Blob([ta.value], {type: 'text/plain'});
+		var dl = document.createElement("a");
+		dl.download = "StringtoolFile.txt";
+		dl.href = window.URL.createObjectURL(tb);
+		document.body.appendChild(dl);
+		dl.click();
+		document.body.removeChild(dl);
+		window.URL.revokeObjectURL(dl.href);
 	}
 };
 </script>
