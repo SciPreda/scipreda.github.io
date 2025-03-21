@@ -321,6 +321,13 @@ function animdispN(id) {
 <p>A list of updates that came and went from time to time.</p>
 
 <details>
+	<summary>Update v1.211</summary>
+	<ul>
+		<li>Removed a stray console logging from a Trapezium Area computation.</li>
+	</ul>
+</details>
+
+<details>
 	<summary>Update v1.21</summary>
 	<ul>
 		<li>Fixed a hidden overflow output problem.</li>
@@ -501,7 +508,6 @@ function processEverything() {
 		},
 		TrapeziumArea: function(a, b, c, d) {
 			//Currently using the formula by Hu Yi Jie, unsure if using ½(a+c)*b*sin{cos-1[(d2-(a-c)2-b2)/(-2(a-c)b)]} or (a+c)(½bd(sin(cos-1(b2+d2-(a-c)2))))/4(a-c) is more efficient
-			console.log((a + b - c + d) * (a - b - c + d) * (a + b - c - d) * (-a + b + c + d));
 			var e = (a + c) / (4 * (a - c));
 			var f = Math.sqrt((a + b - c + d) * (a - b - c + d) * (a + b - c - d) * (-a + b + c + d));
 			return e * f;

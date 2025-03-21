@@ -46,6 +46,11 @@ h4 {
 	text-decoration: underline;
 	text-align: left;
 }
+h5 {
+	color: red;
+	text-align: left;
+	font-weight: bolder;
+}
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -116,20 +121,8 @@ ul li aside:hover {
 		<aside>A short game about following instructions... or not doing that at all.</aside>
 	</li>
 	<li>
-		<a href="./numbermanipulator/">Number Manipulator</a>
-		<aside>A page to edit a number with a random assortment of functions.</aside>
-	</li>
-	<li>
 		<a href="./SCPDCALC/">SciPred's Calculator</a>
 		<aside>A versatile calculator that calculates a variety of things.</aside>
-	</li>
-	<li>
-		<a href="./ScrollDown/">Scroll Down</a>
-		<aside>You scroll down the page, and that's it. Really.</aside>
-	</li>
-	<li>
-		<a href="./stopwatch/">Stopwatch</a>
-		<aside>A simple stopwatch.</aside>
 	</li>
 	<li>
 		<a href="./stringtool/">Stringtool</a>
@@ -139,12 +132,9 @@ ul li aside:hover {
 		<a href="./textconverter/">Text Converter</a>
 		<aside>A text converter. Binary? Morse Code? Polybius? You name it!</aside>
 	</li>
-	<li>
-		<a href="./theProgressPage/">The Progress Page</a>
-		<aside>A page that shows the progress of certain things.</aside>
-	</li>
 	</ul>
-	<h4>Experimental Projects</h4>
+	<h4>Experimental and/or Discarded Projects</h4>
+	<h5>Please note that some of these pages may be broken due to lack of debugging or incomplete code.</h5>
 	<ul>
 	<li>
 		<a href="./experimental/achv2/">Achievofile</a>
@@ -155,18 +145,39 @@ ul li aside:hover {
 		<aside>A page filled with nothing but a colorable table as its canvas.</aside>
 	</li>
 	<li>
+		<a href="./numbermanipulator/">Number Manipulator</a>
+		<aside>A page to edit a number with a random assortment of functions.</aside>
+	</li>
+	<li>
 		<a href="./experimental/RandomBinGen/">Random Binary Generator</a>
 		<aside>A completely incoherent random binary generator.</aside>
 	</li>
 	<li>
+		<a href="./ScrollDown/">Scroll Down</a>
+		<aside>You scroll down the page, and that's it. Really.</aside>
+	</li>
+	<li>
+		<a href="./stopwatch/">Stopwatch</a>
+		<aside>A simple stopwatch.</aside>
+	</li>
+	<li>
 		<a href="./experimental/Sway/">Sway</a>
 		<aside>A short game about avoiding the circles whilst staying in the small grid.</aside>
+	</li>
+	<li>
+		<a href="./experimental/Swaymore/">Sway More</a>
+		<aside>Like the Sway page, but with a 5x5 grid and slightly modified mechanics.</aside>
+	</li>
+	<li>
+		<a href="./theProgressPage/">The Progress Page</a>
+		<aside>A page that shows the progress of certain things.</aside>
 	</li>
 	</ul>
 </section>
 <script>
 function gTag(tag) {return document.getElementsByTagName(tag);}
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+// Note that the RegExp /[0-9a-f]/ doesn't work because it doesn't have the length property
 function chooseRandomHex() {return "#" + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef");}
 var keyPressDelay = true;
 
@@ -192,6 +203,7 @@ function setRandomMotd() {
 		"Little is to be done in this place.",
 		"Many others before you have come here. And by many, I mean few.",
 		"Not sure what you can do here though.",
+		"Of all the websites to visit, why this one?",
 		"Oh, a person. What was I to expect.",
 		"Pay attention to the darkness of the background. It says it can be changed... but how, exactly?",
 		"Please be mindful of your stay. I cannot be held responsible for the time you will have wasted here.",

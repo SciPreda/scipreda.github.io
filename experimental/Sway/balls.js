@@ -387,7 +387,6 @@ function charCoordinateCheck() {
 
 document.addEventListener("keydown", function(e){
 	var key = e.key;
-	console.log(key);
 	if (key === "w" && controlsSetup.upon === 0) {controlsSetup.upon = 1; char.y -= 50;}
 	if (key === "a" && controlsSetup.lefton === 0) {controlsSetup.lefton = 1; char.x -= 50;}
 	if (key === "s" && controlsSetup.downon === 0) {controlsSetup.downon = 1; char.y += 50;}
