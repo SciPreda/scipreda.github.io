@@ -127,6 +127,11 @@ Game.InitLevelByScore = function() {
 		break;
 	case 690:
 		this.level = 27;
+		this.ballsIntervalTime = 1500;
+		this.resetBallsInterval();
+		break;
+	case 720:
+		this.level = 28;
 		this.ballsIntervalTime = 1000;
 		this.resetBallsInterval();
 		break;
@@ -509,7 +514,20 @@ function InitBalls() {
 		Game.balls.push(ballsInit[0]);
 		break;
 	case 27:
-		// Game.recol("tomato");
+		Game.recol("tomato");
+		ballsInit.push(new Ball());
+		ballsInit.push(new AccelBall(1.005));
+		ballsInit.push(new SuddenBall());
+		ds = Game.setRandPos(ballsInit[0].pos);
+		Game.setMov(ballsInit[0], ds, 1.2);
+		ds = Game.setRandPos(ballsInit[1].pos);
+		Game.setMov(ballsInit[1], ds, 1.1);
+		ds = Game.setRandPos(ballsInit[2].pos);
+		Game.setMov(ballsInit[2], ds, 1.2);
+		ballsInit[2].fmov = new Point(ballsInit[2].mov.x * 13, ballsInit[2].mov.y * 13);
+		Game.balls = Game.balls.concat(ballsInit);
+		break;
+	case 28:
 		alert("You won! That's all for now, more levels may or may not be added soon.");
 		Game.level = 1;
 		Game.score = 0;
