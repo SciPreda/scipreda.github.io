@@ -3,7 +3,7 @@
 <head>
 <title>SCIPRED'S DOMAIN</title>
 <meta charset="UTF-8">
-<meta name="description" content="SciPred's Official Github Website. Special thanks to some people (you know who you are lol)">
+<meta name="description" content="SciPred's Official Github Website">
 <meta keywords="SciPred, SciPreda, scipred, scipreda">
 <meta name="author" content="SciPred">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,13 +25,21 @@ html, body {
 	text-align: center;
 	background-color: black;
 }
-section {
-	width: 92.5%;
+body {
+	transition: background-color 0.3s;
+}
+
+aside {
+	width: 0;
 	height: 0;
-	margin: auto;
-	overflow: auto;
-	transition: all 0.35s;
-	background-color: #aaa;
+	position: fixed;
+	top: 0;
+	right: 0;
+	background-color: #060;
+	color: lime;
+	text-align: center;
+	transition: all 0.5s;
+	transition-timing-function: ease-out;
 }
 h1 {
 	text-decoration: underline;
@@ -44,53 +52,49 @@ h3 {
 h4 {
 	color: blue;
 	text-decoration: underline;
-	text-align: left;
+	font-size: 1.2em;
 }
-h5 {
-	color: red;
-	text-align: left;
-	font-weight: bolder;
-}
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-ul li {
-	width: 100%;
-	overflow: hidden;
-	line-height: 1.5;
-}
-ul li a {
-	float: left;
-	width: 25%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	color: white;
-	transition: all 0.4s;
-	text-align: left;
-	text-indent: 2.5%;
-}
-ul li aside {
-	background-color: #444;
-	float: right;
-	width: 75%;
-	height: 100%;
-	overflow: hidden;
-	opacity: 0;
-	transition: all 0.4s;
-}
-ul li:hover a {
+section {
+	width: 80%;
+	height: 80%;
+	margin: auto;
 	background-color: #222;
-	color: #0f0;
-	text-indent: 10%;
+	border: 5px solid white;
+	border-radius: 11px;
+	transition: all 0.2s;
+	padding: 10px;
 }
-ul li:hover aside {
-	opacity: 1;
+section:hover {
+	background-color: #555;
+	width: 84%;
+	border-color: #555;
 }
-ul li aside:hover {
-	color: yellow;
+section:hover .ttitle {
+	color: #cfc;
+}
+table {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	transition: background-color 0.3s;
+}
+.tcontent {
+	height: 50%;
+}
+.tdcontent {
+	width: 32.5%;
+	margin: auto;
+}
+.ttitle {
+	font-weight: bolder;
+	font-size: 1.5em;
+	color: #ffa;
+	transition: color 0.2s;
+}
+.twtitle {
+	margin: auto;
+	font-size: 3em;
+	font-weight: 600;
 }
 ::-webkit-scrollbar {width:10px;}
 ::-webkit-scrollbar-track {background:black}
@@ -98,95 +102,143 @@ ul li aside:hover {
 </style>
 </head>
 <body>
-<section>
+<table>
+	<tr><td colspan="3">
 	<h1>SciPred's GitHub Website</h1>
 	<h2>A Collection of Random and Pointless Projects</h2>
 	<h3></h3>
+	</td></tr>
 
-	<h4>Special Pages</h4>
-	<ul>
-	<li>
-		<a href="./aboutme.html">About Me</a>
-		<aside>A page containing general information about SciPred.</aside>
-	</li>
-	<li>
-		<a href="./discordrules.html">Discord Server Rules</a>
-		<aside>Detailed rules that were made for SciPred's Discord Server.</aside>
-	</li>
-	</ul>
-	<h4>Normal Projects</h4>
-	<ul>
-	<li>
-		<a href="./followtheinstructions/">Follow The Instructions</a>
-		<aside>A short game about following instructions... or not doing that at all.</aside>
-	</li>
-	<li>
-		<a href="./SCPDCALC/">SciPred's Calculator</a>
-		<aside>A versatile calculator that calculates a variety of things.</aside>
-	</li>
-	<li>
-		<a href="./stringtool/">Stringtool</a>
-		<aside>A string editor page with limited functionality. Completely revamped.</aside>
-	</li>
-	<li>
-		<a href="./textconverter/">Text Converter</a>
-		<aside>A text converter. Binary? Morse Code? Polybius? You name it!</aside>
-	</li>
-	</ul>
-	<h4>Experimental and/or Discarded Projects</h4>
-	<h5>Please note that some of these pages may be broken due to lack of debugging or incomplete code.</h5>
-	<ul>
-	<li>
-		<a href="./experimental/achv2/">Achievofile</a>
-		<aside>A small achievement game.</aside>
-	</li>
-	<li>
-		<a href="./experimental/hovertochangecolor/">Hover To Change Color</a>
-		<aside>A page filled with nothing but a colorable table as its canvas.</aside>
-	</li>
-	<li>
-		<a href="./numbermanipulator/">Number Manipulator</a>
-		<aside>A page to edit a number with a random assortment of functions.</aside>
-	</li>
-	<li>
-		<a href="./experimental/RandomBinGen/">Random Binary Generator</a>
-		<aside>A completely incoherent random binary generator.</aside>
-	</li>
-	<li>
-		<a href="./ScrollDown/">Scroll Down</a>
-		<aside>You scroll down the page, and that's it. Really.</aside>
-	</li>
-	<li>
-		<a href="./stopwatch/">Stopwatch</a>
-		<aside>A simple stopwatch.</aside>
-	</li>
-	<li>
-		<a href="./experimental/Sway/">Sway</a>
-		<aside>A short game about avoiding the circles whilst staying in the small grid.</aside>
-	</li>
-	<li>
-		<a href="./experimental/Swaymore/">Sway More</a>
-		<aside>Like the Sway page, but with a 5x5 grid and slightly modified mechanics.</aside>
-	</li>
-	<li>
-		<a href="./theProgressPage/">The Progress Page</a>
-		<aside>A page that shows the progress of certain things.</aside>
-	</li>
-	</ul>
-	<br><br>
-</section>
+	<tr><td colspan="3"><h4>Special Pages</h4></td></tr>
+	<tr class="tcontent">
+		<td class="tdcontent">
+			<section onclick="openLink('./aboutme.html')">
+				<p class="ttitle">About Me</p>
+				<p>A page containing general information about SciPred, the person behind this questionable website.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./discordrules.html')">
+				<p class="ttitle">Discord Server Rules</p>
+				<p>Detailed rules that were made for SciPred's official Discord Server.</p>
+			</section>
+		</td>
+		<td class="tdcontent"></td>
+	</tr>
+	<tr><td colspan="3"><h4>Normal Pages</h4></td></tr>
+	<tr class="tcontent">
+		<td class="tdcontent">
+			<section onclick="openLink('./followtheinstructions/')">
+				<p class="ttitle">Follow The Instructions</p>
+				<p>A short "game" about following instructions... or not actually doing that at all.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./SCPDCALC/')">
+				<p class="ttitle">SciPred's Calculator</p>
+				<p>A versatile calculator that calculates a variety of things.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./stringtool/')">
+				<p class="ttitle">Stringtool</p>
+				<p>A string editor page with limited functionality. Completely revamped.</p>
+			</section>
+		</td>
+	</tr>
+	<tr class="tcontent">
+		<td class="tdcontent">
+			<section onclick="openLink('./textconverter/')">
+				<p class="ttitle">Text Converter</p>
+				<p>A text converter. Binary? Morse Code? Polybius? You name it! (Disclaimer: does not have decoding capabilities.)</p>
+			</section>
+		</td>
+		<td class="tdcontent"></td>
+		<td class="tdcontent"></td>
+	</tr>
+	<tr><td colspan="3"><h4>Experimental And/Or Discarded Projects</h4></td></tr>
+	<tr class="tcontent">
+		<td class="tdcontent">
+			<section onclick="openLink('./experimental/achv2/')">
+				<p class="ttitle">Achievofile</p>
+				<p>A small "game" about unlocking all the pseudo-achievements.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./experimental/hovertochangecolor/')">
+				<p class="ttitle">Hover To Change Color</p>
+				<p>A page filled with nothing but a colorable table as its canvas.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./numbermanipulator/')">
+				<p class="ttitle">Number Manipulator</p>
+				<p>A page to edit a number with a limited assortment of functions.</p>
+			</section>
+		</td>
+	</tr>
+	<tr class="tcontent">
+		<td class="tdcontent">
+			<section onclick="openLink('./experimental/RandomBinGen/')">
+				<p class="ttitle">Random Binary Generator</p>
+				<p>A completely pointless random binary generator.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./ScrollDown/')">
+				<p class="ttitle">Scroll Down</p>
+				<p>You scroll down the page, and that's it. Really.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./stopwatch/')">
+				<p class="ttitle">Stopwatch</p>
+				<p>A very simple stopwatch.</p>
+			</section>
+		</td>
+	</tr>
+	<tr class="tcontent">
+		<td class="tdcontent">
+			<section onclick="openLink('./experimental/Sway/')">
+				<p class="ttitle">Sway</p>
+				<p>A short game about avoiding the circles whilst staying in the small grid.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./experimental/Swaymore/')">
+				<p class="ttitle">Sway More</p>
+				<p>Like the Sway page, but with a 5x5 grid and slightly modified mechanics.</p>
+			</section>
+		</td>
+		<td class="tdcontent">
+			<section onclick="openLink('./theProgressPage/')">
+				<p class="ttitle">The Progress Page</p>
+				<p>A page that shows the progress of certain things.</p>
+			</section>
+		</td>
+	</tr>
+</table>
+<aside>
+<div>
+<p class="twtitle">Now Leaving the Main Page!</p>
+<p>Thank you for visiting the site, I guess.</p>
+</div>
+</aside>
 <script>
 function gTag(tag) {return document.getElementsByTagName(tag);}
 function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
-// Note that the RegExp /[0-9a-f]/ doesn't work because it doesn't have the length property
-function chooseRandomHex() {return "#" + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef") + choose("0123456789abcdef");}
-var keyPressDelay = true;
+function chooseRandomHex() {
+	var rhex = "#";
+	for (var i = 0; i < 6; i++) {rhex += choose("0123456789abcdef");}
+	return rhex;
+}
 
-setTimeout(function(){
-	gTag("section")[0].style.height = "100%";
-	gTag("section")[0].style.backgroundColor = "black";
-	setTimeout(function(){keyPressDelay = false;}, 350);
-}, 150);
+function openLink(l) {
+	var as = gTag("aside")[0];
+	as.style.width = "100%";
+	as.style.height = "100%";
+	setTimeout(function(){window.open(l, "_self")}, 750);
+}
 
 function setRandomMotd() {
 	var h3str = choose([
@@ -222,26 +274,28 @@ function setRandomMotd() {
 }
 setRandomMotd();
 
-function setRandomBG() {
+function setRandomColors() {
 	document.body.style.backgroundColor = chooseRandomHex();
-	gTag("section")[0].style.backgroundColor = chooseRandomHex();
+	gTag("table")[0].style.backgroundColor = chooseRandomHex();
+	for (var i = 0; i < gTag("section").length; i++) {
+		gTag("section")[i].style.backgroundColor = chooseRandomHex();
+	}
+	for (var i = 0; i < gTag("td").length; i++) {
+		gTag("td")[i].style.backgroundColor = chooseRandomHex();
+	}
+	for (var i = 0; i < gTag("p").length; i++) {
+		gTag("p")[i].style.backgroundColor = chooseRandomHex();
+		gTag("p")[i].style.color = chooseRandomHex();
+	}
 }
 
-function toggleCursor() {
-	document.body.style.cursor = document.body.style.cursor === "none" ? "auto" : "none";
-	gTag("section")[0].style.cursor = gTag("section")[0].style.cursor === "none" ? "auto" : "none";
-}
-
+var keyPressDelay = false;
 document.addEventListener("keypress", function(e){
 	if (!keyPressDelay) {
 		switch(e.key) {
-		case "b":
-		case "B":
-			setRandomBG();
-			break;
 		case "c":
 		case "C":
-			toggleCursor();
+			setRandomColors();
 			break;
 		case "r":
 		case "R":
