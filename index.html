@@ -35,11 +35,18 @@ aside {
 	position: fixed;
 	top: 0;
 	right: 0;
-	background-color: #060;
+	background-color: #131;
 	color: lime;
 	text-align: center;
-	transition: all 0.5s;
-	transition-timing-function: ease-out;
+	transition: all 0.25s;
+	transition-timing-function: ease-in-out;
+	overflow: hidden;
+}
+aside div {
+	margin: auto;
+}
+aside p {
+	font-size: 1.9em;
 }
 h1 {
 	text-decoration: underline;
@@ -53,6 +60,15 @@ h4 {
 	color: blue;
 	text-decoration: underline;
 	font-size: 1.2em;
+	max-width: 65%;
+	transition: all 0.2s;
+	margin: auto;
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+h4:hover {
+	color: black;
+	background-color: blue;
 }
 section {
 	width: 80%;
@@ -65,9 +81,9 @@ section {
 	padding: 10px;
 }
 section:hover {
-	background-color: #555;
-	width: 84%;
-	border-color: #555;
+	background-color: #444;
+	width: 83%;
+	border-color: #444;
 }
 section:hover .ttitle {
 	color: #cfc;
@@ -92,8 +108,7 @@ table {
 	transition: color 0.2s;
 }
 .twtitle {
-	margin: auto;
-	font-size: 3em;
+	font-size: 2.9em;
 	font-weight: 600;
 }
 ::-webkit-scrollbar {width:10px;}
@@ -130,7 +145,7 @@ table {
 		<td class="tdcontent">
 			<section onclick="openLink('./followtheinstructions/')">
 				<p class="ttitle">Follow The Instructions</p>
-				<p>A short "game" about following instructions... or not actually doing that at all.</p>
+				<p>A short "game" about following the given instructions... or not actually doing that at all.</p>
 			</section>
 		</td>
 		<td class="tdcontent">
@@ -167,7 +182,7 @@ table {
 		<td class="tdcontent">
 			<section onclick="openLink('./experimental/hovertochangecolor/')">
 				<p class="ttitle">Hover To Change Color</p>
-				<p>A page filled with nothing but a colorable table as its canvas.</p>
+				<p>A page filled with nothing except a full-sized "colorable" table as its canvas. Not recommended for mobile users.</p>
 			</section>
 		</td>
 		<td class="tdcontent">
@@ -201,7 +216,7 @@ table {
 		<td class="tdcontent">
 			<section onclick="openLink('./experimental/Sway/')">
 				<p class="ttitle">Sway</p>
-				<p>A short game about avoiding the circles whilst staying in the small grid.</p>
+				<p>A short game about avoiding the black circles whilst staying in the small grid.</p>
 			</section>
 		</td>
 		<td class="tdcontent">
@@ -213,14 +228,14 @@ table {
 		<td class="tdcontent">
 			<section onclick="openLink('./theProgressPage/')">
 				<p class="ttitle">The Progress Page</p>
-				<p>A page that shows the progress of certain things.</p>
+				<p>A page that shows the progress of certain time-based things.</p>
 			</section>
 		</td>
 	</tr>
 </table>
 <aside>
 <div>
-<p class="twtitle">Now Leaving the Main Page!</p>
+<p class="twtitle">Opening Page</p>
 <p>Thank you for visiting the site, I guess.</p>
 </div>
 </aside>
@@ -233,11 +248,20 @@ function chooseRandomHex() {
 	return rhex;
 }
 
+var openingLink = false;
 function openLink(l) {
-	var as = gTag("aside")[0];
-	as.style.width = "100%";
-	as.style.height = "100%";
-	setTimeout(function(){window.open(l, "_self")}, 750);
+	if (!openingLink) {
+		openingLink = true;
+		var as = gTag("aside")[0];
+		as.style.width = "100%";
+		as.style.height = "50%";
+		setTimeout(function(){
+			window.open(l);
+			openingLink = false;
+			as.style.width = "0";
+			as.style.height = "0";
+		}, 750);
+	}
 }
 
 function setRandomMotd() {
