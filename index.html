@@ -38,7 +38,7 @@ aside {
 	background-color: #131;
 	color: lime;
 	text-align: center;
-	transition: all 0.25s;
+	transition: all 0.12s;
 	transition-timing-function: ease-in-out;
 	overflow: hidden;
 }
@@ -70,9 +70,15 @@ h4:hover {
 	color: black;
 	background-color: blue;
 }
+h5 {
+	color: gray;
+	font-size: 0.95em;
+	padding-top: 2px;
+	padding-bottom: 5px;
+}
 section {
 	width: 80%;
-	height: 80%;
+	height: 85%;
 	margin: auto;
 	background-color: #222;
 	border: 5px solid white;
@@ -85,17 +91,22 @@ section:hover {
 	width: 83%;
 	border-color: #444;
 }
+section:hover .tabout {
+	color: red !important;
+}
+section:hover .tdiscord {
+	color: #5662f6 !important;
+}
 section:hover .ttitle {
 	color: #cfc;
 }
 table {
 	width: 100%;
-	height: 100%;
 	overflow-y: auto;
 	transition: background-color 0.3s;
 }
 .tcontent {
-	height: 50%;
+	height: 60%;
 }
 .tdcontent {
 	width: 32.5%;
@@ -111,6 +122,7 @@ table {
 	font-size: 2.9em;
 	font-weight: 600;
 }
+
 ::-webkit-scrollbar {width:10px;}
 ::-webkit-scrollbar-track {background:black}
 ::-webkit-scrollbar-thumb {background:#00E600;}
@@ -128,13 +140,13 @@ table {
 	<tr class="tcontent">
 		<td class="tdcontent">
 			<section onclick="openLink('./aboutme.html')">
-				<p class="ttitle">About Me</p>
+				<p class="ttitle tabout">About Me</p>
 				<p>A page containing general information about SciPred, the person behind this questionable website.</p>
 			</section>
 		</td>
 		<td class="tdcontent">
 			<section onclick="openLink('./discordrules.html')">
-				<p class="ttitle">Discord Server Rules</p>
+				<p class="ttitle tdiscord">Discord Server Rules</p>
 				<p>Detailed rules that were made for SciPred's official Discord Server.</p>
 			</section>
 		</td>
@@ -232,10 +244,11 @@ table {
 			</section>
 		</td>
 	</tr>
+	<tr><td colspan="3"><h5>More projects may or may not be added in the future. Please note that experimental projects have a chance of being removed in the future.</h5></td></tr>
 </table>
 <aside>
 <div>
-<p class="twtitle">Opening Page</p>
+<p class="twtitle">Page Opened</p>
 <p>Thank you for visiting the site, I guess.</p>
 </div>
 </aside>
@@ -255,12 +268,12 @@ function openLink(l) {
 		var as = gTag("aside")[0];
 		as.style.width = "100%";
 		as.style.height = "50%";
+		window.open(l, "_blank");
 		setTimeout(function(){
-			window.open(l);
 			openingLink = false;
 			as.style.width = "0";
 			as.style.height = "0";
-		}, 750);
+		}, 1000);
 	}
 }
 
@@ -276,6 +289,9 @@ function setRandomMotd() {
 		"Can't really guarantee you'd find anything here engaging, though.",
 		"Click, do things, click away.",
 		"I don't know what you'd be doing here though.",
+		"I was going to put a hard-hitting quote here, but procrastination hit me harder.",
+		"I would not recommend opening this on a mobile phone, though.",
+		"If you've been here before, you may notice the layout has changed a bit.",
 		"In my opinion however, they lack the ability to be interesting.",
 		"Little is to be done in this place.",
 		"Many others before you have come here. And by many, I mean few.",
